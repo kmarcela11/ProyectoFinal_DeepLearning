@@ -1,0 +1,1311 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="./" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Ejercicio 1 &#8212; Deep Learning</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  <!--
+    this give us a css class that will be invisible only if js is disabled
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="_static/styles/theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=a3416100" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css?v=be8a1c11" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- So that users can add custom icons -->
+  <script src="_static/scripts/fontawesome.js?digest=8878045cc6db502f8baf"></script>
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf" />
+
+    <script src="_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="_static/doctools.js?v=9a2dae69"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="_static/copybutton.js?v=f281be69"></script>
+    <script src="_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'Ejercicio1';</script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="prev" title="Proyecto Final - Deep Learning" href="intro.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  <meta name="docsearch:version" content="" />
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <dialog id="pst-search-dialog">
+    
+<form class="bd-search d-flex align-items-center"
+      action="search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+  </dialog>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="intro.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="_static/uninorte.jpg" class="logo__image only-light" alt="Deep Learning - Home"/>
+    <img src="_static/uninorte.jpg" class="logo__image only-dark pst-js-only" alt="Deep Learning - Home"/>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="intro.html">
+                    Proyecto Final - Deep Learning
+                </a>
+            </li>
+        </ul>
+        <ul class="current nav bd-sidenav">
+<li class="toctree-l1 current active"><a class="current reference internal" href="#"><strong>Ejercicio 1</strong></a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+      <div class="sidebar-primary-item">
+<div id="ethical-ad-placement"
+      class="flat"
+      data-ea-publisher="readthedocs"
+      data-ea-type="readthedocs-sidebar"
+      data-ea-manual="true">
+</div></div>
+  </div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/kmarcela11/ProyectoFinal_DeepLearning" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/kmarcela11/ProyectoFinal_DeepLearning/issues/new?title=Issue%20on%20page%20%2FEjercicio1.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="_sources/Ejercicio1.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button>
+
+
+<button class="btn btn-sm pst-navbar-icon search-button search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+</button>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Ejercicio 1</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ejercicio-notas-de-clase"><strong>Ejercicio Notas de Clase</strong></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#librerias-y-modulos-necesarios"><strong>Librerías y módulos necesarios</strong></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#breast-cancer"><strong>Breast Cancer</strong></a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#metodo-gridsearchcv"><strong>Método GridSearchCV</strong></a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#gridsearchcv-k-nn"><strong>GridSearchCV K-NN</strong></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#gridsearchcv-regresion-logistica"><strong>GridSearchCV Regresión logística</strong></a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#gridsearch-manual"><strong>GridSearch Manual</strong></a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#gridsearchcv-manual-k-nn"><strong>GridSearchCV manual K-NN</strong></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#gridsearchcv-manual-regresion-logistica"><strong>GridSearchCV manual Regresión logística</strong></a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#cuadro-1"><strong>Cuadro 1</strong></a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#boston-housting"><strong>Boston Housting</strong></a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#metodo-gridsearch-cv"><strong>Método GridSearch CV</strong></a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#gridsearchcv-k-nn-regressor"><strong>GridSearchCV K-NN Regressor</strong></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#gridsearchcv-regresion-lineal"><strong>GridSearchCV Regresión lineal</strong></a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#gridsearchcv-manual"><strong>GridSearchCV Manual</strong></a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#gridsearchcv-manual-k-nn-regressor"><strong>GridSearchCV manual K-NN Regressor</strong></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#gridsearchcv-manual-regresion-lineal"><strong>GridSearchCV manual Regresión lineal</strong></a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#cuadro-2"><strong>Cuadro 2</strong></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#graficos"><strong>Gráficos</strong></a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#grafica-de-resultados-para-knn-regressor"><strong>Gráfica de resultados para KNN Regressor</strong></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#grafica-de-resultados-para-regresion-lineal"><strong>Gráfica de resultados para Regresión lineal</strong></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="ejercicio-1">
+<h1><strong>Ejercicio 1</strong><a class="headerlink" href="#ejercicio-1" title="Link to this heading">#</a></h1>
+<section id="ejercicio-notas-de-clase">
+<h2><strong>Ejercicio Notas de Clase</strong><a class="headerlink" href="#ejercicio-notas-de-clase" title="Link to this heading">#</a></h2>
+<p>Considere los ejemplos vistos en clase, en los que se analizó la implementación de los modelos: <em>k-nn</em>, <em>regresión lineal</em>, <em>regresión logística</em>. Realice hiperparametrización y validación cruzada usando <em>(i) GridSearchCV y Pipeline vs (ii) Manualmente, sin usar GridSearchCV y Pipeline (Use ciclos FOR, WHILE, etc,…)</em>. Verifique que los scores obtenidos en los ítems <em>(i)-(ii)</em> son los mismos. Los ejercicios son los siguientes:</p>
+<ul>
+<li><p>Breast Cancer: (KNN, LogisticRegression) Decida cual es la métrica de mayor importancia en la aplicación de detección de cancer (métrica de negocio). Utilice esta métrica para la evaluación y selección del modelo y justifique su respuesta. Los resultados deben ser presentados usando el Cuadro 1. El estudiante que obtenga el mejor score con esta métrica, será premiado con una décima para el corte. Los datos deben ser cargados mediante el siguiente par de líneas:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span> • from sklearn.datasets import load_breast_cancer
+ • cancer = load_breast_cancer()
+</pre></div>
+</div>
+</li>
+<li><p>Boston Housing: (LinearRegression, KNN). Utilice la métrica R2 y RMSE durante la evaluación y selección del modelo. Los resultados deben ser presentados usando el Cuadro 2. Realice un gráfico en el que muestre en los conjuntos de entrenamiento y test, el precio original y el predicho. El estudiante que obtenga el mejor score con esta métrica, será premiado con una décima para el corte. Los datos deben ser cargados mediante el siguiente par de líneas:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>  • import mglearn
+  • X, y = mglearn.datasets.load_extended_boston())
+</pre></div>
+</div>
+</li>
+</ul>
+<p><strong>Cuadro 1: Modelo de clasificación para detección de fraude</strong></p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p><strong>Modelo</strong></p></th>
+<th class="head"><p><strong>precision</strong></p></th>
+<th class="head"><p><strong>recall</strong></p></th>
+<th class="head"><p><strong>f1-score</strong></p></th>
+<th class="head"><p><strong>AUC</strong></p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>K-NN</p></td>
+<td><p>…</p></td>
+<td><p>…</p></td>
+<td><p>…</p></td>
+<td><p>…</p></td>
+</tr>
+<tr class="row-odd"><td><p>Logistic Regression</p></td>
+<td><p>…</p></td>
+<td><p>…</p></td>
+<td><p>…</p></td>
+<td><p>…</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p><strong>Cuadro 2: Modelo de regresión para velocidad del viento</strong></p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p><strong>Modelo</strong></p></th>
+<th class="head"><p><strong>MAPE</strong></p></th>
+<th class="head"><p><strong>MAE</strong></p></th>
+<th class="head"><p><strong>RMSE</strong></p></th>
+<th class="head"><p><strong>MSE</strong></p></th>
+<th class="head"><p><strong>R2</strong></p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>K-NN</p></td>
+<td><p>…</p></td>
+<td><p>…</p></td>
+<td><p>…</p></td>
+<td><p>…</p></td>
+<td><p>…</p></td>
+</tr>
+<tr class="row-odd"><td><p>Linear Regression</p></td>
+<td><p>…</p></td>
+<td><p>…</p></td>
+<td><p>…</p></td>
+<td><p>…</p></td>
+<td><p>…</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<section id="librerias-y-modulos-necesarios">
+<h2><strong>Librerías y módulos necesarios</strong><a class="headerlink" href="#librerias-y-modulos-necesarios" title="Link to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.datasets</span><span class="w"> </span><span class="kn">import</span> <span class="n">load_breast_cancer</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.model_selection</span><span class="w"> </span><span class="kn">import</span> <span class="n">train_test_split</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.neighbors</span><span class="w"> </span><span class="kn">import</span> <span class="n">KNeighborsClassifier</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.linear_model</span><span class="w"> </span><span class="kn">import</span> <span class="n">LogisticRegression</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.model_selection</span><span class="w"> </span><span class="kn">import</span> <span class="n">GridSearchCV</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.linear_model</span><span class="w"> </span><span class="kn">import</span> <span class="n">LinearRegression</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.neighbors</span><span class="w"> </span><span class="kn">import</span> <span class="n">KNeighborsRegressor</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.preprocessing</span><span class="w"> </span><span class="kn">import</span> <span class="n">MinMaxScaler</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.model_selection</span><span class="w"> </span><span class="kn">import</span> <span class="n">StratifiedKFold</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.pipeline</span><span class="w"> </span><span class="kn">import</span> <span class="n">Pipeline</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.model_selection</span><span class="w"> </span><span class="kn">import</span> <span class="n">KFold</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.metrics</span><span class="w"> </span><span class="kn">import</span> <span class="n">r2_score</span><span class="p">,</span> <span class="n">mean_squared_error</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.metrics</span><span class="w"> </span><span class="kn">import</span> <span class="n">precision_score</span><span class="p">,</span> <span class="n">recall_score</span><span class="p">,</span> <span class="n">f1_score</span><span class="p">,</span> <span class="n">roc_auc_score</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.metrics</span><span class="w"> </span><span class="kn">import</span> <span class="n">mean_absolute_percentage_error</span><span class="p">,</span> <span class="n">mean_absolute_error</span><span class="p">,</span> <span class="n">mean_squared_error</span><span class="p">,</span> <span class="n">r2_score</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">warnings</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">mglearn</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+<span class="n">warnings</span><span class="o">.</span><span class="n">filterwarnings</span><span class="p">(</span><span class="s2">&quot;ignore&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="breast-cancer">
+<h2><strong>Breast Cancer</strong><a class="headerlink" href="#breast-cancer" title="Link to this heading">#</a></h2>
+<p>En este caso, contamos con un conjunto de datos sobre el cáncer de mama (<code class="docutils literal notranslate"><span class="pre">Breast</span> <span class="pre">Cancer</span></code>). Nótese que al tratarse de un tema de salud crítico, es de vital importancia escoger la métrica más acertada para asegurarnos de dar las mejores estimaciones. Es por ello, que en este caso, decidimos trabajar con <em><code class="docutils literal notranslate"><span class="pre">Recall</span></code></em>. Esta métrica nos permitirá limitar los falsos negativos, es decir, aquellas observaciones que en realidad SI tienen cáncer pero fueron predichas como que NO tienen.</p>
+<p>Inicialmente se hace el cargue del conjunto de datos.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">data_cancer</span> <span class="o">=</span> <span class="n">load_breast_cancer</span><span class="p">()</span> <span class="c1"># Datos</span>
+<span class="n">X</span> <span class="o">=</span>  <span class="n">data_cancer</span><span class="o">.</span><span class="n">data</span> <span class="c1"># Características</span>
+<span class="n">y</span> <span class="o">=</span> <span class="n">data_cancer</span><span class="o">.</span><span class="n">target</span> <span class="c1"># Etiquetas</span>
+</pre></div>
+</div>
+</div>
+</div>
+<section id="metodo-gridsearchcv">
+<h3><strong>Método GridSearchCV</strong><a class="headerlink" href="#metodo-gridsearchcv" title="Link to this heading">#</a></h3>
+<p>A continuación se muestra la implementación del método <code class="docutils literal notranslate"><span class="pre">GridSearchCV()</span></code> utilizando pipelines, junto con la hiperparametrización correspondiente según el modelo que se desee evaluar. En este caso, se considerarán dos modelos: <code class="docutils literal notranslate"><span class="pre">KNeighborsClassifier()</span></code> y <code class="docutils literal notranslate"><span class="pre">LogisticRegression()</span></code>.</p>
+<section id="gridsearchcv-k-nn">
+<h4><strong>GridSearchCV K-NN</strong><a class="headerlink" href="#gridsearchcv-k-nn" title="Link to this heading">#</a></h4>
+<p>Inicialmente, se realiza la partición del conjunto de datos utilizando el método <code class="docutils literal notranslate"><span class="pre">train_test_split()</span></code>, configurando el parámetro <code class="docutils literal notranslate"><span class="pre">stratify</span></code> igual al conjunto de etiquetas (<code class="docutils literal notranslate"><span class="pre">stratify</span> <span class="pre">=</span> <span class="pre">y</span></code>). Esto garantiza que la proporción de clases se mantenga consistente tanto en el conjunto de entrenamiento como en el de prueba, asegurando una distribución equilibrada de las etiquetas en ambas divisiones. Además se fija un <code class="docutils literal notranslate"><span class="pre">random_state</span> <span class="pre">=</span> <span class="pre">11</span></code></p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">X_train</span><span class="p">,</span> <span class="n">X_test</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">y_test</span> <span class="o">=</span> <span class="n">train_test_split</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">stratify</span> <span class="o">=</span> <span class="n">y</span><span class="p">,</span> <span class="n">random_state</span> <span class="o">=</span> <span class="mi">11</span><span class="p">)</span> 
+</pre></div>
+</div>
+</div>
+</div>
+<p>A continuación, se procede a la construcción del pipeline, donde se especifica que primero se debe realizar el escalamiento de los datos mediante el método <code class="docutils literal notranslate"><span class="pre">MinMaxScaler()</span></code> y, posteriormente, ajustar el modelo de clasificación, que en este caso es <code class="docutils literal notranslate"><span class="pre">KNeighborsClassifier()</span></code>. Se utiliza un <code class="docutils literal notranslate"><span class="pre">param_grid_knn</span></code> para definir los hiperparámetros a evaluar, donde se especifica el número de vecinos del modelo y el peso que toma cada uno de ellos. Seguido a ello, se construye el esquema de validación cruzada mediante el método <code class="docutils literal notranslate"><span class="pre">StratifiedKFold()</span></code>. Finalmente, se aplica el método <code class="docutils literal notranslate"><span class="pre">GridSearchCV()</span></code> con cada uno de los argumentos correspondientes y tomando en cuenta la métrica más adecuada para este ejemplo, que en este caso es el <code class="docutils literal notranslate"><span class="pre">recall</span></code>.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Preprocesamiento: Escalación</span>
+<span class="c1"># Clasificación: Modelo</span>
+
+<span class="n">pipeline_knn</span> <span class="o">=</span> <span class="n">Pipeline</span><span class="p">([(</span><span class="s1">&#39;scaler&#39;</span><span class="p">,</span> <span class="n">MinMaxScaler</span><span class="p">()),</span> <span class="p">(</span><span class="s1">&#39;clasificador&#39;</span><span class="p">,</span> <span class="n">KNeighborsClassifier</span><span class="p">())])</span> 
+
+<span class="n">param_grid_knn</span> <span class="o">=</span> <span class="p">[{</span> <span class="s1">&#39;clasificador__n_neighbors&#39;</span><span class="p">:</span> <span class="nb">range</span><span class="p">(</span><span class="mi">2</span> <span class="p">,</span> <span class="mi">12</span><span class="p">),</span> <span class="c1"># Número de vecinos del modelo</span>
+                   <span class="s1">&#39;clasificador__weights&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;uniform&#39;</span><span class="p">,</span> <span class="s1">&#39;distance&#39;</span><span class="p">]}]</span> 
+
+<span class="n">kf</span> <span class="o">=</span> <span class="n">StratifiedKFold</span><span class="p">(</span><span class="n">n_splits</span> <span class="o">=</span> <span class="mi">5</span><span class="p">,</span> <span class="n">shuffle</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span> <span class="n">random_state</span> <span class="o">=</span> <span class="mi">11</span><span class="p">)</span>
+
+<span class="n">grid_met</span> <span class="o">=</span> <span class="n">GridSearchCV</span><span class="p">(</span><span class="n">pipeline_knn</span><span class="p">,</span> <span class="n">param_grid_knn</span><span class="p">,</span> <span class="n">cv</span> <span class="o">=</span> <span class="n">kf</span><span class="p">,</span> <span class="n">scoring</span> <span class="o">=</span> <span class="s1">&#39;recall&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Ahora, se entrena el modelo y se imprimen los resultados</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">grid_met</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Mejores parámetros:&quot;</span><span class="p">,</span> <span class="n">grid_met</span><span class="o">.</span><span class="n">best_params_</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Mejor Recall en conjunto de entrenamiento: &quot;</span><span class="p">,</span><span class="n">grid_met</span><span class="o">.</span><span class="n">best_score_</span><span class="p">)</span>
+<span class="n">y_pred</span> <span class="o">=</span> <span class="n">grid_met</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_test</span><span class="p">)</span>
+<span class="n">recall</span> <span class="o">=</span> <span class="n">recall_score</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Mejor Recall en conjunto de test:&#39;</span><span class="p">,</span> <span class="n">recall</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Mejores parámetros: {&#39;clasificador__n_neighbors&#39;: 11, &#39;clasificador__weights&#39;: &#39;uniform&#39;}
+Mejor Recall en conjunto de entrenamiento:  0.992522711390636
+Mejor Recall en conjunto de test: 1.0
+</pre></div>
+</div>
+</div>
+</div>
+<p>Los resultados muestran que el modelo K-NN, con <span class="math notranslate nohighlight">\(11\)</span> vecinos y peso uniforme (sin priorizar la cercanía de los vecinos), logró un <code class="docutils literal notranslate"><span class="pre">recall</span></code> de <span class="math notranslate nohighlight">\(0,99\)</span> en el conjunto de entrenamiento y de <span class="math notranslate nohighlight">\(1\)</span> en el de prueba. Esto indica que el modelo clasifica correctamente casi todas las muestras positivas, obteniendo un buen ajuste tanto en entrenamiento como en prueba, sin indicios de sobreajuste.</p>
+</section>
+<section id="gridsearchcv-regresion-logistica">
+<h4><strong>GridSearchCV Regresión logística</strong><a class="headerlink" href="#gridsearchcv-regresion-logistica" title="Link to this heading">#</a></h4>
+<p>En esta parte, procedemos de forma similar al método anterior, con la diferencia de que en este caso los hiperparámetros corresponden a diferentes valores que toma el parámetro <code class="docutils literal notranslate"><span class="pre">C</span></code>, necesarios para aplicar la <code class="docutils literal notranslate"><span class="pre">LogisticRegression()</span></code>.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># MinMaxScaler: para normalizar nuestros datos entre 0 y 1</span>
+
+<span class="n">pipeline_rl</span> <span class="o">=</span> <span class="n">Pipeline</span><span class="p">([</span> <span class="p">(</span><span class="s1">&#39;scaler&#39;</span><span class="p">,</span> <span class="n">MinMaxScaler</span><span class="p">()),</span> <span class="p">(</span><span class="s1">&#39;clasificador&#39;</span><span class="p">,</span> <span class="n">LogisticRegression</span><span class="p">())])</span>
+
+<span class="n">param_grid_lr</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;clasificador__C&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mf">0.01</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">100</span><span class="p">,</span> <span class="mi">1000</span><span class="p">]}</span>
+
+<span class="n">kf</span> <span class="o">=</span> <span class="n">StratifiedKFold</span><span class="p">(</span><span class="n">n_splits</span> <span class="o">=</span> <span class="mi">5</span><span class="p">,</span> <span class="n">shuffle</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span> <span class="n">random_state</span> <span class="o">=</span> <span class="mi">11</span><span class="p">)</span>
+
+<span class="n">grid_rl</span> <span class="o">=</span> <span class="n">GridSearchCV</span><span class="p">(</span><span class="n">pipeline_rl</span><span class="p">,</span> <span class="n">param_grid_lr</span><span class="p">,</span> <span class="n">cv</span> <span class="o">=</span> <span class="n">kf</span><span class="p">,</span> <span class="n">scoring</span> <span class="o">=</span> <span class="s1">&#39;recall&#39;</span><span class="p">)</span>
+
+<span class="n">grid_rl</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Mejor parámetro:&quot;</span><span class="p">,</span> <span class="n">grid_rl</span><span class="o">.</span><span class="n">best_params_</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Mejor Recall en conjunto de entrenamiento:&quot;</span><span class="p">,</span> <span class="n">grid_rl</span><span class="o">.</span><span class="n">best_score_</span><span class="p">)</span>
+<span class="n">y_pred_lr</span> <span class="o">=</span> <span class="n">grid_rl</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_test</span><span class="p">)</span>
+<span class="n">recall_lr</span> <span class="o">=</span> <span class="n">recall_score</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">y_pred_lr</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Mejor Recall en conjunto de test:&#39;</span><span class="p">,</span> <span class="n">recall_lr</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Mejor parámetro: {&#39;clasificador__C&#39;: 0.01}
+Mejor Recall en conjunto de entrenamiento: 1.0
+Mejor Recall en conjunto de test: 1.0
+</pre></div>
+</div>
+</div>
+</div>
+<p>El modelo de regresión logística con el parámetro <code class="docutils literal notranslate"><span class="pre">C</span> <span class="pre">=</span> <span class="pre">0.01</span></code> alcanzó un <code class="docutils literal notranslate"><span class="pre">recall</span></code> perfecto <span class="math notranslate nohighlight">\((1.0)\)</span> tanto en el conjunto de entrenamiento como en el de prueba.
+Esto puede ser una señal de sobreajuste ya que ambos conjuntos tienen resultados idénticos. Sin embargo, también puede ser una señal de que el modelo clasifica todas las muestras positivas correctament.</p>
+</section>
+</section>
+<section id="gridsearch-manual">
+<h3><strong>GridSearch Manual</strong><a class="headerlink" href="#gridsearch-manual" title="Link to this heading">#</a></h3>
+<p>A continuación se muestra la implementación del método <code class="docutils literal notranslate"><span class="pre">GridSearchCV()</span></code> de forma manual.</p>
+<p>Inicialmente, se realiza la partición del conjunto de datos en los diferentes conjuntos de entrenamiento y prueba, configurando el parámetro <code class="docutils literal notranslate"><span class="pre">stratify</span></code> igual al conjunto de etiquetas (<code class="docutils literal notranslate"><span class="pre">stratify</span> <span class="pre">=</span> <span class="pre">y</span></code>) y fijando un <code class="docutils literal notranslate"><span class="pre">random_state</span> <span class="pre">=</span> <span class="pre">11</span></code>. Es importante utilizar estos argumentos de manera igual al implementar los métodos, para asegurar que se obtengan los mismos resultados.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">X_train</span><span class="p">,</span> <span class="n">X_test</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">y_test</span> <span class="o">=</span> <span class="n">train_test_split</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">stratify</span> <span class="o">=</span> <span class="n">y</span><span class="p">,</span> <span class="n">random_state</span> <span class="o">=</span> <span class="mi">11</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>A continuación se crea una función llamada <code class="docutils literal notranslate"><span class="pre">validacion_cruzada</span></code>, donde se implementa una validación cruzada estratificada utilizando <code class="docutils literal notranslate"><span class="pre">StratifiedKFold()</span></code> con 5 divisiones. Primero, se inicializa un escalador <code class="docutils literal notranslate"><span class="pre">MinMaxScaler()</span></code> para normalizar los datos en cada iteración. Dentro del ciclo, el conjunto de datos de entrenamiento (<code class="docutils literal notranslate"><span class="pre">X_train</span></code> y <code class="docutils literal notranslate"><span class="pre">y_train</span></code>) se divide en subconjuntos de entrenamiento y validación, y luego los datos se escalan usando <code class="docutils literal notranslate"><span class="pre">MinMaxScaler()</span></code> . Luego, de acuerdo al modelo que se quiera evaluar, se entrena con el subconjunto de entrenamiento y se predicen las etiquetas para el conjunto de validación. El <code class="docutils literal notranslate"><span class="pre">recall</span></code> se calcula comparando las predicciones con las etiquetas reales del conjunto de validación, y este valor se almacena en una lista llamada <code class="docutils literal notranslate"><span class="pre">scores</span></code>. Finalmente, la función devuelve la lista de <code class="docutils literal notranslate"><span class="pre">recall</span></code> de cada iteración.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">validacion_cruzada</span><span class="p">(</span><span class="n">modelo</span><span class="p">,</span> <span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">):</span>
+    <span class="n">scores</span> <span class="o">=</span> <span class="p">[]</span> 
+    <span class="n">stratify_kf</span> <span class="o">=</span> <span class="n">StratifiedKFold</span><span class="p">(</span><span class="n">n_splits</span> <span class="o">=</span> <span class="mi">5</span><span class="p">,</span> <span class="n">shuffle</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span> <span class="n">random_state</span> <span class="o">=</span> <span class="mi">11</span><span class="p">)</span>
+    <span class="n">scaler</span> <span class="o">=</span> <span class="n">MinMaxScaler</span><span class="p">()</span>
+   
+    <span class="k">for</span> <span class="n">t_index</span><span class="p">,</span> <span class="n">v_index</span> <span class="ow">in</span> <span class="n">stratify_kf</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">):</span> 
+    <span class="c1"># stratify_kf.split: genera índices para dividir las observaciones entre las de entrenamiento y las de validación</span>
+    
+        <span class="n">X_train_1</span><span class="p">,</span> <span class="n">X_val_1</span> <span class="o">=</span> <span class="n">X_train</span><span class="p">[</span><span class="n">t_index</span><span class="p">],</span> <span class="n">X_train</span><span class="p">[</span><span class="n">v_index</span><span class="p">]</span> <span class="c1"># Asigna las características dependiendo el índice</span>
+        <span class="n">y_train_1</span><span class="p">,</span> <span class="n">y_val_1</span> <span class="o">=</span> <span class="n">y_train</span><span class="p">[</span><span class="n">t_index</span><span class="p">],</span> <span class="n">y_train</span><span class="p">[</span><span class="n">v_index</span><span class="p">]</span> <span class="c1"># Asigna las etiquetas dependiendo los índices</span>
+        <span class="n">X_train_1</span> <span class="o">=</span> <span class="n">scaler</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">X_train_1</span><span class="p">)</span> <span class="c1"># Hace la escalación antes de entrenar el modelo </span>
+        <span class="n">X_val_1</span> <span class="o">=</span> <span class="n">scaler</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">X_val_1</span><span class="p">)</span> 
+        
+        <span class="n">modelo</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train_1</span><span class="p">,</span> <span class="n">y_train_1</span><span class="p">)</span> <span class="c1"># Entrena el modelo </span>
+        
+        <span class="n">y_pred</span> <span class="o">=</span> <span class="n">modelo</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_val_1</span><span class="p">)</span> <span class="c1"># Predice las etiquetas dado el conjunto de validacion</span>
+        <span class="n">recall</span> <span class="o">=</span> <span class="n">recall_score</span><span class="p">(</span><span class="n">y_val_1</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">)</span>  <span class="c1"># Calcula el score dependiendo el conjunto de validacion y la métrica recall</span>
+        <span class="n">scores</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">recall</span><span class="p">)</span>
+        
+    <span class="k">return</span> <span class="n">scores</span>
+</pre></div>
+</div>
+</div>
+</div>
+<section id="gridsearchcv-manual-k-nn">
+<h4><strong>GridSearchCV manual K-NN</strong><a class="headerlink" href="#gridsearchcv-manual-k-nn" title="Link to this heading">#</a></h4>
+<p>Después de ejecutar la función <code class="docutils literal notranslate"><span class="pre">validacion_cruzada</span></code>, se genera un ciclo en el que se aplica el modelo <code class="docutils literal notranslate"><span class="pre">KNeighborsClassifier()</span></code> para cada valor de vecinos. Los resultados de cada modelo se almacenan en una lista llamada <code class="docutils literal notranslate"><span class="pre">scores</span></code>. Luego, se calcula el promedio de todos los <code class="docutils literal notranslate"><span class="pre">scores</span></code> obtenidos para realizar la respectiva comparación, lo que permite identificar el mejor <code class="docutils literal notranslate"><span class="pre">recall</span></code> de la validación cruzada y determinar los mejores parámetros para el modelo.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">recalls</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="n">best_score</span> <span class="o">=</span> <span class="mi">0</span>
+
+<span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">12</span><span class="p">):</span>  
+    <span class="k">for</span> <span class="n">weight</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;uniform&#39;</span><span class="p">,</span> <span class="s1">&#39;distance&#39;</span><span class="p">]:</span>  <span class="c1"># Explora los valores &#39;uniform&#39; y &#39;distance&#39; para weights</span>
+        <span class="n">KNN</span> <span class="o">=</span> <span class="n">KNeighborsClassifier</span><span class="p">(</span><span class="n">n_neighbors</span> <span class="o">=</span> <span class="n">k</span><span class="p">,</span> <span class="n">weights</span> <span class="o">=</span> <span class="n">weight</span><span class="p">)</span>
+        <span class="n">scores</span> <span class="o">=</span> <span class="n">validacion_cruzada</span><span class="p">(</span><span class="n">KNN</span><span class="p">,</span> <span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">)</span>
+        <span class="n">promedio</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span><span class="n">scores</span><span class="p">)</span><span class="o">/</span> <span class="nb">len</span><span class="p">(</span><span class="n">scores</span><span class="p">)</span> <span class="c1"># Calcula el promedio de los recalls obtenidos </span>
+        <span class="k">if</span> <span class="n">promedio</span> <span class="o">&gt;</span> <span class="n">best_score</span><span class="p">:</span> <span class="c1"># Máximo recall </span>
+            <span class="n">best_score</span> <span class="o">=</span> <span class="n">promedio</span>
+            <span class="n">parametro</span> <span class="o">=</span> <span class="n">k</span>
+            <span class="n">k_weight</span> <span class="o">=</span> <span class="n">weight</span>
+        <span class="n">recalls</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">k</span><span class="p">,</span> <span class="n">weight</span><span class="p">,</span> <span class="n">recall</span><span class="p">))</span>  <span class="c1"># Guarda los resultados de cada iteración</span>
+
+<span class="c1">#print(recalls)        </span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Mejor recall de la validación cruzada: </span><span class="si">{</span><span class="n">best_score</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Mejor parámetro: </span><span class="si">{</span><span class="n">parametro</span><span class="si">}</span><span class="s1">, Mejor weight: </span><span class="si">{</span><span class="n">k_weight</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Mejor recall de la validación cruzada: 0.992522711390636
+Mejor parámetro: 11, Mejor weight: uniform
+</pre></div>
+</div>
+</div>
+</div>
+<p>Luego de haber aplicado el método <code class="docutils literal notranslate"><span class="pre">GridSearchCV()</span></code> de forma manual e indicándole cada una de las características asignadas al modelo evaluado con el método <code class="docutils literal notranslate"><span class="pre">GridSearchCV()</span></code>, notamos que se obtiene el mismo <code class="docutils literal notranslate"><span class="pre">recall</span></code> y el mismo parámetro. Esto nos permite afirmar aún más que el modelo K-NN, con 11 vecinos y peso uniforme, logró un <code class="docutils literal notranslate"><span class="pre">recall</span></code> de <span class="math notranslate nohighlight">\(0.99\)</span>.</p>
+</section>
+<section id="gridsearchcv-manual-regresion-logistica">
+<h4><strong>GridSearchCV manual Regresión logística</strong><a class="headerlink" href="#gridsearchcv-manual-regresion-logistica" title="Link to this heading">#</a></h4>
+<p>En esta parte se procede de forma similar a lo anterior, con la diferencia de que los parámetros utilizados en el ciclo que aplicará la validación cruzada corresponden al modelo de regresión logística.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">param</span> <span class="o">=</span> <span class="p">[</span><span class="mf">0.01</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">100</span><span class="p">,</span> <span class="mi">1000</span><span class="p">]</span>
+<span class="n">recalls</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="n">best_score</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">param</span><span class="p">:</span>  
+    <span class="n">RL</span> <span class="o">=</span> <span class="n">LogisticRegression</span><span class="p">(</span><span class="n">C</span> <span class="o">=</span> <span class="n">c</span><span class="p">)</span>
+    <span class="n">scores</span> <span class="o">=</span> <span class="n">validacion_cruzada</span><span class="p">(</span><span class="n">RL</span><span class="p">,</span> <span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">)</span>
+    <span class="n">promedio</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span><span class="n">scores</span><span class="p">)</span><span class="o">/</span> <span class="nb">len</span><span class="p">(</span><span class="n">scores</span><span class="p">)</span> 
+    <span class="k">if</span> <span class="n">promedio</span> <span class="o">&gt;</span> <span class="n">best_score</span><span class="p">:</span> 
+        <span class="n">best_score</span> <span class="o">=</span> <span class="n">promedio</span>
+        <span class="n">parametro</span> <span class="o">=</span> <span class="n">c</span>
+    <span class="n">recalls</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">c</span><span class="p">,</span>  <span class="n">recall</span><span class="p">))</span>  
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Mejor recall de la validación cruzada: </span><span class="si">{</span><span class="n">best_score</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Mejor parámetro: </span><span class="si">{</span><span class="n">parametro</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Mejor recall de la validación cruzada: 1.0
+Mejor parámetro: 0.01
+</pre></div>
+</div>
+</div>
+</div>
+<p>Nótese que el resultado obtenido es igual al que se obtuvo usando el método <code class="docutils literal notranslate"><span class="pre">GridSearchCV()</span></code></p>
+</section>
+</section>
+<section id="cuadro-1">
+<h3><strong>Cuadro 1</strong><a class="headerlink" href="#cuadro-1" title="Link to this heading">#</a></h3>
+<p>Ahora se realizan predicciones utilizando diferentes métricas, como  <code class="docutils literal notranslate"><span class="pre">precision</span></code>, <code class="docutils literal notranslate"><span class="pre">recall</span></code>,<code class="docutils literal notranslate"><span class="pre">F1-score</span></code> y <code class="docutils literal notranslate"><span class="pre">ROC_AUC</span></code>, para analizar cómo varía el rendimiento del modelo.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Se hacen las predicciones para poder comparar con las diferentes métricas</span>
+<span class="n">KYP</span> <span class="o">=</span> <span class="n">grid_met</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_test</span><span class="p">)</span>
+<span class="n">LYP</span> <span class="o">=</span> <span class="n">grid_rl</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_test</span><span class="p">)</span>
+
+<span class="c1"># Evalua las predicciones en cada métrica con las etiquetas del test</span>
+<span class="n">tabla1</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s1">&#39;Modelo&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;K-nn&#39;</span><span class="p">,</span> <span class="s1">&#39;Regresión logística&#39;</span><span class="p">],</span>
+    <span class="s1">&#39;Precision&#39;</span><span class="p">:</span> <span class="p">[</span>
+        <span class="n">precision_score</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">KYP</span><span class="p">),</span> <span class="c1"># K-NN</span>
+        <span class="n">precision_score</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">LYP</span><span class="p">)</span> <span class="c1"># Regresión logística</span>
+    <span class="p">],</span>
+    <span class="s1">&#39;Recall&#39;</span><span class="p">:</span> <span class="p">[</span>
+        <span class="n">recall_score</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">KYP</span><span class="p">),</span>
+        <span class="n">recall_score</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">LYP</span><span class="p">)</span>
+    <span class="p">],</span>
+    <span class="s1">&#39;F1 Score&#39;</span><span class="p">:</span> <span class="p">[</span>
+        <span class="n">f1_score</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">KYP</span><span class="p">),</span>
+        <span class="n">f1_score</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">LYP</span><span class="p">)</span>
+    <span class="p">],</span>
+    <span class="c1"># En ROC AUC, No se tienen en cuenta las etiquetas sino las probabilidades</span>
+    <span class="s1">&#39;ROC AUC&#39;</span><span class="p">:</span> <span class="p">[</span>
+        <span class="n">roc_auc_score</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">KYP</span><span class="p">),</span> 
+        <span class="n">roc_auc_score</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">LYP</span><span class="p">)</span>  
+    <span class="p">]</span>
+<span class="p">}</span>
+
+<span class="n">cuadro1</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">tabla1</span><span class="p">)</span>
+<span class="n">cuadro1</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Modelo</th>
+      <th>Precision</th>
+      <th>Recall</th>
+      <th>F1 Score</th>
+      <th>ROC AUC</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>K-nn</td>
+      <td>0.927835</td>
+      <td>1.0</td>
+      <td>0.962567</td>
+      <td>0.933962</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>Regresión logística</td>
+      <td>0.731707</td>
+      <td>1.0</td>
+      <td>0.845070</td>
+      <td>0.688679</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<p>De la tabla se puede concluir que el modelo K-NN tiene un mejor rendimiento, con una <code class="docutils literal notranslate"><span class="pre">precision</span></code> de <span class="math notranslate nohighlight">\(0.93\)</span>, un <code class="docutils literal notranslate"><span class="pre">F1-Score</span></code> de <span class="math notranslate nohighlight">\(0.96\)</span> y un <code class="docutils literal notranslate"><span class="pre">ROC</span> <span class="pre">AUC</span></code> de <span class="math notranslate nohighlight">\(0.93\)</span>, Ambos modelos alcanzaron un <code class="docutils literal notranslate"><span class="pre">recall</span></code> perfecto de <span class="math notranslate nohighlight">\(1.0\)</span>, lo que significa que clasificaron correctamente todas las muestras positivas. Sin embargo, K-NN se desempeña mejor en las demás métricas.</p>
+</section>
+</section>
+<section id="boston-housting">
+<h2><strong>Boston Housting</strong><a class="headerlink" href="#boston-housting" title="Link to this heading">#</a></h2>
+<p>En esta parte, trabajaremos con el conjunto de datos de Boston Housing, el cual contiene información relacionada con el valor de las viviendas en distintos barrios residenciales de Boston. Para comenzar, cargamos el conjunto de datos extendido utilizando la función <code class="docutils literal notranslate"><span class="pre">load_extended_boston()</span></code> de la librería <code class="docutils literal notranslate"><span class="pre">mglearn</span></code>.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">X</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">mglearn</span><span class="o">.</span><span class="n">datasets</span><span class="o">.</span><span class="n">load_extended_boston</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<section id="metodo-gridsearch-cv">
+<h3><strong>Método GridSearch CV</strong><a class="headerlink" href="#metodo-gridsearch-cv" title="Link to this heading">#</a></h3>
+<p>A continuación se muestra la implementación del método <code class="docutils literal notranslate"><span class="pre">GridSearchCV()</span></code> utilizando pipelines, junto con la hiperparametrización correspondiente según el modelo que se desee evaluar. En este caso, se considerarán dos modelos: <code class="docutils literal notranslate"><span class="pre">KNeighborsRegressor()</span></code> y <code class="docutils literal notranslate"><span class="pre">LinearRegression()</span></code>.</p>
+<section id="gridsearchcv-k-nn-regressor">
+<h4><strong>GridSearchCV K-NN Regressor</strong><a class="headerlink" href="#gridsearchcv-k-nn-regressor" title="Link to this heading">#</a></h4>
+<p>Inicialmente, se realiza la partición del conjunto de datos utilizando el método <code class="docutils literal notranslate"><span class="pre">train_test_split()</span></code> y  se fija un <code class="docutils literal notranslate"><span class="pre">random_state</span> <span class="pre">=</span> <span class="pre">11</span></code>. En este caso, como se trata de un problema de regresión no es necesario usar stratify, ya que no hay clases categóricas a balancear.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">X_train</span><span class="p">,</span> <span class="n">X_test</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">y_test</span> <span class="o">=</span> <span class="n">train_test_split</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">random_state</span> <span class="o">=</span> <span class="mi">11</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Ahora, se construye un <code class="docutils literal notranslate"><span class="pre">Pipeline</span></code> que escala los datos con <code class="docutils literal notranslate"><span class="pre">MinMaxScaler()</span></code> y ajusta un modelo <code class="docutils literal notranslate"><span class="pre">KNeighborsRegressor()</span></code>. El parámetro a ajustar es el número de vecinos, definido en el rango de 2 a 12 (<code class="docutils literal notranslate"><span class="pre">param_grid_kr</span></code>). Se utiliza validación cruzada con 5 divisiones mediante <code class="docutils literal notranslate"><span class="pre">KFold</span></code>, y la búsqueda de los mejores parámetros se realiza con <code class="docutils literal notranslate"><span class="pre">GridSearchCV()</span></code>, optimizando según la métrica <code class="docutils literal notranslate"><span class="pre">R2</span></code>.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">pipeline_kr</span> <span class="o">=</span> <span class="n">Pipeline</span><span class="p">([(</span><span class="s1">&#39;scaler&#39;</span><span class="p">,</span> <span class="n">MinMaxScaler</span><span class="p">()),(</span><span class="s1">&#39;knr&#39;</span><span class="p">,</span> <span class="n">KNeighborsRegressor</span><span class="p">())])</span>
+<span class="n">param_grid_kr</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;knr__n_neighbors&#39;</span><span class="p">:</span> <span class="nb">range</span><span class="p">(</span><span class="mi">2</span> <span class="p">,</span> <span class="mi">12</span><span class="p">)}</span>
+<span class="n">kfo</span> <span class="o">=</span> <span class="n">KFold</span><span class="p">(</span><span class="n">n_splits</span> <span class="o">=</span> <span class="mi">5</span><span class="p">,</span> <span class="n">shuffle</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span> <span class="n">random_state</span> <span class="o">=</span> <span class="mi">11</span><span class="p">)</span>
+<span class="n">grid_knr</span> <span class="o">=</span> <span class="n">GridSearchCV</span><span class="p">(</span><span class="n">pipeline_kr</span><span class="p">,</span> <span class="n">param_grid_kr</span><span class="p">,</span> <span class="n">cv</span> <span class="o">=</span> <span class="n">kfo</span><span class="p">,</span> <span class="n">scoring</span> <span class="o">=</span> <span class="s1">&#39;r2&#39;</span><span class="p">)</span>
+
+<span class="n">grid_knr</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Mejor parámetro:&quot;</span><span class="p">,</span> <span class="n">grid_knr</span><span class="o">.</span><span class="n">best_params_</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Mejor score (R2) en entrenamiento:&quot;</span><span class="p">,</span> <span class="n">grid_knr</span><span class="o">.</span><span class="n">best_score_</span><span class="p">)</span>
+
+<span class="n">y_pred_knr</span> <span class="o">=</span> <span class="n">grid_knr</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_test</span><span class="p">)</span>
+<span class="n">r2_knn</span> <span class="o">=</span> <span class="n">r2_score</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">y_pred_knr</span><span class="p">)</span>
+<span class="n">rmse_knn</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">mean_squared_error</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">y_pred_knr</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;R2 en el conjunto de test para KNN:&quot;</span><span class="p">,</span> <span class="n">r2_knn</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;RMSE en el conjunto de test para KNN:&quot;</span><span class="p">,</span> <span class="n">rmse_knn</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Mejor parámetro: {&#39;knr__n_neighbors&#39;: 2}
+Mejor score (R2) en entrenamiento: 0.7529292493128334
+R2 en el conjunto de test para KNN: 0.7375506424666411
+RMSE en el conjunto de test para KNN: 4.608433299974619
+</pre></div>
+</div>
+</div>
+</div>
+<p>El mejor modelo K-NN Regressor utiliza <span class="math notranslate nohighlight">\(2\)</span> vecinos, obteniendo un <span class="math notranslate nohighlight">\(R^2\)</span> de <span class="math notranslate nohighlight">\(0.75\)</span> en el conjunto de entrenamiento y <span class="math notranslate nohighlight">\(0.74\)</span> en el de prueba, lo que indica que el modelo generaliza bien. El error cuadrático medio (RMSE) en el conjunto de prueba es de <span class="math notranslate nohighlight">\(4.61\)</span>, lo que refleja una desviación moderada entre las predicciones y los valores reales.</p>
+</section>
+<section id="gridsearchcv-regresion-lineal">
+<h4><strong>GridSearchCV Regresión lineal</strong><a class="headerlink" href="#gridsearchcv-regresion-lineal" title="Link to this heading">#</a></h4>
+<p>En esta parte se sigue similar al del modelo anterior, pero con la diferencia de que en el modelo <code class="docutils literal notranslate"><span class="pre">LinearRegression()</span></code> no es necesario definir hiperparámetros. Se utiliza el mismo escalador (<code class="docutils literal notranslate"><span class="pre">MinMaxScaler()</span></code>), el mismo esquema de validación cruzada (<code class="docutils literal notranslate"><span class="pre">KFold</span></code>), y la misma métrica de evaluación (<span class="math notranslate nohighlight">\(R^2\)</span>). Luego, se entrena el modelo, se realizan las predicciones sobre el conjunto de prueba, y finalmente se muestran los resultados.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">pipeline_lr</span> <span class="o">=</span> <span class="n">Pipeline</span><span class="p">([(</span><span class="s1">&#39;scaler&#39;</span><span class="p">,</span> <span class="n">MinMaxScaler</span><span class="p">()),(</span><span class="s1">&#39;lr&#39;</span><span class="p">,</span> <span class="n">LinearRegression</span><span class="p">())])</span>
+<span class="n">param_grid_lr</span> <span class="o">=</span> <span class="p">{}</span> <span class="c1"># No tiene hiperpárametros definidos</span>
+<span class="n">kfo</span> <span class="o">=</span> <span class="n">KFold</span><span class="p">(</span><span class="n">n_splits</span> <span class="o">=</span> <span class="mi">5</span><span class="p">,</span> <span class="n">shuffle</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span> <span class="n">random_state</span> <span class="o">=</span> <span class="mi">11</span><span class="p">)</span>
+<span class="n">grid_lr</span> <span class="o">=</span> <span class="n">GridSearchCV</span><span class="p">(</span><span class="n">pipeline_lr</span><span class="p">,</span> <span class="n">param_grid</span> <span class="o">=</span> <span class="n">param_grid_lr</span><span class="p">,</span> <span class="n">cv</span> <span class="o">=</span> <span class="n">kfo</span><span class="p">,</span> <span class="n">scoring</span><span class="o">=</span> <span class="s1">&#39;r2&#39;</span><span class="p">)</span>
+<span class="n">grid_lr</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Mejor score (R2) en entrenamiento:&quot;</span><span class="p">,</span> <span class="n">grid_lr</span><span class="o">.</span><span class="n">best_score_</span><span class="p">)</span>
+<span class="n">y_pred_lr</span> <span class="o">=</span> <span class="n">grid_lr</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_test</span><span class="p">)</span>
+<span class="n">r2_lr</span> <span class="o">=</span> <span class="n">r2_score</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">y_pred_lr</span><span class="p">)</span>
+<span class="n">rmse_lr</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">mean_squared_error</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">y_pred_lr</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;R2 en el conjunto de test para Regresión Lineal:&quot;</span><span class="p">,</span> <span class="n">r2_lr</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;RMSE en el conjunto de test para Regresión Lineal:&quot;</span><span class="p">,</span> <span class="n">rmse_lr</span><span class="p">)</span>  <span class="c1"># Se considera mejor el valor más pequeño dado que se trabaja con la desviación</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Mejor score (R2) en entrenamiento: 0.7424365208494674
+R2 en el conjunto de test para Regresión Lineal: 0.8054141264996632
+RMSE en el conjunto de test para Regresión Lineal: 3.968132847311861
+</pre></div>
+</div>
+</div>
+</div>
+<p>Los resultados muestran que el modelo de regresión lineal obtuvo un <span class="math notranslate nohighlight">\(R^2\)</span> de <span class="math notranslate nohighlight">\(0.74\)</span> en el conjunto de entrenamiento, lo que indica que el modelo explica el 74% de la variabilidad en los datos de entrenamiento. En el conjunto de prueba, el <span class="math notranslate nohighlight">\(R^2\)</span> es de <span class="math notranslate nohighlight">\(0.81\)</span>, lo que sugiere que el modelo funciona incluso mejor en los datos de prueba. El error cuadrático medio (RMSE) en el conjunto de prueba es <span class="math notranslate nohighlight">\(3.97\)</span>, lo que refleja una desviación más baja entre las predicciones y los valores reales en comparación con el modelo K-NN.</p>
+</section>
+</section>
+<section id="gridsearchcv-manual">
+<h3><strong>GridSearchCV Manual</strong><a class="headerlink" href="#gridsearchcv-manual" title="Link to this heading">#</a></h3>
+<p>A continuación se muestra la implementación del método <code class="docutils literal notranslate"><span class="pre">GridSearchCV()</span></code> de forma manual.</p>
+<p>En esta parte se trabaja de forma similar a los modelos implementados manualmente anteriormente, con la diferencia de que no se utiliza <code class="docutils literal notranslate"><span class="pre">Stratify</span></code> debido a que el conjunto de datos está compuesto por valores continuos y numéricos. Se sigue empleando el método <code class="docutils literal notranslate"><span class="pre">MinMaxScaler()</span></code> para escalar los datos, y se utiliza una métrica adecuada para problemas de regresión, que en este caso es <span class="math notranslate nohighlight">\(R^2\)</span>.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">validacion_cruzada2</span><span class="p">(</span><span class="n">modelo</span><span class="p">,</span> <span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">):</span>
+    <span class="n">scores</span> <span class="o">=</span> <span class="p">[]</span> 
+    <span class="n">stratify_kf</span> <span class="o">=</span> <span class="n">KFold</span><span class="p">(</span><span class="n">n_splits</span> <span class="o">=</span> <span class="mi">5</span><span class="p">,</span> <span class="n">shuffle</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span> <span class="n">random_state</span> <span class="o">=</span> <span class="mi">11</span><span class="p">)</span>
+    <span class="n">scaler</span> <span class="o">=</span> <span class="n">MinMaxScaler</span><span class="p">()</span>
+   
+    <span class="k">for</span> <span class="n">t_index</span><span class="p">,</span> <span class="n">v_index</span> <span class="ow">in</span> <span class="n">stratify_kf</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">):</span> 
+    
+        <span class="n">X_train_1</span><span class="p">,</span> <span class="n">X_val_1</span> <span class="o">=</span> <span class="n">X_train</span><span class="p">[</span><span class="n">t_index</span><span class="p">],</span> <span class="n">X_train</span><span class="p">[</span><span class="n">v_index</span><span class="p">]</span> 
+        <span class="n">y_train_1</span><span class="p">,</span> <span class="n">y_val_1</span> <span class="o">=</span> <span class="n">y_train</span><span class="p">[</span><span class="n">t_index</span><span class="p">],</span> <span class="n">y_train</span><span class="p">[</span><span class="n">v_index</span><span class="p">]</span> 
+        <span class="n">X_train_1</span> <span class="o">=</span> <span class="n">scaler</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">X_train_1</span><span class="p">)</span> 
+        <span class="n">X_val_1</span> <span class="o">=</span> <span class="n">scaler</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">X_val_1</span><span class="p">)</span> 
+        
+        <span class="n">modelo</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train_1</span><span class="p">,</span> <span class="n">y_train_1</span><span class="p">)</span> 
+        
+        <span class="n">y_pred</span> <span class="o">=</span> <span class="n">modelo</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_val_1</span><span class="p">)</span> 
+        <span class="n">r2</span> <span class="o">=</span> <span class="n">r2_score</span><span class="p">(</span><span class="n">y_val_1</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">)</span>  
+        <span class="n">scores</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">r2</span><span class="p">)</span>
+        
+    <span class="k">return</span> <span class="n">scores</span>
+</pre></div>
+</div>
+</div>
+</div>
+<section id="gridsearchcv-manual-k-nn-regressor">
+<h4><strong>GridSearchCV manual K-NN Regressor</strong><a class="headerlink" href="#gridsearchcv-manual-k-nn-regressor" title="Link to this heading">#</a></h4>
+<p>Después de ejecutar la función <code class="docutils literal notranslate"><span class="pre">validacion_cruzada2</span></code>, se genera un ciclo en el que se aplica el modelo <code class="docutils literal notranslate"><span class="pre">KNeighborsRegressor()</span></code> para cada valor de vecinos. Los resultados de cada modelo se almacenan en una lista llamada <code class="docutils literal notranslate"><span class="pre">scores</span></code>. Luego, se calcula el promedio de todos los <code class="docutils literal notranslate"><span class="pre">scores</span></code> obtenidos para realizar la respectiva comparación, lo que permite identificar el mejor <span class="math notranslate nohighlight">\(R^2\)</span> de la validación cruzada y determinar los mejores parámetros para el modelo.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">scores</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="n">best_score</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">12</span><span class="p">):</span>  
+        <span class="n">KNN</span> <span class="o">=</span> <span class="n">KNeighborsRegressor</span><span class="p">(</span><span class="n">n_neighbors</span> <span class="o">=</span> <span class="n">k</span><span class="p">)</span>
+        <span class="n">scores</span> <span class="o">=</span> <span class="n">validacion_cruzada2</span><span class="p">(</span><span class="n">KNN</span><span class="p">,</span> <span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">)</span>
+        <span class="n">promedio</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span><span class="n">scores</span><span class="p">)</span><span class="o">/</span> <span class="nb">len</span><span class="p">(</span><span class="n">scores</span><span class="p">)</span>  
+        <span class="k">if</span> <span class="n">promedio</span> <span class="o">&gt;</span> <span class="n">best_score</span><span class="p">:</span> 
+            <span class="n">best_score</span> <span class="o">=</span> <span class="n">promedio</span>
+            <span class="n">parametro</span> <span class="o">=</span> <span class="n">k</span>
+        <span class="n">recalls</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">k</span><span class="p">,</span>  <span class="n">scores</span><span class="p">))</span>  
+
+<span class="c1">#print(recalls)        </span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Mejor r2 de la validación cruzada: </span><span class="si">{</span><span class="n">best_score</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Mejor parámetro: </span><span class="si">{</span><span class="n">parametro</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Mejor r2 de la validación cruzada: 0.7529292493128334
+Mejor parámetro: 2
+</pre></div>
+</div>
+</div>
+</div>
+<p>Nótese que los resultados obtenidos de forma manual son los mismos obtenidos anteriormente aplicando el método <code class="docutils literal notranslate"><span class="pre">GridSearchCV()</span></code>. Estos resultados indican que en efecto el mejor modelo K-NN Regressor utiliza 2 vecinos, obteniendo un <span class="math notranslate nohighlight">\(R^2\)</span> de <span class="math notranslate nohighlight">\(0.75\)</span></p>
+</section>
+<section id="gridsearchcv-manual-regresion-lineal">
+<h4><strong>GridSearchCV manual Regresión lineal</strong><a class="headerlink" href="#gridsearchcv-manual-regresion-lineal" title="Link to this heading">#</a></h4>
+<p>En este código se realiza una validación cruzada manual para el modelo de regresión lineal (<code class="docutils literal notranslate"><span class="pre">LinearRegression()</span></code>). Se utiliza la función <code class="docutils literal notranslate"><span class="pre">validacion_cruzada2</span></code> para obtener los puntajes <span class="math notranslate nohighlight">\(R^2\)</span>  de cada pliegue en el conjunto de entrenamiento (<code class="docutils literal notranslate"><span class="pre">X_train</span></code>, <code class="docutils literal notranslate"><span class="pre">y_train</span></code>). Luego, se calcula el promedio de estos puntajes para obtener el mejor <span class="math notranslate nohighlight">\(R^2\)</span> de la validación cruzada.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">LR</span> <span class="o">=</span> <span class="n">LinearRegression</span><span class="p">()</span>
+<span class="n">scores</span> <span class="o">=</span> <span class="n">validacion_cruzada2</span><span class="p">(</span><span class="n">LR</span><span class="p">,</span> <span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">)</span>
+<span class="n">best_score</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span><span class="n">scores</span><span class="p">)</span> <span class="o">/</span> <span class="nb">len</span><span class="p">(</span><span class="n">scores</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Mejor R2 de la validación cruzada: </span><span class="si">{</span><span class="n">best_score</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span> 
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Mejor R2 de la validación cruzada: 0.7424365208494674
+</pre></div>
+</div>
+</div>
+</div>
+<p>El resultado indica que el mejor <span class="math notranslate nohighlight">\(R^2\)</span> obtenido es <span class="math notranslate nohighlight">\(0.74\)</span>, el cual es igual al obtenido anteriormente.</p>
+</section>
+</section>
+<section id="cuadro-2">
+<h3><strong>Cuadro 2</strong><a class="headerlink" href="#cuadro-2" title="Link to this heading">#</a></h3>
+<p>Ahora se realizan predicciones utilizando diferentes métricas, como <code class="docutils literal notranslate"><span class="pre">precision_score</span></code>, <code class="docutils literal notranslate"><span class="pre">mean_absolute_percentage_error</span> <span class="pre">(MAPE)</span></code>, <code class="docutils literal notranslate"><span class="pre">mean_absolute_error</span> <span class="pre">(MAE)</span></code>, <code class="docutils literal notranslate"><span class="pre">mean_squared_error</span> <span class="pre">(MSE)</span></code>, <code class="docutils literal notranslate"><span class="pre">root_mean_squared_error</span> <span class="pre">(RMSE)</span></code> y <code class="docutils literal notranslate"><span class="pre">r2_score</span></code>, para analizar cómo varía el modelo.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Se hacen las predicciones para poder comparar con las diferentes métricas</span>
+<span class="n">knr_predict</span><span class="o">=</span> <span class="n">grid_knr</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_test</span><span class="p">)</span>
+<span class="n">lr_predict</span> <span class="o">=</span> <span class="n">grid_lr</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_test</span><span class="p">)</span>
+
+<span class="c1"># Evalua las predicciones en cada métrica con las etiquetas del test</span>
+<span class="n">tabla2</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s1">&#39;Modelo&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;K-NN&#39;</span><span class="p">,</span> <span class="s1">&#39;Regresión lineal&#39;</span><span class="p">],</span>
+    <span class="s1">&#39;MAPE&#39;</span><span class="p">:</span> <span class="p">[</span> <span class="c1"># Error absoluto medio en porcentaje</span>
+        <span class="n">mean_absolute_percentage_error</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">knr_predict</span><span class="p">),</span>
+        <span class="n">mean_absolute_percentage_error</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">lr_predict</span><span class="p">)</span>
+    <span class="p">],</span>
+    <span class="s1">&#39;MAE&#39;</span><span class="p">:</span> <span class="p">[</span> <span class="c1"># Error absoluto medio</span>
+        <span class="n">mean_absolute_error</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">knr_predict</span><span class="p">),</span>
+        <span class="n">mean_absolute_error</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">lr_predict</span><span class="p">)</span>
+    <span class="p">],</span>
+    <span class="s1">&#39;RMSE&#39;</span><span class="p">:</span> <span class="p">[</span> <span class="c1"># Raíz cuadrada del error cuadrático medio</span>
+        <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">mean_squared_error</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">knr_predict</span><span class="p">)),</span>
+        <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">mean_squared_error</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">lr_predict</span><span class="p">))</span>
+    <span class="p">],</span>
+    <span class="s1">&#39;MSE&#39;</span><span class="p">:</span> <span class="p">[</span> <span class="c1"># Error cuadrático medio</span>
+        <span class="n">mean_squared_error</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">knr_predict</span><span class="p">),</span> 
+        <span class="n">mean_squared_error</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">lr_predict</span><span class="p">)</span>  
+    <span class="p">],</span>
+    <span class="s1">&#39;R2&#39;</span><span class="p">:</span> <span class="p">[</span> <span class="c1"># Coeficiente de determinación</span>
+        <span class="n">r2_score</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">knr_predict</span><span class="p">),</span>
+        <span class="n">r2_score</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">lr_predict</span><span class="p">)</span>
+    <span class="p">]</span>
+<span class="p">}</span>
+
+<span class="n">cuadro2</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">tabla2</span><span class="p">)</span>
+<span class="n">cuadro2</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Modelo</th>
+      <th>MAPE</th>
+      <th>MAE</th>
+      <th>RMSE</th>
+      <th>MSE</th>
+      <th>R2</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>K-NN</td>
+      <td>0.144853</td>
+      <td>2.922441</td>
+      <td>4.608433</td>
+      <td>21.237657</td>
+      <td>0.737551</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>Regresión lineal</td>
+      <td>0.142862</td>
+      <td>2.673591</td>
+      <td>3.968133</td>
+      <td>15.746078</td>
+      <td>0.805414</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<p>La tabla compara los modelos K-NN Regressor y Regresión Lineal, mostrando que la Regresión Lineal tiene un mejor rendimiento en todas las métricas evaluadas. Tiene un MAPE, MAE  y un RMSE menor, lo que indica que las predicciones son más precisas. Además, el valor de <span class="math notranslate nohighlight">\(R^2\)</span> es mayor para la Regresión Lineal (<span class="math notranslate nohighlight">\(0.805\)</span>), lo que significa que explica mejor la variabilidad en los datos en comparación con el modelo K-NN Regressor. En conclusión, el modelo de regresión lineal es el mejor para la evaluación de este conjunto de datos.</p>
+</section>
+<section id="graficos">
+<h3><strong>Gráficos</strong><a class="headerlink" href="#graficos" title="Link to this heading">#</a></h3>
+<p>Ahora, se realizan las predicciones tanto para el conjunto de entrenamiento como el conjunto de prueba dependiendo las métricas correspondientes y se gráfica de acuerdo a los resultados</p>
+<section id="grafica-de-resultados-para-knn-regressor">
+<h4><strong>Gráfica de resultados para KNN Regressor</strong><a class="headerlink" href="#grafica-de-resultados-para-knn-regressor" title="Link to this heading">#</a></h4>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Predicciones</span>
+
+<span class="n">y_train_pred_knn</span> <span class="o">=</span> <span class="n">grid_knr</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_train</span><span class="p">)</span>
+<span class="n">y_test_pred_knn</span> <span class="o">=</span> <span class="n">grid_knr</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_test</span><span class="p">)</span>
+
+<span class="c1"># Métricas</span>
+
+<span class="n">r2_train_knn</span> <span class="o">=</span> <span class="n">r2_score</span><span class="p">(</span><span class="n">y_train</span><span class="p">,</span> <span class="n">y_train_pred_knn</span><span class="p">)</span>
+<span class="n">r2_test_knn</span> <span class="o">=</span> <span class="n">r2_score</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">y_test_pred_knn</span><span class="p">)</span>
+
+<span class="n">rmse_train_knn</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">mean_squared_error</span><span class="p">(</span><span class="n">y_train</span><span class="p">,</span> <span class="n">y_train_pred_knn</span><span class="p">))</span>
+<span class="n">rmse_test_knn</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">mean_squared_error</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">y_test_pred_knn</span><span class="p">))</span>
+
+<span class="c1"># Gráfico</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">14</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
+
+<span class="c1"># Conjunto de entrenamiento</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">y_train</span><span class="p">,</span> <span class="n">y_train_pred_knn</span><span class="p">,</span> <span class="n">label</span> <span class="o">=</span> <span class="s2">&quot;Entrenamiento&quot;</span><span class="p">,</span> <span class="n">c</span> <span class="o">=</span> <span class="s1">&#39;#9A32CD&#39;</span><span class="p">,</span> <span class="n">alpha</span> <span class="o">=</span> <span class="mf">0.7</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">([</span><span class="nb">min</span><span class="p">(</span><span class="n">y_train</span><span class="p">),</span> <span class="nb">max</span><span class="p">(</span><span class="n">y_train</span><span class="p">)],</span> <span class="p">[</span><span class="nb">min</span><span class="p">(</span><span class="n">y_train</span><span class="p">),</span> <span class="nb">max</span><span class="p">(</span><span class="n">y_train</span><span class="p">)],</span> <span class="s1">&#39;--&#39;</span><span class="p">,</span> <span class="n">color</span> <span class="o">=</span> <span class="s2">&quot;red&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;Precio original&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;Precio predicho&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;KNN Regressor (Entrenamiento)</span><span class="se">\n</span><span class="s2">R²: </span><span class="si">{</span><span class="n">r2_train_knn</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">, RMSE: </span><span class="si">{</span><span class="n">rmse_train_knn</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+
+<span class="c1"># Conjunto de prueba</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">y_test_pred_knn</span><span class="p">,</span> <span class="n">label</span> <span class="o">=</span> <span class="s2">&quot;Test&quot;</span><span class="p">,</span><span class="n">c</span> <span class="o">=</span> <span class="s1">&#39;#6B8E23&#39;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.7</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">([</span><span class="nb">min</span><span class="p">(</span><span class="n">y_test</span><span class="p">),</span> <span class="nb">max</span><span class="p">(</span><span class="n">y_test</span><span class="p">)],</span> <span class="p">[</span><span class="nb">min</span><span class="p">(</span><span class="n">y_test</span><span class="p">),</span> <span class="nb">max</span><span class="p">(</span><span class="n">y_test</span><span class="p">)],</span> <span class="s1">&#39;--&#39;</span><span class="p">,</span> <span class="n">color</span> <span class="o">=</span> <span class="s2">&quot;red&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;Precio original&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;Precio predicho&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;KNN Regressor(Prueba)</span><span class="se">\n</span><span class="s2">R²: </span><span class="si">{</span><span class="n">r2_test_knn</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">, RMSE: </span><span class="si">{</span><span class="n">rmse_test_knn</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/fc287cddd756f129db6302b0d2362f874cc56118dbf7f21014d0a044ef11825f.png" src="_images/fc287cddd756f129db6302b0d2362f874cc56118dbf7f21014d0a044ef11825f.png" />
+</div>
+</div>
+<p>Las gráficas muestran los resultados del modelo KNN Regressor en los conjuntos de entrenamiento y prueba. En el conjunto de entrenamiento, el modelo presenta un alto desempeño con un <span class="math notranslate nohighlight">\(R^2\)</span> de <span class="math notranslate nohighlight">\(0.94\)</span> y un RMSE de <span class="math notranslate nohighlight">\(2.27\)</span>, lo que indica que ajusta bien los datos de entrenamiento. Sin embargo, en el conjunto de prueba, el <span class="math notranslate nohighlight">\(R^2\)</span> baja a <span class="math notranslate nohighlight">\(0.74\)</span> y el RMSE aumenta a <span class="math notranslate nohighlight">\(4.61\)</span>, lo que puede sugerir un sobreajuste. La línea roja indica la predicción perfecta, y se puede observar que las predicciones en el conjunto de prueba están más dispersas en comparación con las del entrenamiento.</p>
+</section>
+<section id="grafica-de-resultados-para-regresion-lineal">
+<h4><strong>Gráfica de resultados para Regresión lineal</strong><a class="headerlink" href="#grafica-de-resultados-para-regresion-lineal" title="Link to this heading">#</a></h4>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">grid_lr</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">)</span>
+<span class="n">y_train_pred_lr</span> <span class="o">=</span> <span class="n">grid_lr</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_train</span><span class="p">)</span>
+<span class="n">y_test_pred_lr</span> <span class="o">=</span> <span class="n">grid_lr</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_test</span><span class="p">)</span>
+
+<span class="c1"># Métricas</span>
+<span class="n">r2_train_lr</span> <span class="o">=</span> <span class="n">r2_score</span><span class="p">(</span><span class="n">y_train</span><span class="p">,</span> <span class="n">y_train_pred_lr</span><span class="p">)</span>
+<span class="n">r2_test_lr</span> <span class="o">=</span> <span class="n">r2_score</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">y_test_pred_lr</span><span class="p">)</span>
+<span class="n">rmse_train_lr</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">mean_squared_error</span><span class="p">(</span><span class="n">y_train</span><span class="p">,</span> <span class="n">y_train_pred_lr</span><span class="p">))</span>
+<span class="n">rmse_test_lr</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">mean_squared_error</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">y_test_pred_lr</span><span class="p">))</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">14</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
+
+<span class="c1"># Conjunto de entrenamiento</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span> 
+<span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">y_train</span><span class="p">,</span> <span class="n">y_train_pred_lr</span><span class="p">,</span> <span class="n">label</span> <span class="o">=</span> <span class="s2">&quot;Entrenamiento&quot;</span><span class="p">,</span> <span class="n">c</span> <span class="o">=</span> <span class="s1">&#39;#9A32CD&#39;</span><span class="p">,</span> <span class="n">alpha</span> <span class="o">=</span> <span class="mf">0.7</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">([</span><span class="nb">min</span><span class="p">(</span><span class="n">y_train</span><span class="p">),</span> <span class="nb">max</span><span class="p">(</span><span class="n">y_train</span><span class="p">)],</span> <span class="p">[</span><span class="nb">min</span><span class="p">(</span><span class="n">y_train</span><span class="p">),</span> <span class="nb">max</span><span class="p">(</span><span class="n">y_train</span><span class="p">)],</span> <span class="s1">&#39;--&#39;</span><span class="p">,</span> <span class="n">color</span> <span class="o">=</span> <span class="s1">&#39;red&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;Precio original&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;Precio predicho&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Regresión Lineal (Entrenamiento)</span><span class="se">\n</span><span class="s2">R²: </span><span class="si">{</span><span class="n">r2_train_lr</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">, RMSE: </span><span class="si">{</span><span class="n">rmse_train_lr</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+
+<span class="c1"># Conjunto de test</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">y_test_pred_lr</span><span class="p">,</span> <span class="n">label</span> <span class="o">=</span> <span class="s2">&quot;Test&quot;</span><span class="p">,</span><span class="n">c</span> <span class="o">=</span> <span class="s1">&#39;#6B8E23&#39;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.7</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">([</span><span class="nb">min</span><span class="p">(</span><span class="n">y_test</span><span class="p">),</span> <span class="nb">max</span><span class="p">(</span><span class="n">y_test</span><span class="p">)],</span> <span class="p">[</span><span class="nb">min</span><span class="p">(</span><span class="n">y_test</span><span class="p">),</span> <span class="nb">max</span><span class="p">(</span><span class="n">y_test</span><span class="p">)],</span> <span class="s1">&#39;--&#39;</span><span class="p">,</span> <span class="n">color</span> <span class="o">=</span> <span class="s1">&#39;red&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;Precio original&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;Precio predicho&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Regresión Lineal (Prueba)</span><span class="se">\n</span><span class="s2">R²: </span><span class="si">{</span><span class="n">r2_test_lr</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">, RMSE: </span><span class="si">{</span><span class="n">rmse_test_lr</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/ea7ca96f157a7f45b543847199e29813c7528ea6e7d53c8234e1931082573ff6.png" src="_images/ea7ca96f157a7f45b543847199e29813c7528ea6e7d53c8234e1931082573ff6.png" />
+</div>
+</div>
+<p>Las gráficas muestran el rendimiento del modelo de regresión lineal en los conjuntos de entrenamiento y prueba. En el conjunto de entrenamiento, el modelo tiene un <span class="math notranslate nohighlight">\(R^2\)</span> de <span class="math notranslate nohighlight">\(0.94\)</span> y un RMSE de <span class="math notranslate nohighlight">\(2.18\)</span>, lo que indica un buen ajuste en los datos de entrenamiento. En el conjunto de prueba , el <span class="math notranslate nohighlight">\(R^2\)</span> baja a <span class="math notranslate nohighlight">\(0.81\)</span> y el RMSE aumenta a <span class="math notranslate nohighlight">\(3.97\)</span>. Aunque disminuye el coeficiente de determinación, el modelo maneja una buena capacidad predictiva. Las predicciones en ambas gráficas se ajustan bien a la línea roja, aunque las del conjunto de prueba muestran una mayor dispersión. En conclusión, el modelo de regrsión lineal se ajusta mejor a este conjunto de datos, en comparación al modelo <code class="docutils literal notranslate"><span class="pre">KNeighborsRegressor()</span></code>.</p>
+</section>
+</section>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./."
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="intro.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title"><strong>Proyecto Final - Deep Learning</strong></p>
+      </div>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <dialog id="pst-secondary-sidebar-modal"></dialog>
+                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ejercicio-notas-de-clase"><strong>Ejercicio Notas de Clase</strong></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#librerias-y-modulos-necesarios"><strong>Librerías y módulos necesarios</strong></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#breast-cancer"><strong>Breast Cancer</strong></a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#metodo-gridsearchcv"><strong>Método GridSearchCV</strong></a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#gridsearchcv-k-nn"><strong>GridSearchCV K-NN</strong></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#gridsearchcv-regresion-logistica"><strong>GridSearchCV Regresión logística</strong></a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#gridsearch-manual"><strong>GridSearch Manual</strong></a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#gridsearchcv-manual-k-nn"><strong>GridSearchCV manual K-NN</strong></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#gridsearchcv-manual-regresion-logistica"><strong>GridSearchCV manual Regresión logística</strong></a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#cuadro-1"><strong>Cuadro 1</strong></a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#boston-housting"><strong>Boston Housting</strong></a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#metodo-gridsearch-cv"><strong>Método GridSearch CV</strong></a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#gridsearchcv-k-nn-regressor"><strong>GridSearchCV K-NN Regressor</strong></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#gridsearchcv-regresion-lineal"><strong>GridSearchCV Regresión lineal</strong></a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#gridsearchcv-manual"><strong>GridSearchCV Manual</strong></a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#gridsearchcv-manual-k-nn-regressor"><strong>GridSearchCV manual K-NN Regressor</strong></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#gridsearchcv-manual-regresion-lineal"><strong>GridSearchCV manual Regresión lineal</strong></a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#cuadro-2"><strong>Cuadro 2</strong></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#graficos"><strong>Gráficos</strong></a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#grafica-de-resultados-para-knn-regressor"><strong>Gráfica de resultados para KNN Regressor</strong></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#grafica-de-resultados-para-regresion-lineal"><strong>Gráfica de resultados para Regresión lineal</strong></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Kanery Marcela Camargo Rodríguez y Emanuel de Jesús Carbonell Naranjo.
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2023.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script defer src="_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf"></script>
+<script defer src="_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>
