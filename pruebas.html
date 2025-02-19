@@ -1,0 +1,955 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="./" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>&lt;no title&gt; &#8212; Deep Learning</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=fa44fd50" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=a3416100" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css?v=be8a1c11" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="_static/doctools.js?v=9a2dae69"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="_static/copybutton.js?v=f281be69"></script>
+    <script src="_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'pruebas';</script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+        
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="intro.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="_static/uninorte.jpg" class="logo__image only-light" alt="Deep Learning - Home"/>
+    <script>document.write(`<img src="_static/uninorte.jpg" class="logo__image only-dark" alt="Deep Learning - Home"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="intro.html">
+                    Proyecto Final - Deep Learning
+                </a>
+            </li>
+        </ul>
+        <ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="eda.html"><strong>EDA: procesamiento y exploración de imágenes</strong></a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/kmarcela11/ProyectoFinal_DeepLearning" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/kmarcela11/ProyectoFinal_DeepLearning/issues/new?title=Issue%20on%20page%20%2Fpruebas.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="_sources/pruebas.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1><no title></h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="simple visible nav section-nav flex-column">
+</ul>
+
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Definir la función para calcular el hash de una imagen</span>
+<span class="k">def</span> <span class="nf">calcular_hash</span><span class="p">(</span><span class="n">img_path</span><span class="p">):</span>
+    <span class="n">imagen</span> <span class="o">=</span> <span class="n">Image</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">img_path</span><span class="p">)</span><span class="o">.</span><span class="n">convert</span><span class="p">(</span><span class="s2">&quot;L&quot;</span><span class="p">)</span>  <span class="c1"># Convertir a escala de grises</span>
+    <span class="k">return</span> <span class="n">imagehash</span><span class="o">.</span><span class="n">phash</span><span class="p">(</span><span class="n">imagen</span><span class="p">)</span>  <span class="c1"># Obtener el perceptual hash</span>
+
+<span class="c1"># Definir las categorías (nombre de las carpetas)</span>
+<span class="n">categorias</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;benigna&quot;</span><span class="p">,</span> <span class="s2">&quot;normal&quot;</span><span class="p">,</span> <span class="s2">&quot;maligna&quot;</span><span class="p">]</span>
+<span class="n">hashes</span> <span class="o">=</span> <span class="p">{}</span>
+
+<span class="c1"># Leer imágenes y calcular hashes</span>
+<span class="k">for</span> <span class="n">categoria</span> <span class="ow">in</span> <span class="n">categorias</span><span class="p">:</span>
+    <span class="n">category_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">base_path</span><span class="p">,</span> <span class="n">categoria</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">archivo</span> <span class="ow">in</span> <span class="n">os</span><span class="o">.</span><span class="n">listdir</span><span class="p">(</span><span class="n">category_path</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">archivo</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s2">&quot;.png&quot;</span><span class="p">):</span>
+            <span class="n">img_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">category_path</span><span class="p">,</span> <span class="n">archivo</span><span class="p">)</span>
+            <span class="n">h</span> <span class="o">=</span> <span class="n">calcular_hash</span><span class="p">(</span><span class="n">img_path</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">h</span> <span class="ow">in</span> <span class="n">hashes</span><span class="p">:</span>
+                <span class="n">hashes</span><span class="p">[</span><span class="n">h</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">img_path</span><span class="p">)</span>  <span class="c1"># Si ya existe, añadir al duplicado</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">hashes</span><span class="p">[</span><span class="n">h</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">img_path</span><span class="p">]</span>  <span class="c1"># Nueva entrada en el diccionario</span>
+
+<span class="c1"># Mostrar imágenes duplicadas</span>
+<span class="n">duplicados</span> <span class="o">=</span> <span class="p">[</span><span class="n">grupo</span> <span class="k">for</span> <span class="n">grupo</span> <span class="ow">in</span> <span class="n">hashes</span><span class="o">.</span><span class="n">values</span><span class="p">()</span> <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">grupo</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">]</span>
+<span class="k">for</span> <span class="n">grupo</span> <span class="ow">in</span> <span class="n">duplicados</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Duplicados encontrados: </span><span class="si">{</span><span class="n">grupo</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Cantidad de duplicados: </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">duplicados</span><span class="p">)</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Duplicados encontrados: [&#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\benigna\\benign (1)_mask.png&#39;, &#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\benigna\\benign (105)_mask.png&#39;, &#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\benigna\\benign (12)_mask.png&#39;, &#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\benigna\\benign (133)_mask.png&#39;, &#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\benigna\\benign (143)_mask.png&#39;, &#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\benigna\\benign (154)_mask.png&#39;, &#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\benigna\\benign (156)_mask.png&#39;, &#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\benigna\\benign (167)_mask.png&#39;, &#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\benigna\\benign (21)_mask.png&#39;, &#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\benigna\\benign (318)_mask.png&#39;, &#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\benigna\\benign (329)_mask.png&#39;, &#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\benigna\\benign (348)_mask.png&#39;, &#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\benigna\\benign (51)_mask.png&#39;, &#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\benigna\\benign (93)_mask_1.png&#39;]
+Duplicados encontrados: [&#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\benigna\\benign (10).png&#39;, &#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\benigna\\benign (327).png&#39;]
+Duplicados encontrados: [&#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\benigna\\benign (100)_mask_1.png&#39;, &#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\benigna\\benign (177)_mask.png&#39;, &#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\benigna\\benign (35)_mask.png&#39;, &#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\benigna\\benign (4)_mask.png&#39;]
+Duplicados encontrados: [&#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\benigna\\benign (105).png&#39;, &#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\benigna\\benign (156).png&#39;]
+Duplicados encontrados: [&#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\benigna\\benign (107)_mask.png&#39;, &#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\benigna\\benign (363)_mask.png&#39;, &#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\benigna\\benign (388)_mask.png&#39;, &#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\benigna\\benign (63)_mask.png&#39;]
+Duplicados encontrados: [&#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\benigna\\benign (11)_mask.png&#39;, &#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\benigna\\benign (197)_mask.png&#39;, &#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\benigna\\benign (254)_mask.png&#39;, &#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\benigna\\benign (389)_mask.png&#39;, &#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\benigna\\benign (4)_mask_1.png&#39;]
+Duplicados encontrados: [&#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\benigna\\benign (112)_mask.png&#39;, &#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\benigna\\benign (146)_mask.png&#39;, &#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\benigna\\benign (374)_mask.png&#39;]
+Duplicados encontrados: [&#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\benigna\\benign (125)_mask.png&#39;, &#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\benigna\\benign (129)_mask.png&#39;]
+Duplicados encontrados: [&#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\benigna\\benign (127).png&#39;, &#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\benigna\\benign (37).png&#39;]
+Duplicados encontrados: [&#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\benigna\\benign (127)_mask.png&#39;, &#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\benigna\\benign (37)_mask.png&#39;, &#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\benigna\\benign (435)_mask.png&#39;]
+Duplicados encontrados: [&#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\benigna\\benign (128)_mask.png&#39;, &#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\benigna\\benign (30)_mask.png&#39;]
+Duplicados encontrados: [&#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\benigna\\benign (134)_mask.png&#39;, &#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\benigna\\benign (52)_mask.png&#39;, &#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\maligna\\malignant (192)_mask.png&#39;]
+Duplicados encontrados: [&#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\benigna\\benign (135).png&#39;, &#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\benigna\\benign (58).png&#39;]
+Duplicados encontrados: [&#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\benigna\\benign (138)_mask.png&#39;, &#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\benigna\\benign (338)_mask.png&#39;]
+Duplicados encontrados: [&#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\benigna\\benign (139).png&#39;, &#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\benigna\\benign (157).png&#39;, &#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\benigna\\benign (65).png&#39;]
+Duplicados encontrados: [&#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\benigna\\benign (139)_mask.png&#39;, &#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\benigna\\benign (157)_mask.png&#39;]
+Duplicados encontrados: [&#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\benigna\\benign (14).png&#39;, &#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\benigna\\benign (331).png&#39;]
+Duplicados encontrados: [&#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\benigna\\benign (14)_mask.png&#39;, &#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\benigna\\benign (331)_mask.png&#39;]
+Duplicados encontrados: [&#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\benigna\\benign (15).png&#39;, &#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\benigna\\benign (332).png&#39;]
+Duplicados encontrados: [&#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\benigna\\benign (15)_mask.png&#39;, &#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\benigna\\benign (90)_mask.png&#39;]
+Duplicados encontrados: [&#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\benigna\\benign (152).png&#39;, &#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\benigna\\benign (18).png&#39;]
+Duplicados encontrados: [&#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\benigna\\benign (153)_mask.png&#39;, &#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\benigna\\benign (25)_mask_1.png&#39;, &#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\benigna\\benign (91)_mask.png&#39;]
+Duplicados encontrados: [&#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\benigna\\benign (163)_mask.png&#39;, &#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\benigna\\benign (171)_mask.png&#39;]
+Duplicados encontrados: [&#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\benigna\\benign (164).png&#39;, &#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\benigna\\benign (85).png&#39;]
+Duplicados encontrados: [&#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\benigna\\benign (166)_mask.png&#39;, &#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\benigna\\benign (17)_mask.png&#39;, &#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\benigna\\benign (25)_mask.png&#39;, &#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\benigna\\benign (323)_mask.png&#39;, &#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\benigna\\benign (425)_mask.png&#39;, &#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\benigna\\benign (6)_mask.png&#39;]
+Duplicados encontrados: [&#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\benigna\\benign (168)_mask.png&#39;, &#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\benigna\\benign (313)_mask.png&#39;, &#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\benigna\\benign (322)_mask.png&#39;, &#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\benigna\\benign (5)_mask.png&#39;, &#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\benigna\\benign (75)_mask.png&#39;]
+Duplicados encontrados: [&#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\benigna\\benign (172)_mask.png&#39;, &#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\benigna\\benign (368)_mask.png&#39;, &#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\benigna\\benign (54)_mask_1.png&#39;]
+Duplicados encontrados: [&#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\benigna\\benign (176)_mask.png&#39;, &#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\benigna\\benign (353)_mask.png&#39;, &#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\benigna\\benign (78)_mask.png&#39;]
+Duplicados encontrados: [&#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\benigna\\benign (177).png&#39;, &#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\benigna\\benign (35).png&#39;]
+Duplicados encontrados: [&#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\benigna\\benign (189)_mask.png&#39;, &#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\benigna\\benign (71)_mask.png&#39;, &#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\maligna\\malignant (145)_mask.png&#39;]
+Duplicados encontrados: [&#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\benigna\\benign (191)_mask.png&#39;, &#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\benigna\\benign (291)_mask.png&#39;, &#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\benigna\\benign (417)_mask.png&#39;, &#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\maligna\\malignant (193)_mask.png&#39;]
+Duplicados encontrados: [&#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\benigna\\benign (2)_mask.png&#39;, &#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\benigna\\benign (319)_mask.png&#39;]
+Duplicados encontrados: [&#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\benigna\\benign (202)_mask.png&#39;, &#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\benigna\\benign (301)_mask.png&#39;]
+Duplicados encontrados: [&#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\benigna\\benign (204).png&#39;, &#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\benigna\\benign (249).png&#39;]
+Duplicados encontrados: [&#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\benigna\\benign (206)_mask.png&#39;, &#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\benigna\\benign (303)_mask.png&#39;]
+Duplicados encontrados: [&#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\benigna\\benign (208)_mask.png&#39;, &#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\benigna\\benign (437)_mask.png&#39;]
+Duplicados encontrados: [&#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\benigna\\benign (209)_mask.png&#39;, &#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\benigna\\benign (275)_mask.png&#39;, &#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\benigna\\benign (43)_mask.png&#39;, &#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\benigna\\benign (57)_mask.png&#39;, &#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\maligna\\malignant (10)_mask.png&#39;]
+Duplicados encontrados: [&#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\benigna\\benign (210).png&#39;, &#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\benigna\\benign (298).png&#39;]
+Duplicados encontrados: [&#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\benigna\\benign (211)_mask.png&#39;, &#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\benigna\\benign (253)_mask.png&#39;]
+Duplicados encontrados: [&#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\benigna\\benign (215)_mask.png&#39;, &#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\benigna\\benign (270)_mask.png&#39;]
+Duplicados encontrados: [&#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\benigna\\benign (216).png&#39;, &#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\benigna\\benign (265).png&#39;]
+Duplicados encontrados: [&#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\benigna\\benign (222).png&#39;, &#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\benigna\\benign (267).png&#39;]
+Duplicados encontrados: [&#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\benigna\\benign (222)_mask.png&#39;, &#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\benigna\\benign (267)_mask.png&#39;]
+Duplicados encontrados: [&#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\benigna\\benign (225).png&#39;, &#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\benigna\\benign (292).png&#39;]
+Duplicados encontrados: [&#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\benigna\\benign (226).png&#39;, &#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\benigna\\benign (263).png&#39;]
+Duplicados encontrados: [&#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\benigna\\benign (228).png&#39;, &#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\benigna\\benign (306).png&#39;]
+Duplicados encontrados: [&#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\benigna\\benign (233).png&#39;, &#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\benigna\\benign (299).png&#39;]
+Duplicados encontrados: [&#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\benigna\\benign (234).png&#39;, &#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\benigna\\benign (261).png&#39;]
+Duplicados encontrados: [&#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\benigna\\benign (235).png&#39;, &#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\benigna\\benign (294).png&#39;]
+Duplicados encontrados: [&#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\benigna\\benign (239).png&#39;, &#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\benigna\\benign (258).png&#39;]
+Duplicados encontrados: [&#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\benigna\\benign (239)_mask.png&#39;, &#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\benigna\\benign (297)_mask.png&#39;, &#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\maligna\\malignant (26)_mask.png&#39;]
+Duplicados encontrados: [&#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\benigna\\benign (244)_mask.png&#39;, &#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\benigna\\benign (251)_mask.png&#39;]
+Duplicados encontrados: [&#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\benigna\\benign (259)_mask.png&#39;, &#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\benigna\\benign (280)_mask.png&#39;]
+Duplicados encontrados: [&#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\benigna\\benign (266)_mask.png&#39;, &#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\benigna\\benign (279)_mask.png&#39;]
+Duplicados encontrados: [&#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\benigna\\benign (273).png&#39;, &#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\benigna\\benign (289).png&#39;]
+Duplicados encontrados: [&#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\benigna\\benign (274).png&#39;, &#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\benigna\\benign (290).png&#39;]
+Duplicados encontrados: [&#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\benigna\\benign (309).png&#39;, &#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\benigna\\benign (422).png&#39;]
+Duplicados encontrados: [&#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\benigna\\benign (31)_mask.png&#39;, &#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\maligna\\malignant (53)_mask.png&#39;]
+Duplicados encontrados: [&#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\benigna\\benign (312).png&#39;, &#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\benigna\\benign (421).png&#39;]
+Duplicados encontrados: [&#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\benigna\\benign (322).png&#39;, &#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\benigna\\benign (5).png&#39;]
+Duplicados encontrados: [&#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\benigna\\benign (325).png&#39;, &#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\benigna\\benign (8).png&#39;]
+Duplicados encontrados: [&#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\benigna\\benign (325)_mask.png&#39;, &#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\benigna\\benign (8)_mask.png&#39;]
+Duplicados encontrados: [&#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\benigna\\benign (334)_mask.png&#39;, &#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\maligna\\malignant (38)_mask.png&#39;]
+Duplicados encontrados: [&#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\benigna\\benign (359)_mask.png&#39;, &#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\benigna\\benign (380)_mask.png&#39;, &#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\benigna\\benign (46)_mask.png&#39;]
+Duplicados encontrados: [&#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\benigna\\benign (399).png&#39;, &#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\maligna\\malignant (93).png&#39;]
+Duplicados encontrados: [&#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\benigna\\benign (42).png&#39;, &#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\maligna\\malignant (51).png&#39;]
+Duplicados encontrados: [&#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\benigna\\benign (433).png&#39;, &#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\maligna\\malignant (145).png&#39;]
+Duplicados encontrados: [&#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\benigna\\benign (69)_mask.png&#39;, &#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\maligna\\malignant (110)_mask.png&#39;]
+Duplicados encontrados: [&#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\benigna\\benign (7)_mask.png&#39;, &#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\benigna\\benign (83)_mask.png&#39;]
+Duplicados encontrados: [&#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\normal\\normal (1)_mask.png&#39;, &#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\normal\\normal (10)_mask.png&#39;, &#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\normal\\normal (100)_mask.png&#39;, &#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\normal\\normal (101)_mask.png&#39;, &#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\normal\\normal (102)_mask.png&#39;, &#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\normal\\normal (103)_mask.png&#39;, &#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\normal\\normal (104)_mask.png&#39;, &#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\normal\\normal (105)_mask.png&#39;, &#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\normal\\normal (106)_mask.png&#39;, &#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\normal\\normal (107)_mask.png&#39;, &#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\normal\\normal (108)_mask.png&#39;, &#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\normal\\normal (109)_mask.png&#39;, &#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\normal\\normal (11)_mask.png&#39;, &#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\normal\\normal (110)_mask.png&#39;, &#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\normal\\normal (111)_mask.png&#39;, &#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\normal\\normal (112)_mask.png&#39;, &#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\normal\\normal (113)_mask.png&#39;, &#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\normal\\normal (114)_mask.png&#39;, &#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\normal\\normal (115)_mask.png&#39;, &#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\normal\\normal (116)_mask.png&#39;, &#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\normal\\normal (117)_mask.png&#39;, &#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\normal\\normal (118)_mask.png&#39;, &#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\normal\\normal (119)_mask.png&#39;, &#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\normal\\normal (12)_mask.png&#39;, &#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\normal\\normal (120)_mask.png&#39;, &#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\normal\\normal (121)_mask.png&#39;, &#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\normal\\normal (122)_mask.png&#39;, &#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\normal\\normal (123)_mask.png&#39;, &#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\normal\\normal (124)_mask.png&#39;, &#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\normal\\normal (125)_mask.png&#39;, &#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\normal\\normal (126)_mask.png&#39;, &#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\normal\\normal (127)_mask.png&#39;, &#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\normal\\normal (128)_mask.png&#39;, &#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\normal\\normal (129)_mask.png&#39;, &#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\normal\\normal (13)_mask.png&#39;, &#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\normal\\normal (130)_mask.png&#39;, &#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\normal\\normal (131)_mask.png&#39;, &#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\normal\\normal (132)_mask.png&#39;, &#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\normal\\normal (133)_mask.png&#39;, &#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\normal\\normal (14)_mask.png&#39;, &#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\normal\\normal (15)_mask.png&#39;, &#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\normal\\normal (16)_mask.png&#39;, &#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\normal\\normal (17)_mask.png&#39;, &#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\normal\\normal (18)_mask.png&#39;, &#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\normal\\normal (19)_mask.png&#39;, &#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\normal\\normal (2)_mask.png&#39;, &#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\normal\\normal (20)_mask.png&#39;, &#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\normal\\normal (21)_mask.png&#39;, &#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\normal\\normal (22)_mask.png&#39;, &#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\normal\\normal (23)_mask.png&#39;, &#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\normal\\normal (24)_mask.png&#39;, &#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\normal\\normal (25)_mask.png&#39;, &#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\normal\\normal (26)_mask.png&#39;, &#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\normal\\normal (27)_mask.png&#39;, &#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\normal\\normal (28)_mask.png&#39;, &#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\normal\\normal (29)_mask.png&#39;, &#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\normal\\normal (3)_mask.png&#39;, &#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\normal\\normal (30)_mask.png&#39;, &#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\normal\\normal (31)_mask.png&#39;, &#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\normal\\normal (32)_mask.png&#39;, &#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\normal\\normal (33)_mask.png&#39;, &#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\normal\\normal (34)_mask.png&#39;, &#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\normal\\normal (35)_mask.png&#39;, &#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\normal\\normal (36)_mask.png&#39;, &#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\normal\\normal (37)_mask.png&#39;, &#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\normal\\normal (38)_mask.png&#39;, &#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\normal\\normal (39)_mask.png&#39;, &#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\normal\\normal (4)_mask.png&#39;, &#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\normal\\normal (40)_mask.png&#39;, &#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\normal\\normal (41)_mask.png&#39;, &#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\normal\\normal (42)_mask.png&#39;, &#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\normal\\normal (43)_mask.png&#39;, &#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\normal\\normal (44)_mask.png&#39;, &#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\normal\\normal (45)_mask.png&#39;, &#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\normal\\normal (46)_mask.png&#39;, &#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\normal\\normal (47)_mask.png&#39;, &#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\normal\\normal (48)_mask.png&#39;, &#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\normal\\normal (49)_mask.png&#39;, &#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\normal\\normal (5)_mask.png&#39;, &#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\normal\\normal (50)_mask.png&#39;, &#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\normal\\normal (51)_mask.png&#39;, &#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\normal\\normal (52)_mask.png&#39;, &#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\normal\\normal (53)_mask.png&#39;, &#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\normal\\normal (54)_mask.png&#39;, &#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\normal\\normal (55)_mask.png&#39;, &#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\normal\\normal (56)_mask.png&#39;, &#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\normal\\normal (57)_mask.png&#39;, &#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\normal\\normal (58)_mask.png&#39;, &#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\normal\\normal (59)_mask.png&#39;, &#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\normal\\normal (6)_mask.png&#39;, &#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\normal\\normal (60)_mask.png&#39;, &#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\normal\\normal (61)_mask.png&#39;, &#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\normal\\normal (62)_mask.png&#39;, &#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\normal\\normal (63)_mask.png&#39;, &#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\normal\\normal (64)_mask.png&#39;, &#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\normal\\normal (65)_mask.png&#39;, &#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\normal\\normal (66)_mask.png&#39;, &#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\normal\\normal (67)_mask.png&#39;, &#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\normal\\normal (68)_mask.png&#39;, &#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\normal\\normal (69)_mask.png&#39;, &#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\normal\\normal (7)_mask.png&#39;, &#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\normal\\normal (70)_mask.png&#39;, &#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\normal\\normal (71)_mask.png&#39;, &#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\normal\\normal (72)_mask.png&#39;, &#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\normal\\normal (73)_mask.png&#39;, &#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\normal\\normal (74)_mask.png&#39;, &#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\normal\\normal (75)_mask.png&#39;, &#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\normal\\normal (76)_mask.png&#39;, &#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\normal\\normal (77)_mask.png&#39;, &#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\normal\\normal (78)_mask.png&#39;, &#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\normal\\normal (79)_mask.png&#39;, &#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\normal\\normal (8)_mask.png&#39;, &#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\normal\\normal (80)_mask.png&#39;, &#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\normal\\normal (81)_mask.png&#39;, &#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\normal\\normal (82)_mask.png&#39;, &#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\normal\\normal (83)_mask.png&#39;, &#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\normal\\normal (84)_mask.png&#39;, &#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\normal\\normal (85)_mask.png&#39;, &#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\normal\\normal (86)_mask.png&#39;, &#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\normal\\normal (87)_mask.png&#39;, &#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\normal\\normal (88)_mask.png&#39;, &#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\normal\\normal (89)_mask.png&#39;, &#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\normal\\normal (9)_mask.png&#39;, &#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\normal\\normal (90)_mask.png&#39;, &#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\normal\\normal (91)_mask.png&#39;, &#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\normal\\normal (92)_mask.png&#39;, &#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\normal\\normal (93)_mask.png&#39;, &#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\normal\\normal (94)_mask.png&#39;, &#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\normal\\normal (95)_mask.png&#39;, &#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\normal\\normal (96)_mask.png&#39;, &#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\normal\\normal (97)_mask.png&#39;, &#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\normal\\normal (98)_mask.png&#39;, &#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\normal\\normal (99)_mask.png&#39;]
+Duplicados encontrados: [&#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\normal\\normal (104).png&#39;, &#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\normal\\normal (107).png&#39;]
+Duplicados encontrados: [&#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\normal\\normal (121).png&#39;, &#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\normal\\normal (31).png&#39;]
+Duplicados encontrados: [&#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\normal\\normal (125).png&#39;, &#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\normal\\normal (22).png&#39;]
+Duplicados encontrados: [&#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\normal\\normal (43).png&#39;, &#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\normal\\normal (50).png&#39;]
+Duplicados encontrados: [&#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\normal\\normal (45).png&#39;, &#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\normal\\normal (49).png&#39;, &#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\normal\\normal (62).png&#39;]
+Duplicados encontrados: [&#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\normal\\normal (58).png&#39;, &#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\normal\\normal (60).png&#39;]
+Duplicados encontrados: [&#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\normal\\normal (63).png&#39;, &#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\normal\\normal (64).png&#39;]
+Duplicados encontrados: [&#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\normal\\normal (97).png&#39;, &#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\normal\\normal (98).png&#39;]
+Duplicados encontrados: [&#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\maligna\\malignant (116).png&#39;, &#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\maligna\\malignant (18).png&#39;]
+Duplicados encontrados: [&#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\maligna\\malignant (8).png&#39;, &#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\maligna\\malignant (9).png&#39;]
+Duplicados encontrados: [&#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\maligna\\malignant (8)_mask.png&#39;, &#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\maligna\\malignant (9)_mask.png&#39;]
+Cantidad de duplicados: 81
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">grupo</span> <span class="ow">in</span> <span class="n">duplicados</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Duplicados encontrados (</span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">grupo</span><span class="p">)</span><span class="si">}</span><span class="s2"> imágenes): </span><span class="si">{</span><span class="n">grupo</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+    <span class="c1"># Mostrar imágenes duplicadas con Matplotlib</span>
+    <span class="n">fig</span><span class="p">,</span> <span class="n">axes</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">grupo</span><span class="p">),</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="mi">4</span><span class="p">))</span>
+    <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">img_path</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">grupo</span><span class="p">):</span>
+        <span class="n">img</span> <span class="o">=</span> <span class="n">Image</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">img_path</span><span class="p">)</span>
+        <span class="n">axes</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">img</span><span class="p">)</span>
+        <span class="n">axes</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">basename</span><span class="p">(</span><span class="n">img_path</span><span class="p">),</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">8</span><span class="p">)</span>
+        <span class="n">axes</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">axis</span><span class="p">(</span><span class="s2">&quot;off&quot;</span><span class="p">)</span>
+
+    <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Duplicados encontrados (14 imágenes): [&#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\benigna\\benign (1)_mask.png&#39;, &#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\benigna\\benign (105)_mask.png&#39;, &#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\benigna\\benign (12)_mask.png&#39;, &#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\benigna\\benign (133)_mask.png&#39;, &#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\benigna\\benign (143)_mask.png&#39;, &#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\benigna\\benign (154)_mask.png&#39;, &#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\benigna\\benign (156)_mask.png&#39;, &#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\benigna\\benign (167)_mask.png&#39;, &#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\benigna\\benign (21)_mask.png&#39;, &#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\benigna\\benign (318)_mask.png&#39;, &#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\benigna\\benign (329)_mask.png&#39;, &#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\benigna\\benign (348)_mask.png&#39;, &#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\benigna\\benign (51)_mask.png&#39;, &#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\benigna\\benign (93)_mask_1.png&#39;]
+</pre></div>
+</div>
+<img alt="_images/e30a8479cde218e16ab6c40ada96936547f5e1fd8321888b59b73cf91aea43c3.png" src="_images/e30a8479cde218e16ab6c40ada96936547f5e1fd8321888b59b73cf91aea43c3.png" />
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Duplicados encontrados (2 imágenes): [&#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\benigna\\benign (10).png&#39;, &#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\benigna\\benign (327).png&#39;]
+</pre></div>
+</div>
+<img alt="_images/5c79f2d496bd0a4d78f71a0778fe4209f575b80116602ebc7d26abb1b7e36e9b.png" src="_images/5c79f2d496bd0a4d78f71a0778fe4209f575b80116602ebc7d26abb1b7e36e9b.png" />
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Duplicados encontrados (4 imágenes): [&#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\benigna\\benign (100)_mask_1.png&#39;, &#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\benigna\\benign (177)_mask.png&#39;, &#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\benigna\\benign (35)_mask.png&#39;, &#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\benigna\\benign (4)_mask.png&#39;]
+</pre></div>
+</div>
+<img alt="_images/1557317ba462e421d9a09a4ef9a5351b7541dd55380ff9e13d6b437f8ed04503.png" src="_images/1557317ba462e421d9a09a4ef9a5351b7541dd55380ff9e13d6b437f8ed04503.png" />
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Duplicados encontrados (2 imágenes): [&#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\benigna\\benign (105).png&#39;, &#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\benigna\\benign (156).png&#39;]
+</pre></div>
+</div>
+<img alt="_images/884b52cd6974169f9eaeababf18d0ab04890f45a5e2490f9bd246a2bc1218cd8.png" src="_images/884b52cd6974169f9eaeababf18d0ab04890f45a5e2490f9bd246a2bc1218cd8.png" />
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Duplicados encontrados (4 imágenes): [&#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\benigna\\benign (107)_mask.png&#39;, &#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\benigna\\benign (363)_mask.png&#39;, &#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\benigna\\benign (388)_mask.png&#39;, &#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\benigna\\benign (63)_mask.png&#39;]
+</pre></div>
+</div>
+<img alt="_images/d0549a567917239c7793d1770c6bbc019be065eedf91272203564a8d19c75f37.png" src="_images/d0549a567917239c7793d1770c6bbc019be065eedf91272203564a8d19c75f37.png" />
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Duplicados encontrados (5 imágenes): [&#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\benigna\\benign (11)_mask.png&#39;, &#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\benigna\\benign (197)_mask.png&#39;, &#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\benigna\\benign (254)_mask.png&#39;, &#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\benigna\\benign (389)_mask.png&#39;, &#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\benigna\\benign (4)_mask_1.png&#39;]
+</pre></div>
+</div>
+<img alt="_images/74c3c92bf36a8ef7b8d95a7aa7c55a26a5ca03466a448fe2d5afd2160a4306bc.png" src="_images/74c3c92bf36a8ef7b8d95a7aa7c55a26a5ca03466a448fe2d5afd2160a4306bc.png" />
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Duplicados encontrados (3 imágenes): [&#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\benigna\\benign (112)_mask.png&#39;, &#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\benigna\\benign (146)_mask.png&#39;, &#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\benigna\\benign (374)_mask.png&#39;]
+</pre></div>
+</div>
+<img alt="_images/d2a7754cc5c9aa41603fc0033758e9028cef314b8ec609161230317ed2216336.png" src="_images/d2a7754cc5c9aa41603fc0033758e9028cef314b8ec609161230317ed2216336.png" />
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Duplicados encontrados (2 imágenes): [&#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\benigna\\benign (125)_mask.png&#39;, &#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\benigna\\benign (129)_mask.png&#39;]
+</pre></div>
+</div>
+<img alt="_images/12dd1102dd2a0be4ebebbec9944503d459614f692ef0296f634d3f17c75a1357.png" src="_images/12dd1102dd2a0be4ebebbec9944503d459614f692ef0296f634d3f17c75a1357.png" />
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Duplicados encontrados (2 imágenes): [&#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\benigna\\benign (127).png&#39;, &#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\benigna\\benign (37).png&#39;]
+</pre></div>
+</div>
+<img alt="_images/0e334732670eaea05a000579a284fbbc46181d68347e040aac83fbfd5d267ac7.png" src="_images/0e334732670eaea05a000579a284fbbc46181d68347e040aac83fbfd5d267ac7.png" />
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Duplicados encontrados (3 imágenes): [&#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\benigna\\benign (127)_mask.png&#39;, &#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\benigna\\benign (37)_mask.png&#39;, &#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\benigna\\benign (435)_mask.png&#39;]
+</pre></div>
+</div>
+<img alt="_images/e8e6738c0b515128e5534d707a6d6e068774dde23a5186ab04f92c37005acc6b.png" src="_images/e8e6738c0b515128e5534d707a6d6e068774dde23a5186ab04f92c37005acc6b.png" />
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Duplicados encontrados (2 imágenes): [&#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\benigna\\benign (128)_mask.png&#39;, &#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\benigna\\benign (30)_mask.png&#39;]
+</pre></div>
+</div>
+<img alt="_images/7334a39d350655b618bd239cdfe8f65597ad758d7c9ed406aebb00825bef2135.png" src="_images/7334a39d350655b618bd239cdfe8f65597ad758d7c9ed406aebb00825bef2135.png" />
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Duplicados encontrados (3 imágenes): [&#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\benigna\\benign (134)_mask.png&#39;, &#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\benigna\\benign (52)_mask.png&#39;, &#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\maligna\\malignant (192)_mask.png&#39;]
+</pre></div>
+</div>
+<img alt="_images/b00a5ac72fa01533adf70d3ca4f6148e457c0f4648f2aec80f2072102156944e.png" src="_images/b00a5ac72fa01533adf70d3ca4f6148e457c0f4648f2aec80f2072102156944e.png" />
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Duplicados encontrados (2 imágenes): [&#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\benigna\\benign (135).png&#39;, &#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\benigna\\benign (58).png&#39;]
+</pre></div>
+</div>
+<img alt="_images/b2ce65bb1c8dbe94717519a872fe4696b213e1b61f897f5a9f047bcee464e821.png" src="_images/b2ce65bb1c8dbe94717519a872fe4696b213e1b61f897f5a9f047bcee464e821.png" />
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Duplicados encontrados (2 imágenes): [&#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\benigna\\benign (138)_mask.png&#39;, &#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\benigna\\benign (338)_mask.png&#39;]
+</pre></div>
+</div>
+<img alt="_images/273e61f94fa9ce48b19d261dfa26827a6eda30d451567468171d8c9de5392e38.png" src="_images/273e61f94fa9ce48b19d261dfa26827a6eda30d451567468171d8c9de5392e38.png" />
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Duplicados encontrados (3 imágenes): [&#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\benigna\\benign (139).png&#39;, &#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\benigna\\benign (157).png&#39;, &#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\benigna\\benign (65).png&#39;]
+</pre></div>
+</div>
+<img alt="_images/ffb1a6695e455eea4bf332387dde893ff065c0deb3b343e58b7af3ec058772e2.png" src="_images/ffb1a6695e455eea4bf332387dde893ff065c0deb3b343e58b7af3ec058772e2.png" />
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Duplicados encontrados (2 imágenes): [&#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\benigna\\benign (139)_mask.png&#39;, &#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\benigna\\benign (157)_mask.png&#39;]
+</pre></div>
+</div>
+<img alt="_images/eec9657ecdbfd6686b1d9cbea6f9d18328b19ac4ab636f222993e4a6ac27bf42.png" src="_images/eec9657ecdbfd6686b1d9cbea6f9d18328b19ac4ab636f222993e4a6ac27bf42.png" />
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Duplicados encontrados (2 imágenes): [&#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\benigna\\benign (14).png&#39;, &#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\benigna\\benign (331).png&#39;]
+</pre></div>
+</div>
+<img alt="_images/4a2497a91f272a05bf2d9ceb4a26a603732529c9476fba936acd96e920cf2c85.png" src="_images/4a2497a91f272a05bf2d9ceb4a26a603732529c9476fba936acd96e920cf2c85.png" />
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Duplicados encontrados (2 imágenes): [&#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\benigna\\benign (14)_mask.png&#39;, &#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\benigna\\benign (331)_mask.png&#39;]
+</pre></div>
+</div>
+<img alt="_images/8c3c6bd60a084327365fbcfaefd9ac28ac4ba3ab69236f83a608737ab211aa67.png" src="_images/8c3c6bd60a084327365fbcfaefd9ac28ac4ba3ab69236f83a608737ab211aa67.png" />
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Duplicados encontrados (2 imágenes): [&#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\benigna\\benign (15).png&#39;, &#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\benigna\\benign (332).png&#39;]
+</pre></div>
+</div>
+<img alt="_images/7c7d810501c0e55b77449e60f5d4cc191511e0c1442ab92d2d94953fc0c373a4.png" src="_images/7c7d810501c0e55b77449e60f5d4cc191511e0c1442ab92d2d94953fc0c373a4.png" />
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Duplicados encontrados (2 imágenes): [&#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\benigna\\benign (15)_mask.png&#39;, &#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\benigna\\benign (90)_mask.png&#39;]
+</pre></div>
+</div>
+<img alt="_images/4250e5535f7f5cdc282af69ef7932a2f1368b544695d6faee8f5f952f9c78fba.png" src="_images/4250e5535f7f5cdc282af69ef7932a2f1368b544695d6faee8f5f952f9c78fba.png" />
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Duplicados encontrados (2 imágenes): [&#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\benigna\\benign (152).png&#39;, &#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\benigna\\benign (18).png&#39;]
+</pre></div>
+</div>
+<img alt="_images/30668d8947a628bee598ca630ebf7e6888f7896cc3f23c7b225e6a35561d9490.png" src="_images/30668d8947a628bee598ca630ebf7e6888f7896cc3f23c7b225e6a35561d9490.png" />
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Duplicados encontrados (3 imágenes): [&#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\benigna\\benign (153)_mask.png&#39;, &#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\benigna\\benign (25)_mask_1.png&#39;, &#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\benigna\\benign (91)_mask.png&#39;]
+</pre></div>
+</div>
+<img alt="_images/95e996838bcb2fc6c016cf4f8da247d1f35c80bedbe4c93d328a5f164dcb5174.png" src="_images/95e996838bcb2fc6c016cf4f8da247d1f35c80bedbe4c93d328a5f164dcb5174.png" />
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Duplicados encontrados (2 imágenes): [&#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\benigna\\benign (163)_mask.png&#39;, &#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\benigna\\benign (171)_mask.png&#39;]
+</pre></div>
+</div>
+<img alt="_images/5c3faee5e8e6f90b3b8dc7dd95ffac096d4d1ba8bb74ebc0847e4693e77f60c1.png" src="_images/5c3faee5e8e6f90b3b8dc7dd95ffac096d4d1ba8bb74ebc0847e4693e77f60c1.png" />
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Duplicados encontrados (2 imágenes): [&#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\benigna\\benign (164).png&#39;, &#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\benigna\\benign (85).png&#39;]
+</pre></div>
+</div>
+<img alt="_images/b2ae8d175a19776c458d79b017ba361f522ecb5f9065e64ce2d02795c7a82c6c.png" src="_images/b2ae8d175a19776c458d79b017ba361f522ecb5f9065e64ce2d02795c7a82c6c.png" />
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Duplicados encontrados (6 imágenes): [&#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\benigna\\benign (166)_mask.png&#39;, &#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\benigna\\benign (17)_mask.png&#39;, &#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\benigna\\benign (25)_mask.png&#39;, &#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\benigna\\benign (323)_mask.png&#39;, &#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\benigna\\benign (425)_mask.png&#39;, &#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\benigna\\benign (6)_mask.png&#39;]
+</pre></div>
+</div>
+<img alt="_images/76310b4304d7aff48e2f3caf8cefb96b4229eb1d4cb6f68a9bdcfe688c05b54e.png" src="_images/76310b4304d7aff48e2f3caf8cefb96b4229eb1d4cb6f68a9bdcfe688c05b54e.png" />
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Duplicados encontrados (5 imágenes): [&#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\benigna\\benign (168)_mask.png&#39;, &#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\benigna\\benign (313)_mask.png&#39;, &#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\benigna\\benign (322)_mask.png&#39;, &#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\benigna\\benign (5)_mask.png&#39;, &#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\benigna\\benign (75)_mask.png&#39;]
+</pre></div>
+</div>
+<img alt="_images/d192fdd6035fd7b430e9397b13c868372ec37e3131291667c3ebd86efe4dc084.png" src="_images/d192fdd6035fd7b430e9397b13c868372ec37e3131291667c3ebd86efe4dc084.png" />
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Duplicados encontrados (3 imágenes): [&#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\benigna\\benign (172)_mask.png&#39;, &#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\benigna\\benign (368)_mask.png&#39;, &#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\benigna\\benign (54)_mask_1.png&#39;]
+</pre></div>
+</div>
+<img alt="_images/d473b2ebcd3f13bc33c12f72a073f78de01ddae4544b570d5f671fa9a86ba7da.png" src="_images/d473b2ebcd3f13bc33c12f72a073f78de01ddae4544b570d5f671fa9a86ba7da.png" />
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Duplicados encontrados (3 imágenes): [&#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\benigna\\benign (176)_mask.png&#39;, &#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\benigna\\benign (353)_mask.png&#39;, &#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\benigna\\benign (78)_mask.png&#39;]
+</pre></div>
+</div>
+<img alt="_images/eb2c37e56c1299b45806d9be1e8aea6a076528ca9883a6b603df3fc020cc971f.png" src="_images/eb2c37e56c1299b45806d9be1e8aea6a076528ca9883a6b603df3fc020cc971f.png" />
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Duplicados encontrados (2 imágenes): [&#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\benigna\\benign (177).png&#39;, &#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\benigna\\benign (35).png&#39;]
+</pre></div>
+</div>
+<img alt="_images/898534fac174da03317e86f97c24e29d903931aab8031aec1cfb0d5dbd684200.png" src="_images/898534fac174da03317e86f97c24e29d903931aab8031aec1cfb0d5dbd684200.png" />
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Duplicados encontrados (3 imágenes): [&#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\benigna\\benign (189)_mask.png&#39;, &#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\benigna\\benign (71)_mask.png&#39;, &#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\maligna\\malignant (145)_mask.png&#39;]
+</pre></div>
+</div>
+<img alt="_images/bc11081777edaf4097e0f4a200f5a67aa92e351bb41c8d1f69cf939e0058f0e1.png" src="_images/bc11081777edaf4097e0f4a200f5a67aa92e351bb41c8d1f69cf939e0058f0e1.png" />
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Duplicados encontrados (4 imágenes): [&#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\benigna\\benign (191)_mask.png&#39;, &#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\benigna\\benign (291)_mask.png&#39;, &#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\benigna\\benign (417)_mask.png&#39;, &#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\maligna\\malignant (193)_mask.png&#39;]
+</pre></div>
+</div>
+<img alt="_images/8ecc187789216f8853702381d8880ca86c4a3619f908f1bf24ec53987c0e909a.png" src="_images/8ecc187789216f8853702381d8880ca86c4a3619f908f1bf24ec53987c0e909a.png" />
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Duplicados encontrados (2 imágenes): [&#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\benigna\\benign (2)_mask.png&#39;, &#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\benigna\\benign (319)_mask.png&#39;]
+</pre></div>
+</div>
+<img alt="_images/17dc02203394cad2001257d692f76455d83468e02d82399ec9799e511bffa283.png" src="_images/17dc02203394cad2001257d692f76455d83468e02d82399ec9799e511bffa283.png" />
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Duplicados encontrados (2 imágenes): [&#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\benigna\\benign (202)_mask.png&#39;, &#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\benigna\\benign (301)_mask.png&#39;]
+</pre></div>
+</div>
+<img alt="_images/1a31253d9be08a3425ffd2a67891d479174f429169134958d572d98c88f49f54.png" src="_images/1a31253d9be08a3425ffd2a67891d479174f429169134958d572d98c88f49f54.png" />
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Duplicados encontrados (2 imágenes): [&#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\benigna\\benign (204).png&#39;, &#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\benigna\\benign (249).png&#39;]
+</pre></div>
+</div>
+<img alt="_images/ff42eda088413c32d01e6ea26d999ddd10ffb95eec09bf80af351cb2af609e15.png" src="_images/ff42eda088413c32d01e6ea26d999ddd10ffb95eec09bf80af351cb2af609e15.png" />
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Duplicados encontrados (2 imágenes): [&#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\benigna\\benign (206)_mask.png&#39;, &#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\benigna\\benign (303)_mask.png&#39;]
+</pre></div>
+</div>
+<img alt="_images/ae13c39660dfa077a49e9bcb5ee5530f8d51d0d81e678e84883f34181eaf5376.png" src="_images/ae13c39660dfa077a49e9bcb5ee5530f8d51d0d81e678e84883f34181eaf5376.png" />
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Duplicados encontrados (2 imágenes): [&#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\benigna\\benign (208)_mask.png&#39;, &#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\benigna\\benign (437)_mask.png&#39;]
+</pre></div>
+</div>
+<img alt="_images/1e5c85c7ce5f17e7ba407d00405dd84934335491450f297d7cf062352e12f660.png" src="_images/1e5c85c7ce5f17e7ba407d00405dd84934335491450f297d7cf062352e12f660.png" />
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Duplicados encontrados (5 imágenes): [&#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\benigna\\benign (209)_mask.png&#39;, &#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\benigna\\benign (275)_mask.png&#39;, &#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\benigna\\benign (43)_mask.png&#39;, &#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\benigna\\benign (57)_mask.png&#39;, &#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\maligna\\malignant (10)_mask.png&#39;]
+</pre></div>
+</div>
+<img alt="_images/de064b97487b1be5c84fbddccd188562fbc69f0da995c3e0b14f8a805f3fed68.png" src="_images/de064b97487b1be5c84fbddccd188562fbc69f0da995c3e0b14f8a805f3fed68.png" />
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Duplicados encontrados (2 imágenes): [&#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\benigna\\benign (210).png&#39;, &#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\benigna\\benign (298).png&#39;]
+</pre></div>
+</div>
+<img alt="_images/d6c310bbecebbb06dc4e004c2207bdd13fadc307e3a51bbeaaf64ac574196b54.png" src="_images/d6c310bbecebbb06dc4e004c2207bdd13fadc307e3a51bbeaaf64ac574196b54.png" />
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Duplicados encontrados (2 imágenes): [&#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\benigna\\benign (211)_mask.png&#39;, &#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\benigna\\benign (253)_mask.png&#39;]
+</pre></div>
+</div>
+<img alt="_images/1782fb84adf7dd4631bdebdd30d1b66999bbffac93bf411289d7a56d99fc1251.png" src="_images/1782fb84adf7dd4631bdebdd30d1b66999bbffac93bf411289d7a56d99fc1251.png" />
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Duplicados encontrados (2 imágenes): [&#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\benigna\\benign (215)_mask.png&#39;, &#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\benigna\\benign (270)_mask.png&#39;]
+</pre></div>
+</div>
+<img alt="_images/0f1df3ed6273a764f3013430f145122307c7df8419100a72969a5b8eaa630440.png" src="_images/0f1df3ed6273a764f3013430f145122307c7df8419100a72969a5b8eaa630440.png" />
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Duplicados encontrados (2 imágenes): [&#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\benigna\\benign (216).png&#39;, &#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\benigna\\benign (265).png&#39;]
+</pre></div>
+</div>
+<img alt="_images/109b821cd4cbd12ee0617719d9f80e8f77d0fc00c101d84176ad3a9fbd2eef8e.png" src="_images/109b821cd4cbd12ee0617719d9f80e8f77d0fc00c101d84176ad3a9fbd2eef8e.png" />
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Duplicados encontrados (2 imágenes): [&#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\benigna\\benign (222).png&#39;, &#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\benigna\\benign (267).png&#39;]
+</pre></div>
+</div>
+<img alt="_images/df9995f6626c1df56341a554106e4033e1dbd40bb5810cee1dbc4a5a8327994f.png" src="_images/df9995f6626c1df56341a554106e4033e1dbd40bb5810cee1dbc4a5a8327994f.png" />
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Duplicados encontrados (2 imágenes): [&#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\benigna\\benign (222)_mask.png&#39;, &#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\benigna\\benign (267)_mask.png&#39;]
+</pre></div>
+</div>
+<img alt="_images/e925fea940dea1cfc5db1cf045a322eec86d49efe3acf6a2f771d7bf20e7a1ed.png" src="_images/e925fea940dea1cfc5db1cf045a322eec86d49efe3acf6a2f771d7bf20e7a1ed.png" />
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Duplicados encontrados (2 imágenes): [&#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\benigna\\benign (225).png&#39;, &#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\benigna\\benign (292).png&#39;]
+</pre></div>
+</div>
+<img alt="_images/fa541c01c5e0697327ceb04b23e66d406dcdeec656d9afad563bd93de5913477.png" src="_images/fa541c01c5e0697327ceb04b23e66d406dcdeec656d9afad563bd93de5913477.png" />
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Duplicados encontrados (2 imágenes): [&#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\benigna\\benign (226).png&#39;, &#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\benigna\\benign (263).png&#39;]
+</pre></div>
+</div>
+<img alt="_images/b3b346823c07e5f0c65499c8aff2df9859233501b95d8bfedc725563cfa2db33.png" src="_images/b3b346823c07e5f0c65499c8aff2df9859233501b95d8bfedc725563cfa2db33.png" />
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Duplicados encontrados (2 imágenes): [&#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\benigna\\benign (228).png&#39;, &#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\benigna\\benign (306).png&#39;]
+</pre></div>
+</div>
+<img alt="_images/a45d37a53cc4d5fd13f1caa09d3982a7b95ad41d1c8fc75db8b25195a3979828.png" src="_images/a45d37a53cc4d5fd13f1caa09d3982a7b95ad41d1c8fc75db8b25195a3979828.png" />
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Duplicados encontrados (2 imágenes): [&#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\benigna\\benign (233).png&#39;, &#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\benigna\\benign (299).png&#39;]
+</pre></div>
+</div>
+<img alt="_images/95e747c9a35997428dfff09f4bb940b17268f77e57099549e5928880665754e5.png" src="_images/95e747c9a35997428dfff09f4bb940b17268f77e57099549e5928880665754e5.png" />
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Duplicados encontrados (2 imágenes): [&#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\benigna\\benign (234).png&#39;, &#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\benigna\\benign (261).png&#39;]
+</pre></div>
+</div>
+<img alt="_images/1e7f70747aa1914f616e6db542546502404a973280118d7f6a849230743ed2c8.png" src="_images/1e7f70747aa1914f616e6db542546502404a973280118d7f6a849230743ed2c8.png" />
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Duplicados encontrados (2 imágenes): [&#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\benigna\\benign (235).png&#39;, &#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\benigna\\benign (294).png&#39;]
+</pre></div>
+</div>
+<img alt="_images/de2f2b49a0093616a2d0dc271e76dbede58d3c044e088e1e1823434d79799c49.png" src="_images/de2f2b49a0093616a2d0dc271e76dbede58d3c044e088e1e1823434d79799c49.png" />
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Duplicados encontrados (2 imágenes): [&#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\benigna\\benign (239).png&#39;, &#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\benigna\\benign (258).png&#39;]
+</pre></div>
+</div>
+<img alt="_images/10c41fcd132c5057b1a8329a128055feb7e140c99205c513a6d4851a0ec8dcdf.png" src="_images/10c41fcd132c5057b1a8329a128055feb7e140c99205c513a6d4851a0ec8dcdf.png" />
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Duplicados encontrados (3 imágenes): [&#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\benigna\\benign (239)_mask.png&#39;, &#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\benigna\\benign (297)_mask.png&#39;, &#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\maligna\\malignant (26)_mask.png&#39;]
+</pre></div>
+</div>
+<img alt="_images/d993bd610e8cbd9a6d034931d8bb76a5c68cbfccb59b497b9d1555e097fa2af1.png" src="_images/d993bd610e8cbd9a6d034931d8bb76a5c68cbfccb59b497b9d1555e097fa2af1.png" />
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Duplicados encontrados (2 imágenes): [&#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\benigna\\benign (244)_mask.png&#39;, &#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\benigna\\benign (251)_mask.png&#39;]
+</pre></div>
+</div>
+<img alt="_images/1e2065432189b18eb0f84eeaeaac8bc6d911b0767cb858dab6b6d82d16e4a5d6.png" src="_images/1e2065432189b18eb0f84eeaeaac8bc6d911b0767cb858dab6b6d82d16e4a5d6.png" />
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Duplicados encontrados (2 imágenes): [&#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\benigna\\benign (259)_mask.png&#39;, &#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\benigna\\benign (280)_mask.png&#39;]
+</pre></div>
+</div>
+<img alt="_images/8fc9ce3b4254368383f07fc9340b7a2b650f993a20647cedcc9092cb51d4f386.png" src="_images/8fc9ce3b4254368383f07fc9340b7a2b650f993a20647cedcc9092cb51d4f386.png" />
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Duplicados encontrados (2 imágenes): [&#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\benigna\\benign (266)_mask.png&#39;, &#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\benigna\\benign (279)_mask.png&#39;]
+</pre></div>
+</div>
+<img alt="_images/fafe5ad2b725ed4008fd47350cbf3d2cffb175cfa50b1c436f35f740688a6c59.png" src="_images/fafe5ad2b725ed4008fd47350cbf3d2cffb175cfa50b1c436f35f740688a6c59.png" />
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Duplicados encontrados (2 imágenes): [&#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\benigna\\benign (273).png&#39;, &#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\benigna\\benign (289).png&#39;]
+</pre></div>
+</div>
+<img alt="_images/87487dd645f727a80d8859a3fd287c7683d28e9f4099f3cc090996aebbbeb3c4.png" src="_images/87487dd645f727a80d8859a3fd287c7683d28e9f4099f3cc090996aebbbeb3c4.png" />
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Duplicados encontrados (2 imágenes): [&#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\benigna\\benign (274).png&#39;, &#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\benigna\\benign (290).png&#39;]
+</pre></div>
+</div>
+<img alt="_images/8d8278414df1a0598cee788d95488f662ee67601e1cd3d2ed1528d95dfc7662f.png" src="_images/8d8278414df1a0598cee788d95488f662ee67601e1cd3d2ed1528d95dfc7662f.png" />
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Duplicados encontrados (2 imágenes): [&#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\benigna\\benign (309).png&#39;, &#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\benigna\\benign (422).png&#39;]
+</pre></div>
+</div>
+<img alt="_images/4c6749c77cb7e9367440a48e27fc4dad013d3dddb18a06a2f163d8f7bfecc57b.png" src="_images/4c6749c77cb7e9367440a48e27fc4dad013d3dddb18a06a2f163d8f7bfecc57b.png" />
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Duplicados encontrados (2 imágenes): [&#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\benigna\\benign (31)_mask.png&#39;, &#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\maligna\\malignant (53)_mask.png&#39;]
+</pre></div>
+</div>
+<img alt="_images/10127d8939057d3cb261efaa73a3c00264bee7359603144b7556b26c64a9d085.png" src="_images/10127d8939057d3cb261efaa73a3c00264bee7359603144b7556b26c64a9d085.png" />
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Duplicados encontrados (2 imágenes): [&#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\benigna\\benign (312).png&#39;, &#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\benigna\\benign (421).png&#39;]
+</pre></div>
+</div>
+<img alt="_images/159794dc47f2a70c06556caacfd56fd58c025837f09184624dc372a71c110e60.png" src="_images/159794dc47f2a70c06556caacfd56fd58c025837f09184624dc372a71c110e60.png" />
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Duplicados encontrados (2 imágenes): [&#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\benigna\\benign (322).png&#39;, &#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\benigna\\benign (5).png&#39;]
+</pre></div>
+</div>
+<img alt="_images/7bff95d740881eac7e673701d472321bd5852bb12c738e3d62f2801df57e50ca.png" src="_images/7bff95d740881eac7e673701d472321bd5852bb12c738e3d62f2801df57e50ca.png" />
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Duplicados encontrados (2 imágenes): [&#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\benigna\\benign (325).png&#39;, &#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\benigna\\benign (8).png&#39;]
+</pre></div>
+</div>
+<img alt="_images/d7657332a92333dcea2d8244c45209ea5012cf7aad53272532e47452b28b715a.png" src="_images/d7657332a92333dcea2d8244c45209ea5012cf7aad53272532e47452b28b715a.png" />
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Duplicados encontrados (2 imágenes): [&#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\benigna\\benign (325)_mask.png&#39;, &#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\benigna\\benign (8)_mask.png&#39;]
+</pre></div>
+</div>
+<img alt="_images/b394fd696e16e7a84f9d5e27990cfdd40e1720cd4b35d479457de8ca603577bf.png" src="_images/b394fd696e16e7a84f9d5e27990cfdd40e1720cd4b35d479457de8ca603577bf.png" />
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Duplicados encontrados (2 imágenes): [&#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\benigna\\benign (334)_mask.png&#39;, &#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\maligna\\malignant (38)_mask.png&#39;]
+</pre></div>
+</div>
+<img alt="_images/0f135473a62e459ef0b321edecec636d85fec71dd02dd4e149ac3cd1a04b515a.png" src="_images/0f135473a62e459ef0b321edecec636d85fec71dd02dd4e149ac3cd1a04b515a.png" />
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Duplicados encontrados (3 imágenes): [&#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\benigna\\benign (359)_mask.png&#39;, &#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\benigna\\benign (380)_mask.png&#39;, &#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\benigna\\benign (46)_mask.png&#39;]
+</pre></div>
+</div>
+<img alt="_images/5aa77b33ab9552c679e0d3c1664864f72abcbcf954af8363aabc5393bcb2d8a5.png" src="_images/5aa77b33ab9552c679e0d3c1664864f72abcbcf954af8363aabc5393bcb2d8a5.png" />
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Duplicados encontrados (2 imágenes): [&#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\benigna\\benign (399).png&#39;, &#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\maligna\\malignant (93).png&#39;]
+</pre></div>
+</div>
+<img alt="_images/76c2dec284bd39b999841a7254c6d48b480622e8ce1cd8b45421e0ad15389fbe.png" src="_images/76c2dec284bd39b999841a7254c6d48b480622e8ce1cd8b45421e0ad15389fbe.png" />
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Duplicados encontrados (2 imágenes): [&#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\benigna\\benign (42).png&#39;, &#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\maligna\\malignant (51).png&#39;]
+</pre></div>
+</div>
+<img alt="_images/ad3457c1f90ec328691077d7bbf7b6ea0dbe3b6984233c310f21d90b72937124.png" src="_images/ad3457c1f90ec328691077d7bbf7b6ea0dbe3b6984233c310f21d90b72937124.png" />
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Duplicados encontrados (2 imágenes): [&#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\benigna\\benign (433).png&#39;, &#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\maligna\\malignant (145).png&#39;]
+</pre></div>
+</div>
+<img alt="_images/fd49bb8cd22c81e3fb8978468e0536242a8fcfbf37ac5c65df55d5c4261af759.png" src="_images/fd49bb8cd22c81e3fb8978468e0536242a8fcfbf37ac5c65df55d5c4261af759.png" />
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Duplicados encontrados (2 imágenes): [&#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\benigna\\benign (69)_mask.png&#39;, &#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\maligna\\malignant (110)_mask.png&#39;]
+</pre></div>
+</div>
+<img alt="_images/d5be2ecac36042926c66414d6e39ac1f96bcd4f05767fade8a86d7bb50a26626.png" src="_images/d5be2ecac36042926c66414d6e39ac1f96bcd4f05767fade8a86d7bb50a26626.png" />
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Duplicados encontrados (2 imágenes): [&#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\benigna\\benign (7)_mask.png&#39;, &#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\benigna\\benign (83)_mask.png&#39;]
+</pre></div>
+</div>
+<img alt="_images/e8a86691ee3a9ad795ac99d48e15a22eb3d1d003d8aa2e5031ef7518a63d9d6a.png" src="_images/e8a86691ee3a9ad795ac99d48e15a22eb3d1d003d8aa2e5031ef7518a63d9d6a.png" />
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Duplicados encontrados (133 imágenes): [&#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\normal\\normal (1)_mask.png&#39;, &#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\normal\\normal (10)_mask.png&#39;, &#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\normal\\normal (100)_mask.png&#39;, &#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\normal\\normal (101)_mask.png&#39;, &#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\normal\\normal (102)_mask.png&#39;, &#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\normal\\normal (103)_mask.png&#39;, &#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\normal\\normal (104)_mask.png&#39;, &#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\normal\\normal (105)_mask.png&#39;, &#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\normal\\normal (106)_mask.png&#39;, &#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\normal\\normal (107)_mask.png&#39;, &#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\normal\\normal (108)_mask.png&#39;, &#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\normal\\normal (109)_mask.png&#39;, &#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\normal\\normal (11)_mask.png&#39;, &#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\normal\\normal (110)_mask.png&#39;, &#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\normal\\normal (111)_mask.png&#39;, &#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\normal\\normal (112)_mask.png&#39;, &#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\normal\\normal (113)_mask.png&#39;, &#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\normal\\normal (114)_mask.png&#39;, &#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\normal\\normal (115)_mask.png&#39;, &#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\normal\\normal (116)_mask.png&#39;, &#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\normal\\normal (117)_mask.png&#39;, &#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\normal\\normal (118)_mask.png&#39;, &#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\normal\\normal (119)_mask.png&#39;, &#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\normal\\normal (12)_mask.png&#39;, &#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\normal\\normal (120)_mask.png&#39;, &#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\normal\\normal (121)_mask.png&#39;, &#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\normal\\normal (122)_mask.png&#39;, &#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\normal\\normal (123)_mask.png&#39;, &#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\normal\\normal (124)_mask.png&#39;, &#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\normal\\normal (125)_mask.png&#39;, &#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\normal\\normal (126)_mask.png&#39;, &#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\normal\\normal (127)_mask.png&#39;, &#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\normal\\normal (128)_mask.png&#39;, &#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\normal\\normal (129)_mask.png&#39;, &#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\normal\\normal (13)_mask.png&#39;, &#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\normal\\normal (130)_mask.png&#39;, &#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\normal\\normal (131)_mask.png&#39;, &#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\normal\\normal (132)_mask.png&#39;, &#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\normal\\normal (133)_mask.png&#39;, &#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\normal\\normal (14)_mask.png&#39;, &#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\normal\\normal (15)_mask.png&#39;, &#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\normal\\normal (16)_mask.png&#39;, &#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\normal\\normal (17)_mask.png&#39;, &#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\normal\\normal (18)_mask.png&#39;, &#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\normal\\normal (19)_mask.png&#39;, &#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\normal\\normal (2)_mask.png&#39;, &#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\normal\\normal (20)_mask.png&#39;, &#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\normal\\normal (21)_mask.png&#39;, &#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\normal\\normal (22)_mask.png&#39;, &#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\normal\\normal (23)_mask.png&#39;, &#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\normal\\normal (24)_mask.png&#39;, &#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\normal\\normal (25)_mask.png&#39;, &#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\normal\\normal (26)_mask.png&#39;, &#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\normal\\normal (27)_mask.png&#39;, &#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\normal\\normal (28)_mask.png&#39;, &#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\normal\\normal (29)_mask.png&#39;, &#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\normal\\normal (3)_mask.png&#39;, &#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\normal\\normal (30)_mask.png&#39;, &#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\normal\\normal (31)_mask.png&#39;, &#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\normal\\normal (32)_mask.png&#39;, &#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\normal\\normal (33)_mask.png&#39;, &#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\normal\\normal (34)_mask.png&#39;, &#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\normal\\normal (35)_mask.png&#39;, &#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\normal\\normal (36)_mask.png&#39;, &#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\normal\\normal (37)_mask.png&#39;, &#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\normal\\normal (38)_mask.png&#39;, &#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\normal\\normal (39)_mask.png&#39;, &#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\normal\\normal (4)_mask.png&#39;, &#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\normal\\normal (40)_mask.png&#39;, &#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\normal\\normal (41)_mask.png&#39;, &#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\normal\\normal (42)_mask.png&#39;, &#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\normal\\normal (43)_mask.png&#39;, &#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\normal\\normal (44)_mask.png&#39;, &#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\normal\\normal (45)_mask.png&#39;, &#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\normal\\normal (46)_mask.png&#39;, &#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\normal\\normal (47)_mask.png&#39;, &#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\normal\\normal (48)_mask.png&#39;, &#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\normal\\normal (49)_mask.png&#39;, &#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\normal\\normal (5)_mask.png&#39;, &#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\normal\\normal (50)_mask.png&#39;, &#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\normal\\normal (51)_mask.png&#39;, &#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\normal\\normal (52)_mask.png&#39;, &#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\normal\\normal (53)_mask.png&#39;, &#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\normal\\normal (54)_mask.png&#39;, &#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\normal\\normal (55)_mask.png&#39;, &#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\normal\\normal (56)_mask.png&#39;, &#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\normal\\normal (57)_mask.png&#39;, &#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\normal\\normal (58)_mask.png&#39;, &#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\normal\\normal (59)_mask.png&#39;, &#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\normal\\normal (6)_mask.png&#39;, &#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\normal\\normal (60)_mask.png&#39;, &#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\normal\\normal (61)_mask.png&#39;, &#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\normal\\normal (62)_mask.png&#39;, &#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\normal\\normal (63)_mask.png&#39;, &#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\normal\\normal (64)_mask.png&#39;, &#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\normal\\normal (65)_mask.png&#39;, &#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\normal\\normal (66)_mask.png&#39;, &#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\normal\\normal (67)_mask.png&#39;, &#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\normal\\normal (68)_mask.png&#39;, &#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\normal\\normal (69)_mask.png&#39;, &#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\normal\\normal (7)_mask.png&#39;, &#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\normal\\normal (70)_mask.png&#39;, &#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\normal\\normal (71)_mask.png&#39;, &#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\normal\\normal (72)_mask.png&#39;, &#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\normal\\normal (73)_mask.png&#39;, &#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\normal\\normal (74)_mask.png&#39;, &#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\normal\\normal (75)_mask.png&#39;, &#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\normal\\normal (76)_mask.png&#39;, &#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\normal\\normal (77)_mask.png&#39;, &#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\normal\\normal (78)_mask.png&#39;, &#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\normal\\normal (79)_mask.png&#39;, &#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\normal\\normal (8)_mask.png&#39;, &#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\normal\\normal (80)_mask.png&#39;, &#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\normal\\normal (81)_mask.png&#39;, &#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\normal\\normal (82)_mask.png&#39;, &#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\normal\\normal (83)_mask.png&#39;, &#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\normal\\normal (84)_mask.png&#39;, &#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\normal\\normal (85)_mask.png&#39;, &#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\normal\\normal (86)_mask.png&#39;, &#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\normal\\normal (87)_mask.png&#39;, &#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\normal\\normal (88)_mask.png&#39;, &#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\normal\\normal (89)_mask.png&#39;, &#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\normal\\normal (9)_mask.png&#39;, &#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\normal\\normal (90)_mask.png&#39;, &#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\normal\\normal (91)_mask.png&#39;, &#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\normal\\normal (92)_mask.png&#39;, &#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\normal\\normal (93)_mask.png&#39;, &#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\normal\\normal (94)_mask.png&#39;, &#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\normal\\normal (95)_mask.png&#39;, &#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\normal\\normal (96)_mask.png&#39;, &#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\normal\\normal (97)_mask.png&#39;, &#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\normal\\normal (98)_mask.png&#39;, &#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\normal\\normal (99)_mask.png&#39;]
+</pre></div>
+</div>
+<img alt="_images/daab71d73e1e5a03fd99583ce3e4abd8916cba6c6e83cedc9bde08677d87d8c8.png" src="_images/daab71d73e1e5a03fd99583ce3e4abd8916cba6c6e83cedc9bde08677d87d8c8.png" />
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Duplicados encontrados (2 imágenes): [&#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\normal\\normal (104).png&#39;, &#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\normal\\normal (107).png&#39;]
+</pre></div>
+</div>
+<img alt="_images/189da2878296629094d01f137a2c8f77376bccd59a5627131010285d5d90f857.png" src="_images/189da2878296629094d01f137a2c8f77376bccd59a5627131010285d5d90f857.png" />
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Duplicados encontrados (2 imágenes): [&#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\normal\\normal (121).png&#39;, &#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\normal\\normal (31).png&#39;]
+</pre></div>
+</div>
+<img alt="_images/724ad291ce5e490af1dca3891f7e896279135488594b1ad1e6e2f0cd5f73f0dd.png" src="_images/724ad291ce5e490af1dca3891f7e896279135488594b1ad1e6e2f0cd5f73f0dd.png" />
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Duplicados encontrados (2 imágenes): [&#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\normal\\normal (125).png&#39;, &#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\normal\\normal (22).png&#39;]
+</pre></div>
+</div>
+<img alt="_images/579ea38a1ec01b3a7b909a104b9eb7c395f380bce53bb8d991af7e3b0f9ac52a.png" src="_images/579ea38a1ec01b3a7b909a104b9eb7c395f380bce53bb8d991af7e3b0f9ac52a.png" />
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Duplicados encontrados (2 imágenes): [&#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\normal\\normal (43).png&#39;, &#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\normal\\normal (50).png&#39;]
+</pre></div>
+</div>
+<img alt="_images/f0076291ee2aa000c3cc782f33b46cdfe9db6dd5f6605a879f261db2dbe0b95b.png" src="_images/f0076291ee2aa000c3cc782f33b46cdfe9db6dd5f6605a879f261db2dbe0b95b.png" />
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Duplicados encontrados (3 imágenes): [&#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\normal\\normal (45).png&#39;, &#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\normal\\normal (49).png&#39;, &#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\normal\\normal (62).png&#39;]
+</pre></div>
+</div>
+<img alt="_images/16d00f04762c61ab81b61325667f26df0bfcacfb514ed7ffb553abf87f97b50c.png" src="_images/16d00f04762c61ab81b61325667f26df0bfcacfb514ed7ffb553abf87f97b50c.png" />
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Duplicados encontrados (2 imágenes): [&#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\normal\\normal (58).png&#39;, &#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\normal\\normal (60).png&#39;]
+</pre></div>
+</div>
+<img alt="_images/73e63dc5f2bad799199327081fb87271aee25cf79ff1d7e8c1156e40be5cdb97.png" src="_images/73e63dc5f2bad799199327081fb87271aee25cf79ff1d7e8c1156e40be5cdb97.png" />
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Duplicados encontrados (2 imágenes): [&#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\normal\\normal (63).png&#39;, &#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\normal\\normal (64).png&#39;]
+</pre></div>
+</div>
+<img alt="_images/bd8834587662c6e26b383b1e8c4e42518326fd2ae771c07edb735f48917b213b.png" src="_images/bd8834587662c6e26b383b1e8c4e42518326fd2ae771c07edb735f48917b213b.png" />
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Duplicados encontrados (2 imágenes): [&#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\normal\\normal (97).png&#39;, &#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\normal\\normal (98).png&#39;]
+</pre></div>
+</div>
+<img alt="_images/3e4d94c67464a98567ab33563029155a37d4bb4130be551f7e530126042b854f.png" src="_images/3e4d94c67464a98567ab33563029155a37d4bb4130be551f7e530126042b854f.png" />
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Duplicados encontrados (2 imágenes): [&#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\maligna\\malignant (116).png&#39;, &#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\maligna\\malignant (18).png&#39;]
+</pre></div>
+</div>
+<img alt="_images/c776766c9370d7e640c6eb0eca84e46f36b5766f9ddc3bddc145c2260efb2786.png" src="_images/c776766c9370d7e640c6eb0eca84e46f36b5766f9ddc3bddc145c2260efb2786.png" />
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Duplicados encontrados (2 imágenes): [&#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\maligna\\malignant (8).png&#39;, &#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\maligna\\malignant (9).png&#39;]
+</pre></div>
+</div>
+<img alt="_images/2249fb45ab35d768d0fe18aa479076b1331b99f11d708a6b3046cb38a511eb54.png" src="_images/2249fb45ab35d768d0fe18aa479076b1331b99f11d708a6b3046cb38a511eb54.png" />
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Duplicados encontrados (2 imágenes): [&#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\maligna\\malignant (8)_mask.png&#39;, &#39;C:\\Users\\kamac\\OneDrive\\Desktop\\DeepLearningUN\\imagenes\\maligna\\malignant (9)_mask.png&#39;]
+</pre></div>
+</div>
+<img alt="_images/f33f73c5fe26a9a02f03ab18e78fce20034b205b468887d388fc723dd9fd99ca.png" src="_images/f33f73c5fe26a9a02f03ab18e78fce20034b205b468887d388fc723dd9fd99ca.png" />
+</div>
+</div>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./."
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="simple visible nav section-nav flex-column">
+</ul>
+
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Kanery Marcela Camargo Rodríguez y Emanuel de Jesús Carbonell Naranjo.
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2023.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

@@ -1,0 +1,1258 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="./" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>EDA: procesamiento y exploración de imágenes &#8212; Deep Learning</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=fa44fd50" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=a3416100" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css?v=be8a1c11" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="_static/doctools.js?v=9a2dae69"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="_static/copybutton.js?v=f281be69"></script>
+    <script src="_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'eda';</script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="prev" title="Proyecto Final - Deep Learning" href="intro.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="intro.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="_static/uninorte.jpg" class="logo__image only-light" alt="Deep Learning - Home"/>
+    <script>document.write(`<img src="_static/uninorte.jpg" class="logo__image only-dark" alt="Deep Learning - Home"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="intro.html">
+                    Proyecto Final - Deep Learning
+                </a>
+            </li>
+        </ul>
+        <ul class="current nav bd-sidenav">
+<li class="toctree-l1 current active"><a class="current reference internal" href="#"><strong>EDA: procesamiento y exploración de imágenes</strong></a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/kmarcela11/ProyectoFinal_DeepLearning" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/kmarcela11/ProyectoFinal_DeepLearning/issues/new?title=Issue%20on%20page%20%2Feda.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="_sources/eda.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>EDA: procesamiento y exploración de imágenes</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#librerias-y-modulos-necesarios"><strong>Líbrerias y modulos necesarios</strong></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#contextualizacion-de-los-datos"><strong>Contextualización de los datos</strong></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#conjunto-de-datos-imagenes"><strong>Conjunto de datos (imágenes)</strong></a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#visualizacion-inicial-de-imagenes"><strong>Visualización inicial de imágenes</strong></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#cantidad-de-imagenes"><strong>Cantidad de imágenes</strong></a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#organizacion-de-imagenes-en-un-dataframe"><strong>Organización de imágenes en un DataFrame</strong></a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#caracteristicas-principales-del-dataframe"><strong>Características principales del DataFrame</strong></a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#analisis-descriptivo"><strong>Análisis descriptivo</strong></a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#distribucion-de-clases"><strong>Distribución de clases</strong></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#distribucion-del-tamano-de-las-imagenes"><strong>Distribución del tamaño de las imágenes</strong></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#distribucion-de-los-canales-de-color"><strong>Distribución de los canales de color</strong></a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pre-procesamiento"><strong>Pre - procesamiento</strong></a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#redimension-de-imagenes"><strong>Redimensión de imágenes</strong></a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#preparacion-para-modelado"><strong>Preparación para modelado</strong></a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="eda-procesamiento-y-exploracion-de-imagenes">
+<h1><strong>EDA: procesamiento y exploración de imágenes</strong><a class="headerlink" href="#eda-procesamiento-y-exploracion-de-imagenes" title="Link to this heading">#</a></h1>
+<section id="librerias-y-modulos-necesarios">
+<h2><strong>Líbrerias y modulos necesarios</strong><a class="headerlink" href="#librerias-y-modulos-necesarios" title="Link to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">os</span>  <span class="c1"># Módulo para interactuar con el sistema operativo (gestión de archivos y directorios).</span>
+
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>  <span class="c1"># Librería para manipulación y análisis de datos estructurados en DataFrames.</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>  <span class="c1"># Biblioteca para trabajar con arreglos numéricos y operaciones matemáticas eficientes.</span>
+
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>  <span class="c1"># Herramienta para crear gráficos estáticos y visualizaciones.</span>
+<span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="nn">sns</span>  <span class="c1"># Extensión de Matplotlib con estilos mejorados y gráficos estadísticos.</span>
+
+<span class="kn">import</span> <span class="nn">cv2</span>  <span class="c1"># OpenCV, usado para procesamiento de imágenes y visión por computadora.</span>
+
+<span class="kn">import</span> <span class="nn">re</span>
+<span class="kn">from</span> <span class="nn">glob</span> <span class="kn">import</span> <span class="n">glob</span>
+
+<span class="kn">import</span> <span class="nn">warnings</span>
+<span class="n">warnings</span><span class="o">.</span><span class="n">filterwarnings</span><span class="p">(</span><span class="s1">&#39;ignore&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="contextualizacion-de-los-datos">
+<h2><strong>Contextualización de los datos</strong><a class="headerlink" href="#contextualizacion-de-los-datos" title="Link to this heading">#</a></h2>
+<p>El cáncer de mama es una de las principales causas de mortalidad en mujeres a nivel mundial, y su detección temprana es clave para reducir el número de muertes prematuras. En este contexto, las imágenes de ultrasonido se han convertido en una herramienta fundamental para el diagnóstico, ya que permiten identificar anomalías en el tejido mamario sin procedimientos invasivos.</p>
+<p>El conjunto de datos utilizado en este estudio está compuesto por <strong>imágenes de ultrasonido de mama</strong> clasificadas en <strong>tres categorías</strong>: <strong>tejido normal, tumores benignos y tumores malignos</strong>. Estas imágenes pueden ser utilizadas en tareas de <strong>clasificación, detección y segmentación</strong>, y han demostrado ser altamente efectivas cuando se combinan con técnicas de aprendizaje automático.</p>
+<p>Este conjunto de datos fue recopilado en <strong>2018</strong> e incluye <strong>780 imágenes</strong> en formato <strong>PNG</strong> con un tamaño medio de <strong>500x500 píxeles</strong>, provenientes de <strong>600 pacientes</strong> con edades entre <strong>25 y 75 años</strong>. Además, se cuenta con <strong>máscaras de segmentación</strong> que acompañan las imágenes originales, facilitando estudios avanzados de detección de tumores.</p>
+<p>Al-Dhabyani W, Gomaa M, Khaled H, Fahmy A. <em>Breast ultrasound images dataset</em>. Data in Brief, February 2020; 28:104863. DOI: <a class="reference external" href="https://doi.org/10.1016/j.dib.2019.104863">10.1016/j.dib.2019.104863</a>.</p>
+<div style="text-align: center;">
+    <img src="https://github.com/kmarcela11/ProyectoFinal_DeepLearning/blob/main/Imagen.jpg?raw=true" alt= " " width="600"/>
+</div>
+</section>
+<section id="conjunto-de-datos-imagenes">
+<h2><strong>Conjunto de datos (imágenes)</strong><a class="headerlink" href="#conjunto-de-datos-imagenes" title="Link to this heading">#</a></h2>
+<p>Primero, se cargan las imágenes que conforman el conjunto de datos, las cuales están previamente clasificadas en tres categorías según el tipo de tumor: <strong>benigno, normal y maligno</strong>.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Ruta principal donde están las imagenes</span>
+<span class="n">base_path</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;C:\Users\kamac\OneDrive\Desktop\DeepLearningUN\imagenes&#39;</span>
+
+<span class="c1"># Definir las categorías (nombre de las carpetas)</span>
+<span class="n">categorias</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;benigno&#39;</span><span class="p">,</span> <span class="s1">&#39;normal&#39;</span><span class="p">,</span> <span class="s1">&#39;maligno&#39;</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+</div>
+<section id="visualizacion-inicial-de-imagenes">
+<h3><strong>Visualización inicial de imágenes</strong><a class="headerlink" href="#visualizacion-inicial-de-imagenes" title="Link to this heading">#</a></h3>
+<p>Antes de visualizar las imágenes se crea la función <code class="docutils literal notranslate"><span class="pre">extraer_numero(nombre_archivo)</span></code>, que emplea expresiones regulares para identificar y extraer el primer número que aparece en el nombre de un archivo. Si se encuentra un número, la función lo convierte en un valor entero; de lo contrario, devuelve un valor infinito (<code class="docutils literal notranslate"><span class="pre">∞</span></code>). Esta técnica resulta clave para ordenar los archivos que contienen números en sus nombres de forma correcta. Los archivos sin números se posicionan al final del orden, lo que garantiza que el proceso de visualización se realice en el orden adecuado. Esta solución es esencial, ya que, sin ella, el código muestra las imágenes en un orden desordenado, lo que dificultaba su análisis.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Función para extraer números de los nombres de archivo y ordenarlos correctamente</span>
+<span class="k">def</span> <span class="nf">extraer_numero</span><span class="p">(</span><span class="n">nombre_archivo</span><span class="p">):</span>
+    <span class="n">coincidencia</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;\d+&#39;</span><span class="p">,</span> <span class="n">nombre_archivo</span><span class="p">)</span>
+    <span class="k">return</span> <span class="nb">int</span><span class="p">(</span><span class="n">coincidencia</span><span class="o">.</span><span class="n">group</span><span class="p">())</span> <span class="k">if</span> <span class="n">coincidencia</span> <span class="k">else</span> <span class="nb">float</span><span class="p">(</span><span class="s1">&#39;inf&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>El siguiente proceso se lleva a cabo para visualizar las primeras imágenes de cada carpeta correspondiente a los tipos de tumor, con el objetivo de analizar en detalle el estado original de las imágenes, sus canales de color, dimensiones y otros aspectos importantes.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">axes</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">categorias</span><span class="p">),</span> <span class="n">figsize</span> <span class="o">=</span> <span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
+
+<span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">categoria</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">categorias</span><span class="p">):</span> <span class="c1"># Itera sobre cada categoría</span>
+    <span class="n">ruta_categoria</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">base_path</span><span class="p">,</span> <span class="n">categoria</span><span class="p">)</span> <span class="c1"># Ruta de la categoría actual</span>
+    <span class="n">imagenes</span> <span class="o">=</span> <span class="n">glob</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">ruta_categoria</span><span class="p">,</span> <span class="s2">&quot;*.png&quot;</span><span class="p">))</span>  <span class="c1"># Obtener todas las imágenes de esa categoría</span>
+
+    <span class="c1"># Filtrar solo las imágenes principales (excluir máscaras)</span>
+    <span class="n">archivos_imagenes</span> <span class="o">=</span> <span class="p">[</span><span class="n">img</span> <span class="k">for</span> <span class="n">img</span> <span class="ow">in</span> <span class="n">imagenes</span> <span class="k">if</span> <span class="s2">&quot;_mask&quot;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">img</span><span class="p">]</span> 
+
+    <span class="c1"># Ordenar por número extraído del nombre del archivo</span>
+    <span class="n">archivos_imagenes</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">archivos_imagenes</span><span class="p">,</span> <span class="n">key</span> <span class="o">=</span> <span class="n">extraer_numero</span><span class="p">)[:</span><span class="mi">1</span><span class="p">]</span>
+
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">archivos_imagenes</span><span class="p">:</span> <span class="c1"># Validar si no hay imágenes en la categoría</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;No se encontraron imágenes en </span><span class="si">{</span><span class="n">categoria</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="k">continue</span>
+
+    <span class="n">ruta_imagen</span> <span class="o">=</span> <span class="n">archivos_imagenes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>  <span class="c1"># La ruta del archivo de la primera imagen</span>
+    <span class="c1"># Cargar la imagen usando OpenCV y convertirla en un formato procesable (un arreglo de píxeles)</span>
+    <span class="n">imagen</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">imread</span><span class="p">(</span><span class="n">ruta_imagen</span><span class="p">)</span>  
+
+    <span class="c1"># Obtener el nombre base de la imagen sin su extensión &quot;.png&quot;</span>
+    <span class="n">base_nombre</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">splitext</span><span class="p">(</span><span class="n">ruta_imagen</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>  <span class="c1"># Remueve la extensión &quot;.png&quot; para obtener solo el nombre base</span>
+
+    <span class="c1"># Buscar todas las máscaras asociadas a la imagen. Las máscaras tienen &quot;_mask&quot; en el nombre y terminan en &quot;.png&quot;</span>
+    <span class="n">mascaras</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">glob</span><span class="p">(</span><span class="n">base_nombre</span> <span class="o">+</span> <span class="s2">&quot;_mask*.png&quot;</span><span class="p">),</span> <span class="n">key</span> <span class="o">=</span> <span class="n">extraer_numero</span><span class="p">)</span>  <span class="c1"># Filtra las máscaras relacionadas y las ordena por número</span>
+
+    <span class="c1"># &#39;glob(base_nombre + &quot;_mask*.png&quot;)&#39; devuelve una lista de archivos que coinciden con el patrón (por ejemplo, &#39;imagen_10_mask1.png.)</span>
+    
+    <span class="n">mascara1</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">imread</span><span class="p">(</span><span class="n">mascaras</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span> <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">mascaras</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="k">else</span> <span class="kc">None</span> <span class="c1"># Cargar la primera máscara si existe</span>
+
+    <span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">imagen</span><span class="p">)</span>
+    <span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">categoria</span><span class="o">.</span><span class="n">capitalize</span><span class="p">()</span><span class="si">}</span><span class="s2"> - Imagen&quot;</span><span class="p">)</span>
+    <span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">axis</span><span class="p">(</span><span class="s2">&quot;off&quot;</span><span class="p">)</span>
+
+    <span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">mascara1</span><span class="p">)</span>
+    <span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">categoria</span><span class="o">.</span><span class="n">capitalize</span><span class="p">()</span><span class="si">}</span><span class="s2"> - Máscara &quot;</span><span class="p">)</span>
+    <span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">axis</span><span class="p">(</span><span class="s2">&quot;off&quot;</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/ca845e6f50df3b34afce48123a9f01175712792d30290829ef90bc78d40f70a3.png" src="_images/ca845e6f50df3b34afce48123a9f01175712792d30290829ef90bc78d40f70a3.png" />
+</div>
+</div>
+<p>En la imagen, se presentan las primeras muestras de cada categoría de tumor, incluyendo benigno, normal y maligno, junto con sus respectivas máscaras. Se observa que las imágenes correspondientes a tumores malignos tienen una dimensión y características visuales distintas en comparación con las de tumores benignos y tejido normal.</p>
+</section>
+<section id="cantidad-de-imagenes">
+<h3><strong>Cantidad de imágenes</strong><a class="headerlink" href="#cantidad-de-imagenes" title="Link to this heading">#</a></h3>
+<p>Ahora veamos la cantidad de imágenes con las que contamos sin diferenciar de máscaras.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Diccionario para almacenar el conteo de imágenes por categoría</span>
+<span class="n">conteo_imagenes</span> <span class="o">=</span> <span class="p">{}</span>
+<span class="n">total_imagenes</span> <span class="o">=</span> <span class="mi">0</span>
+
+<span class="c1"># Contar imágenes en cada categoría</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">categorias</span><span class="p">:</span>
+    <span class="n">ruta_categoria</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">base_path</span><span class="p">,</span> <span class="n">i</span><span class="p">)</span>
+    <span class="n">imagenes</span> <span class="o">=</span> <span class="n">glob</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">ruta_categoria</span><span class="p">,</span> <span class="s2">&quot;*.png&quot;</span><span class="p">))</span>  <span class="c1"># Obtener todas las imágenes</span>
+    <span class="n">conteo_imagenes</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">imagenes</span><span class="p">)</span>  <span class="c1"># Contar todas las imágenes, sin excluir máscaras</span>
+    <span class="n">total_imagenes</span> <span class="o">+=</span> <span class="n">conteo_imagenes</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+    
+<span class="k">for</span> <span class="n">categoria</span><span class="p">,</span> <span class="n">cantidad</span> <span class="ow">in</span> <span class="n">conteo_imagenes</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;La cantidad de imágenes en la categoría </span><span class="si">{</span><span class="n">categoria</span><span class="o">.</span><span class="n">capitalize</span><span class="p">()</span><span class="si">}</span><span class="s2"> es de </span><span class="si">{</span><span class="n">cantidad</span><span class="si">}</span><span class="s2"> imágenes&quot;</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Total de imágenes: </span><span class="si">{</span><span class="n">total_imagenes</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>La cantidad de imágenes en la categoría Benigno es de 891 imágenes
+La cantidad de imágenes en la categoría Normal es de 266 imágenes
+La cantidad de imágenes en la categoría Maligno es de 421 imágenes
+
+Total de imágenes: 1578
+</pre></div>
+</div>
+</div>
+</div>
+<p>En este proceso, contamos con un total de 1,578 imágenes, distribuidas de la siguiente manera: 891 corresponden a la categoría de tumor benigno, 266 a tejido normal y 421 a tumor maligno. Siguiendo el ejemplo anterior, donde se visualizaron las primeras imágenes, podríamos suponer inicialmente que cada imagen tiene una máscara asociada. Sin embargo, al analizar la cantidad de imágenes en la clase benigna, notamos que 891 no es un número divisible exactamente entre dos, lo que plantea dos posibilidades: 1) que algunas imágenes no tengan una máscara asociada o 2) que algunas imágenes tengan más de una máscara.</p>
+<p>Este mismo patrón se observa en la categoría de tumores malignos, mientras que en la clase de tejido normal la cantidad de imágenes coincide perfectamente. Tras una investigación más detallada, descubrimos que la razón detrás de esta discrepancia es que algunas imágenes contienen más de un tumor, lo que genera múltiples máscaras. Más adelante, abordaremos cómo manejar esta particularidad en el análisis.</p>
+</section>
+</section>
+<section id="organizacion-de-imagenes-en-un-dataframe">
+<h2><strong>Organización de imágenes en un DataFrame</strong><a class="headerlink" href="#organizacion-de-imagenes-en-un-dataframe" title="Link to this heading">#</a></h2>
+<p>Ahora vamos a almacenar las imágenes en un DataFrame con el objetivo de facilitar su análisis y procesamiento. Cada imagen será representada en su formato de píxeles y convertida a escala de color RGB para asegurar coherencia en la manipulación de datos. Este DataFrame permitirá realizar exploraciones, transformaciones y futuras aplicaciones en modelos de análisis de imágenes de manera eficiente. En este paso tendremos en cuenta aquellas imágenes que tienen más de una máscara con el objetivo de posteriormente analizar este comportamiento.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Lista para almacenar la información de las imágenes</span>
+<span class="n">datos_imagenes</span> <span class="o">=</span> <span class="p">[]</span>
+
+<span class="k">for</span> <span class="n">categoria</span> <span class="ow">in</span> <span class="n">categorias</span><span class="p">:</span>
+    <span class="n">ruta_categoria</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">base_path</span><span class="p">,</span> <span class="n">categoria</span><span class="p">)</span>  <span class="c1"># Obtener la ruta completa de la categoría</span>
+    <span class="n">imagenes</span> <span class="o">=</span> <span class="n">glob</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">ruta_categoria</span><span class="p">,</span> <span class="s2">&quot;*.png&quot;</span><span class="p">))</span>  <span class="c1"># Obtener todas las imágenes en la carpeta</span>
+
+    <span class="c1"># Filtrar solo las imágenes originales, excluyendo las máscaras</span>
+    <span class="n">archivos_imagenes</span> <span class="o">=</span> <span class="p">[</span><span class="n">img</span> <span class="k">for</span> <span class="n">img</span> <span class="ow">in</span> <span class="n">imagenes</span> <span class="k">if</span> <span class="s2">&quot;_mask&quot;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">img</span><span class="p">]</span>
+    
+    <span class="c1"># Ordenar las imágenes por el número extraído de su nombre</span>
+    <span class="n">archivos_imagenes</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">archivos_imagenes</span><span class="p">,</span> <span class="n">key</span> <span class="o">=</span> <span class="n">extraer_numero</span><span class="p">)</span>
+
+    <span class="k">for</span> <span class="n">ruta_imagen</span> <span class="ow">in</span> <span class="n">archivos_imagenes</span><span class="p">:</span>
+        <span class="c1"># Cargar la imagen original en formato BGR y convertirla a RGB</span>
+        <span class="n">imagen</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">imread</span><span class="p">(</span><span class="n">ruta_imagen</span><span class="p">)</span>
+        <span class="n">imagen</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">cvtColor</span><span class="p">(</span><span class="n">imagen</span><span class="p">,</span> <span class="n">cv2</span><span class="o">.</span><span class="n">COLOR_BGR2RGB</span><span class="p">)</span>
+
+        <span class="c1"># Obtener las máscaras asociadas</span>
+        <span class="n">nombre_base</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">splitext</span><span class="p">(</span><span class="n">ruta_imagen</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>  <span class="c1"># Remover la extensión &quot;.png&quot;</span>
+        <span class="n">mascaras</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">glob</span><span class="p">(</span><span class="n">nombre_base</span> <span class="o">+</span> <span class="s2">&quot;_mask*.png&quot;</span><span class="p">),</span> <span class="n">key</span> <span class="o">=</span> <span class="n">extraer_numero</span><span class="p">)</span>
+
+        <span class="c1"># Cargar las máscaras en formato BGR y convertirlas a RGB (si existen)</span>
+        <span class="n">mascara1</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">imread</span><span class="p">(</span><span class="n">mascaras</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span> <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">mascaras</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="k">else</span> <span class="kc">None</span>
+        <span class="n">mascara1</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">cvtColor</span><span class="p">(</span><span class="n">mascara1</span><span class="p">,</span> <span class="n">cv2</span><span class="o">.</span><span class="n">COLOR_BGR2RGB</span><span class="p">)</span> <span class="k">if</span> <span class="n">mascara1</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="k">else</span> <span class="kc">None</span>
+
+        <span class="n">mascara2</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">imread</span><span class="p">(</span><span class="n">mascaras</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span> <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">mascaras</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">1</span> <span class="k">else</span> <span class="kc">None</span>
+        <span class="n">mascara2</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">cvtColor</span><span class="p">(</span><span class="n">mascara2</span><span class="p">,</span> <span class="n">cv2</span><span class="o">.</span><span class="n">COLOR_BGR2RGB</span><span class="p">)</span> <span class="k">if</span> <span class="n">mascara2</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="k">else</span> <span class="kc">None</span>
+
+        <span class="n">mascara3</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">imread</span><span class="p">(</span><span class="n">mascaras</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span> <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">mascaras</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">2</span> <span class="k">else</span> <span class="kc">None</span>
+        <span class="n">mascara3</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">cvtColor</span><span class="p">(</span><span class="n">mascara3</span><span class="p">,</span> <span class="n">cv2</span><span class="o">.</span><span class="n">COLOR_BGR2RGB</span><span class="p">)</span> <span class="k">if</span> <span class="n">mascara3</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="k">else</span> <span class="kc">None</span>
+        
+        <span class="c1"># Obtener las dimensiones de la imagen</span>
+        <span class="n">dimensiones</span> <span class="o">=</span> <span class="n">imagen</span><span class="o">.</span><span class="n">shape</span><span class="p">[:</span><span class="mi">3</span><span class="p">]</span>
+
+        <span class="c1"># Almacenar la información en la lista</span>
+        <span class="n">datos_imagenes</span><span class="o">.</span><span class="n">append</span><span class="p">({</span>
+            <span class="s1">&#39;Imagen&#39;</span><span class="p">:</span> <span class="n">imagen</span><span class="p">,</span>
+            <span class="s1">&#39;Máscara 1&#39;</span><span class="p">:</span> <span class="n">mascara1</span><span class="p">,</span>
+            <span class="s1">&#39;Máscara 2&#39;</span><span class="p">:</span> <span class="n">mascara2</span><span class="p">,</span>
+            <span class="s1">&#39;Máscara 3&#39;</span><span class="p">:</span> <span class="n">mascara3</span><span class="p">,</span>
+            <span class="s1">&#39;Dimensiones&#39;</span><span class="p">:</span> <span class="n">dimensiones</span><span class="p">,</span>
+            <span class="s1">&#39;Etiqueta&#39;</span><span class="p">:</span> <span class="n">categoria</span>  
+        <span class="p">})</span>
+
+<span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">datos_imagenes</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<section id="caracteristicas-principales-del-dataframe">
+<h3><strong>Características principales del DataFrame</strong><a class="headerlink" href="#caracteristicas-principales-del-dataframe" title="Link to this heading">#</a></h3>
+<p>Antes de ver las principales características de este conjunto de datos, se define el siguiente método el cual retorna la imágen.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">mostrar_imagen</span><span class="p">(</span><span class="n">fila</span><span class="p">):</span>
+    <span class="c1"># Extraer la imagen y las máscaras</span>
+    <span class="n">imagen</span> <span class="o">=</span> <span class="n">fila</span><span class="p">[</span><span class="s2">&quot;Imagen&quot;</span><span class="p">]</span>  <span class="c1"># Imagen original</span>
+    <span class="n">mask1</span> <span class="o">=</span> <span class="n">fila</span><span class="p">[</span><span class="s2">&quot;Máscara 1&quot;</span><span class="p">]</span>  <span class="c1"># Primera máscara</span>
+    <span class="n">mask2</span> <span class="o">=</span> <span class="n">fila</span><span class="p">[</span><span class="s2">&quot;Máscara 2&quot;</span><span class="p">]</span>  <span class="c1"># Segunda máscara</span>
+    <span class="n">mask3</span> <span class="o">=</span> <span class="n">fila</span><span class="p">[</span><span class="s2">&quot;Máscara 3&quot;</span><span class="p">]</span>  <span class="c1"># Tercera máscara</span>
+    
+    <span class="c1"># Contar cuántas imágenes hay realmente (si Mask1 o Mask2 es None, no se muestra)</span>
+    <span class="n">imagenes</span> <span class="o">=</span> <span class="p">[</span><span class="n">imagen</span><span class="p">]</span>
+    <span class="n">titulos</span> <span class="o">=</span> <span class="p">[</span><span class="sa">f</span><span class="s1">&#39;Imagen original - Tumor </span><span class="si">{</span><span class="n">fila</span><span class="p">[</span><span class="s2">&quot;Etiqueta&quot;</span><span class="p">]</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">]</span>
+
+    <span class="k">if</span> <span class="n">mask1</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">imagenes</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">mask1</span><span class="p">)</span>
+        <span class="n">titulos</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;Máscara 1&quot;</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">mask2</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">imagenes</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">mask2</span><span class="p">)</span>
+        <span class="n">titulos</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;Máscara 2&quot;</span><span class="p">)</span>
+    
+    <span class="k">if</span> <span class="n">mask3</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">imagenes</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">mask3</span><span class="p">)</span>
+        <span class="n">titulos</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;Máscara 3&quot;</span><span class="p">)</span>
+
+    <span class="c1"># Crear la figura con subplots dinámicos</span>
+    <span class="n">fig</span><span class="p">,</span> <span class="n">axes</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">imagenes</span><span class="p">),</span> <span class="n">figsize</span> <span class="o">=</span> <span class="p">(</span><span class="mi">5</span> <span class="o">*</span> <span class="nb">len</span><span class="p">(</span><span class="n">imagenes</span><span class="p">),</span> <span class="mi">5</span><span class="p">))</span>
+
+    <span class="c1"># Si solo hay una imagen, hacer que &#39;axes&#39; sea iterable</span>
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">imagenes</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+        <span class="n">axes</span> <span class="o">=</span> <span class="p">[</span><span class="n">axes</span><span class="p">]</span>
+
+    <span class="c1"># Mostrar cada imagen</span>
+    <span class="k">for</span> <span class="n">ax</span><span class="p">,</span> <span class="n">img</span><span class="p">,</span> <span class="n">title</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">axes</span><span class="p">,</span> <span class="n">imagenes</span><span class="p">,</span> <span class="n">titulos</span><span class="p">):</span>
+        <span class="n">ax</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">img</span> <span class="k">if</span> <span class="n">img</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="k">else</span> <span class="p">[[</span><span class="mi">0</span><span class="p">]],</span> <span class="n">cmap</span><span class="o">=</span><span class="s2">&quot;gray&quot;</span> <span class="k">if</span> <span class="s2">&quot;Máscara&quot;</span> <span class="ow">in</span> <span class="n">title</span> <span class="k">else</span> <span class="kc">None</span><span class="p">)</span>
+        <span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="n">title</span><span class="p">)</span>
+        <span class="n">ax</span><span class="o">.</span><span class="n">axis</span><span class="p">(</span><span class="s2">&quot;off&quot;</span><span class="p">)</span>
+    
+    <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Imagen</th>
+      <th>Máscara 1</th>
+      <th>Máscara 2</th>
+      <th>Máscara 3</th>
+      <th>Dimensiones</th>
+      <th>Etiqueta</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>[[[7, 7, 7], [2, 2, 2], [4, 4, 4], [7, 7, 7], ...</td>
+      <td>[[[0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0], ...</td>
+      <td>None</td>
+      <td>None</td>
+      <td>(471, 562, 3)</td>
+      <td>benigno</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>[[[0, 0, 0], [58, 58, 58], [188, 188, 188], [2...</td>
+      <td>[[[0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0], ...</td>
+      <td>None</td>
+      <td>None</td>
+      <td>(473, 557, 3)</td>
+      <td>benigno</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>[[[198, 198, 198], [202, 202, 202], [197, 197,...</td>
+      <td>[[[0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0], ...</td>
+      <td>None</td>
+      <td>None</td>
+      <td>(471, 558, 3)</td>
+      <td>benigno</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>[[[0, 0, 0], [0, 0, 0], [0, 0, 0], [5, 5, 5], ...</td>
+      <td>[[[0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0], ...</td>
+      <td>[[[0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0], ...</td>
+      <td>None</td>
+      <td>(465, 555, 3)</td>
+      <td>benigno</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>[[[187, 187, 187], [187, 187, 187], [188, 188,...</td>
+      <td>[[[0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0], ...</td>
+      <td>None</td>
+      <td>None</td>
+      <td>(496, 549, 3)</td>
+      <td>benigno</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">tail</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Imagen</th>
+      <th>Máscara 1</th>
+      <th>Máscara 2</th>
+      <th>Máscara 3</th>
+      <th>Dimensiones</th>
+      <th>Etiqueta</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>775</th>
+      <td>[[[2, 2, 2], [0, 0, 0], [4, 4, 4], [4, 4, 4], ...</td>
+      <td>[[[0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0], ...</td>
+      <td>None</td>
+      <td>None</td>
+      <td>(571, 792, 3)</td>
+      <td>maligno</td>
+    </tr>
+    <tr>
+      <th>776</th>
+      <td>[[[17, 17, 17], [204, 204, 204], [201, 201, 20...</td>
+      <td>[[[0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0], ...</td>
+      <td>None</td>
+      <td>None</td>
+      <td>(458, 557, 3)</td>
+      <td>maligno</td>
+    </tr>
+    <tr>
+      <th>777</th>
+      <td>[[[0, 0, 0], [91, 91, 91], [57, 57, 57], [3, 3...</td>
+      <td>[[[0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0], ...</td>
+      <td>None</td>
+      <td>None</td>
+      <td>(664, 617, 3)</td>
+      <td>maligno</td>
+    </tr>
+    <tr>
+      <th>778</th>
+      <td>[[[68, 68, 68], [155, 155, 155], [202, 202, 20...</td>
+      <td>[[[0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0], ...</td>
+      <td>None</td>
+      <td>None</td>
+      <td>(471, 508, 3)</td>
+      <td>maligno</td>
+    </tr>
+    <tr>
+      <th>779</th>
+      <td>[[[1, 1, 1], [7, 7, 7], [0, 0, 0], [0, 0, 0], ...</td>
+      <td>[[[0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0], ...</td>
+      <td>None</td>
+      <td>None</td>
+      <td>(587, 775, 3)</td>
+      <td>maligno</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<p>Nótese que ahora se encuentran las imágenes almacenadas en una estructura más comóda. Como datos relevantes, nótese también que todas las imágenes cuentan con 3 canales de color (RGB)</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">shape</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(780, 6)
+</pre></div>
+</div>
+</div>
+</div>
+<p>El conjunto de datos cuenta con 780 observaciones, organizadas en 6 filas.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">info</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;class &#39;pandas.core.frame.DataFrame&#39;&gt;
+RangeIndex: 780 entries, 0 to 779
+Data columns (total 6 columns):
+ #   Column       Non-Null Count  Dtype 
+---  ------       --------------  ----- 
+ 0   Imagen       780 non-null    object
+ 1   Máscara 1    780 non-null    object
+ 2   Máscara 2    17 non-null     object
+ 3   Máscara 3    1 non-null      object
+ 4   Dimensiones  780 non-null    object
+ 5   Etiqueta     780 non-null    object
+dtypes: object(6)
+memory usage: 36.7+ KB
+</pre></div>
+</div>
+</div>
+</div>
+<p>Se identificó un total de 780 imágenes, de las cuales 763 tienen una única máscara, 17 poseen dos máscaras y 1 imagen cuenta con tres máscaras.</p>
+<p>Este resultado es coherente con lo mencionado anteriormente, donde inicialmente se estimaba un total de 789 imágenes (1578/2 = 789). Sin embargo, observamos una diferencia de 9 imágenes, lo que indica que había 9 máscaras sin una imagen claramente definida.</p>
+<p>Al reorganizar los datos, se evidencia que estas 9 máscaras adicionales (9 × 2 = 18) corresponden exactamente a las 18 observaciones encontradas en las columnas “Máscara 2” y “Máscara 3”, lo que confirma la distribución de las máscaras en el conjunto de datos.</p>
+<p>Con el siguiente código se puede observar una fila específica del conjunto de datos. Veamos algunos ejemplos.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>  <span class="c1"># Muestra la primera fila</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Imagen         [[[7, 7, 7], [2, 2, 2], [4, 4, 4], [7, 7, 7], ...
+Máscara 1      [[[0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0], ...
+Máscara 2                                                   None
+Máscara 3                                                   None
+Dimensiones                                        (471, 562, 3)
+Etiqueta                                                 benigno
+Name: 0, dtype: object
+</pre></div>
+</div>
+</div>
+</div>
+<p>Nótese que este es un ejemplo de que se encuentra una sola máscara. A continuación se muestran las imágenes en formato RGB</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">mostrar_imagen</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/3d7cd04bf7b82575018a4beb909868f9894b445908f79aabd215559270ebfe18.png" src="_images/3d7cd04bf7b82575018a4beb909868f9894b445908f79aabd215559270ebfe18.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span> <span class="c1"># Muestra la cuarta fila</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Imagen         [[[0, 0, 0], [0, 0, 0], [0, 0, 0], [5, 5, 5], ...
+Máscara 1      [[[0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0], ...
+Máscara 2      [[[0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0], ...
+Máscara 3                                                   None
+Dimensiones                                        (465, 555, 3)
+Etiqueta                                                 benigno
+Name: 3, dtype: object
+</pre></div>
+</div>
+</div>
+</div>
+<p>Aquí vemos que en la cuarta fila hay presencia de dos máscaras.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">mostrar_imagen</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">3</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/72b5da7cca732f59dff38ad6eee1bb8a2ef29d5b8fb67864e9b589eb51284dc4.png" src="_images/72b5da7cca732f59dff38ad6eee1bb8a2ef29d5b8fb67864e9b589eb51284dc4.png" />
+</div>
+</div>
+<p>Busquemos ahora cual es la imagen que contiene tres mascaras para posteriormente gráficarlo.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Filtrar la única observación donde &quot;Máscara 3&quot; no es nula</span>
+<span class="n">observacion_mascara3</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="n">df</span><span class="p">[</span><span class="s2">&quot;Máscara 3&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">notna</span><span class="p">()]</span>
+<span class="n">observacion_mascara3</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Imagen</th>
+      <th>Máscara 1</th>
+      <th>Máscara 2</th>
+      <th>Máscara 3</th>
+      <th>Dimensiones</th>
+      <th>Etiqueta</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>194</th>
+      <td>[[[1, 1, 1], [1, 1, 1], [1, 1, 1], [1, 1, 1], ...</td>
+      <td>[[[0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0], ...</td>
+      <td>[[[0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0], ...</td>
+      <td>[[[0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0], ...</td>
+      <td>(611, 729, 3)</td>
+      <td>benigno</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">mostrar_imagen</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">194</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/5d036caf43f27375365f720a0642b365ca25b6bf066bcadca474e48b7b58626e.png" src="_images/5d036caf43f27375365f720a0642b365ca25b6bf066bcadca474e48b7b58626e.png" />
+</div>
+</div>
+</section>
+</section>
+<section id="analisis-descriptivo">
+<h2><strong>Análisis descriptivo</strong><a class="headerlink" href="#analisis-descriptivo" title="Link to this heading">#</a></h2>
+<section id="distribucion-de-clases">
+<h3><strong>Distribución de clases</strong><a class="headerlink" href="#distribucion-de-clases" title="Link to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">class_counts</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s2">&quot;Etiqueta&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">value_counts</span><span class="p">()</span>
+<span class="n">fig</span><span class="p">,</span> <span class="n">axes</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">14</span><span class="p">,</span> <span class="mi">5</span><span class="p">))</span>  
+
+<span class="n">ax</span> <span class="o">=</span> <span class="n">sns</span><span class="o">.</span><span class="n">barplot</span><span class="p">(</span><span class="n">x</span> <span class="o">=</span> <span class="n">class_counts</span><span class="o">.</span><span class="n">index</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">class_counts</span><span class="o">.</span><span class="n">values</span><span class="p">,</span> <span class="n">palette</span> <span class="o">=</span> <span class="s2">&quot;rocket&quot;</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+
+<span class="c1"># Agregar valores en las barras</span>
+<span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">value</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">class_counts</span><span class="o">.</span><span class="n">values</span><span class="p">):</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">value</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">value</span><span class="p">),</span> <span class="n">ha</span><span class="o">=</span><span class="s1">&#39;center&#39;</span><span class="p">,</span> <span class="n">fontsize</span> <span class="o">=</span> <span class="mi">12</span><span class="p">,</span> <span class="n">fontweight</span> <span class="o">=</span> <span class="s1">&#39;bold&#39;</span><span class="p">)</span>
+
+<span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">&quot;Clases&quot;</span><span class="p">)</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">&quot;Número de imágenes&quot;</span><span class="p">)</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">&quot;Distribución de Clases&quot;</span><span class="p">)</span>
+
+<span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">pie</span><span class="p">(</span><span class="n">class_counts</span><span class="p">,</span> <span class="n">labels</span> <span class="o">=</span> <span class="n">class_counts</span><span class="o">.</span><span class="n">index</span><span class="p">,</span> <span class="n">autopct</span> <span class="o">=</span> <span class="s1">&#39;</span><span class="si">%1.1f%%</span><span class="s1">&#39;</span><span class="p">,</span> <span class="n">colors</span> <span class="o">=</span> <span class="n">sns</span><span class="o">.</span><span class="n">color_palette</span><span class="p">(</span><span class="s2">&quot;rocket&quot;</span><span class="p">),</span> <span class="n">startangle</span> <span class="o">=</span> <span class="mi">140</span><span class="p">,</span> <span class="n">wedgeprops</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;edgecolor&#39;</span><span class="p">:</span> <span class="s1">&#39;black&#39;</span><span class="p">})</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">&quot;Proporción de Clases&quot;</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">text</span> <span class="ow">in</span> <span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">texts</span><span class="p">:</span>
+    <span class="k">if</span> <span class="s1">&#39;%&#39;</span> <span class="ow">in</span> <span class="n">text</span><span class="o">.</span><span class="n">get_text</span><span class="p">():</span>  <span class="c1"># Si es un porcentaje (valor dentro del gráfico)</span>
+        <span class="n">text</span><span class="o">.</span><span class="n">set_color</span><span class="p">(</span><span class="s1">&#39;white&#39;</span><span class="p">)</span>  
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/121efc2d4de15e5f483ee35bfa2da9174a7a19f3124b7c1971789d9fc813c2cd.png" src="_images/121efc2d4de15e5f483ee35bfa2da9174a7a19f3124b7c1971789d9fc813c2cd.png" />
+</div>
+</div>
+</section>
+<section id="distribucion-del-tamano-de-las-imagenes">
+<h3><strong>Distribución del tamaño de las imágenes</strong><a class="headerlink" href="#distribucion-del-tamano-de-las-imagenes" title="Link to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Extraer las dimensiones (alto y ancho) de cada imagen en listas separadas</span>
+<span class="n">df</span><span class="p">[</span><span class="s2">&quot;Height&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s2">&quot;Dimensiones&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>  <span class="c1"># Alto de la imagen</span>
+<span class="n">df</span><span class="p">[</span><span class="s2">&quot;Width&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s2">&quot;Dimensiones&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>   <span class="c1"># Ancho de la imagen</span>
+
+<span class="c1"># Crear una figura con 1 fila y 2 columnas</span>
+<span class="n">fig</span><span class="p">,</span> <span class="n">axes</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">14</span><span class="p">,</span> <span class="mi">5</span><span class="p">))</span>
+
+<span class="c1">## **Histograma de Altura y Ancho**</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">histplot</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s2">&quot;Height&quot;</span><span class="p">],</span> <span class="n">bins</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span> <span class="n">kde</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;blue&quot;</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Altura&quot;</span><span class="p">)</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">histplot</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s2">&quot;Width&quot;</span><span class="p">],</span> <span class="n">bins</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span> <span class="n">kde</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;red&quot;</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Ancho&quot;</span><span class="p">)</span>
+
+<span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">&quot;Distribución del Tamaño de las Imágenes&quot;</span><span class="p">)</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">&quot;Dimensión (píxeles)&quot;</span><span class="p">)</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">&quot;Frecuencia&quot;</span><span class="p">)</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+
+<span class="c1">## **Gráfico de Dispersión: Relación Ancho vs. Alto**</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">scatterplot</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">df</span><span class="p">[</span><span class="s2">&quot;Width&quot;</span><span class="p">],</span> <span class="n">y</span><span class="o">=</span><span class="n">df</span><span class="p">[</span><span class="s2">&quot;Height&quot;</span><span class="p">],</span> <span class="n">ax</span><span class="o">=</span><span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.7</span><span class="p">,</span> <span class="n">edgecolor</span><span class="o">=</span><span class="s2">&quot;black&quot;</span><span class="p">)</span>
+
+<span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">&quot;Relación entre Ancho y Alto de las Imágenes&quot;</span><span class="p">)</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">&quot;Ancho (píxeles)&quot;</span><span class="p">)</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">&quot;Alto (píxeles)&quot;</span><span class="p">)</span>
+
+<span class="c1"># Ajustar el diseño</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/e0134b231aed0ff1484a5a0ecbc4c1f5d3f263a1706d58c87dff5dd9055dea4f.png" src="_images/e0134b231aed0ff1484a5a0ecbc4c1f5d3f263a1706d58c87dff5dd9055dea4f.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Extraer las dimensiones de cada imagen</span>
+<span class="n">df</span><span class="p">[</span><span class="s2">&quot;Height&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s2">&quot;Dimensiones&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>  <span class="c1"># Alto</span>
+<span class="n">df</span><span class="p">[</span><span class="s2">&quot;Width&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s2">&quot;Dimensiones&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>   <span class="c1"># Ancho</span>
+
+<span class="c1"># Definir el tamaño de la figura con 2 filas y 2 columnas</span>
+<span class="n">fig</span><span class="p">,</span> <span class="n">axes</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">14</span><span class="p">,</span> <span class="mi">10</span><span class="p">))</span>
+
+<span class="c1"># **Histograma de Altura por Clase**</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">histplot</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">df</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="s2">&quot;Height&quot;</span><span class="p">,</span> <span class="n">hue</span><span class="o">=</span><span class="s2">&quot;Label&quot;</span><span class="p">,</span> <span class="n">bins</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span> <span class="n">kde</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">])</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">&quot;Distribución de Altura por Clase&quot;</span><span class="p">)</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">&quot;Altura (píxeles)&quot;</span><span class="p">)</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">&quot;Frecuencia&quot;</span><span class="p">)</span>
+
+<span class="c1"># **Histograma de Ancho por Clase**</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">histplot</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">df</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="s2">&quot;Width&quot;</span><span class="p">,</span> <span class="n">hue</span><span class="o">=</span><span class="s2">&quot;Label&quot;</span><span class="p">,</span> <span class="n">bins</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span> <span class="n">kde</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">])</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">&quot;Distribución de Ancho por Clase&quot;</span><span class="p">)</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">&quot;Ancho (píxeles)&quot;</span><span class="p">)</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">&quot;Frecuencia&quot;</span><span class="p">)</span>
+
+<span class="c1"># **Gráfico de Dispersión: Relación Ancho vs. Alto por Clase**</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">scatterplot</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">df</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="s2">&quot;Width&quot;</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s2">&quot;Height&quot;</span><span class="p">,</span> <span class="n">hue</span><span class="o">=</span><span class="s2">&quot;Label&quot;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.7</span><span class="p">,</span> <span class="n">edgecolor</span><span class="o">=</span><span class="s2">&quot;black&quot;</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">])</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">&quot;Relación entre Ancho y Alto por Clase&quot;</span><span class="p">)</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">&quot;Ancho (píxeles)&quot;</span><span class="p">)</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">&quot;Alto (píxeles)&quot;</span><span class="p">)</span>
+
+<span class="c1"># **Boxplot para ver la variabilidad del tamaño por clase**</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">boxplot</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">df</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="s2">&quot;Label&quot;</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s2">&quot;Height&quot;</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">palette</span><span class="o">=</span><span class="s2">&quot;Set2&quot;</span><span class="p">)</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">&quot;Variabilidad de la Altura por Clase&quot;</span><span class="p">)</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">&quot;Clase&quot;</span><span class="p">)</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">&quot;Altura (píxeles)&quot;</span><span class="p">)</span>
+
+<span class="c1"># Ajustar el diseño</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/fa0db59a516a397a7ce3de57733910c10a731526a4b7f4dda1d5e74243071a07.png" src="_images/fa0db59a516a397a7ce3de57733910c10a731526a4b7f4dda1d5e74243071a07.png" />
+</div>
+</div>
+</section>
+<section id="distribucion-de-los-canales-de-color">
+<h3><strong>Distribución de los canales de color</strong><a class="headerlink" href="#distribucion-de-los-canales-de-color" title="Link to this heading">#</a></h3>
+</section>
+</section>
+<section id="pre-procesamiento">
+<h2><strong>Pre - procesamiento</strong><a class="headerlink" href="#pre-procesamiento" title="Link to this heading">#</a></h2>
+<section id="redimension-de-imagenes">
+<h3><strong>Redimensión de imágenes</strong><a class="headerlink" href="#redimension-de-imagenes" title="Link to this heading">#</a></h3>
+<p>Redimensionar las imágenes es fundamental en el procesamiento de datos, ya que garantiza que todas tengan un tamaño uniforme, reduce el costo computacional y facilita su uso en modelos de Machine Learning. Al ajustar las dimensiones, se evita el problema de trabajar con imágenes de diferentes tamaños, lo que mejora la eficiencia y compatibilidad con arquitecturas como ResNet o VGG. Además, redimensionarlas ayuda a optimizar el uso de memoria y acelera el entrenamiento sin afectar significativamente la calidad visual.</p>
+</section>
+</section>
+<section id="preparacion-para-modelado">
+<h2><strong>Preparación para modelado</strong><a class="headerlink" href="#preparacion-para-modelado" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p>Aplicar técnicas de aumento de datos (Data Augmentation).</p></li>
+<li><p>Convertir imágenes a tensores o arrays para modelos de Machine Learning.</p></li>
+</ul>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./."
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="intro.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title"><strong>Proyecto Final - Deep Learning</strong></p>
+      </div>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#librerias-y-modulos-necesarios"><strong>Líbrerias y modulos necesarios</strong></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#contextualizacion-de-los-datos"><strong>Contextualización de los datos</strong></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#conjunto-de-datos-imagenes"><strong>Conjunto de datos (imágenes)</strong></a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#visualizacion-inicial-de-imagenes"><strong>Visualización inicial de imágenes</strong></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#cantidad-de-imagenes"><strong>Cantidad de imágenes</strong></a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#organizacion-de-imagenes-en-un-dataframe"><strong>Organización de imágenes en un DataFrame</strong></a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#caracteristicas-principales-del-dataframe"><strong>Características principales del DataFrame</strong></a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#analisis-descriptivo"><strong>Análisis descriptivo</strong></a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#distribucion-de-clases"><strong>Distribución de clases</strong></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#distribucion-del-tamano-de-las-imagenes"><strong>Distribución del tamaño de las imágenes</strong></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#distribucion-de-los-canales-de-color"><strong>Distribución de los canales de color</strong></a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pre-procesamiento"><strong>Pre - procesamiento</strong></a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#redimension-de-imagenes"><strong>Redimensión de imágenes</strong></a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#preparacion-para-modelado"><strong>Preparación para modelado</strong></a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Kanery Marcela Camargo Rodríguez y Emanuel de Jesús Carbonell Naranjo.
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2023.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>
