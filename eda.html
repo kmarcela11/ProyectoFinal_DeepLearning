@@ -384,19 +384,28 @@ document.write(`
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#organizacion-de-imagenes-en-un-dataframe"><strong>Organización de imágenes en un DataFrame</strong></a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#caracteristicas-principales-del-dataframe"><strong>Características principales del DataFrame</strong></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#agregar-imagenes-con-varias-mascaras"><strong>Agregar imágenes con varias máscaras</strong></a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#analisis-descriptivo"><strong>Análisis descriptivo</strong></a><ul class="nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#analisis-descriptivo-de-imagenes"><strong>Análisis descriptivo de imágenes</strong></a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#distribucion-de-clases"><strong>Distribución de clases</strong></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#distribucion-del-tamano-de-las-imagenes"><strong>Distribución del tamaño de las imágenes</strong></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#distribucion-de-los-canales-de-color"><strong>Distribución de los canales de color</strong></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#mapa-de-intensidad-de-pixeles"><strong>Mapa de intensidad de píxeles</strong></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#histograma-de-escala-de-grises"><strong>Histograma de escala de grises</strong></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#distribucion-de-intensidad-de-pixeles"><strong>Distribución de intensidad de píxeles</strong></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#filtrado-de-imagenes-con-opencv"><strong>Filtrado de imágenes con OpenCV</strong></a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#que-son-los-filtros-en-imagenes"><strong>¿Qué son los filtros en imágenes?</strong></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#importancia-del-filtrado-de-imagenes"><strong>Importancia del Filtrado de Imágenes</strong></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#tipos-de-filtros-aplicados"><strong>Tipos de filtros aplicados</strong></a></li>
+</ul>
+</li>
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pre-procesamiento"><strong>Pre - procesamiento</strong></a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#redimension-de-imagenes"><strong>Redimensión de imágenes</strong></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#escalar-pixeles"><strong>Escalar pixeles</strong></a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#preparacion-para-modelado"><strong>Preparación para modelado</strong></a></li>
 </ul>
             </nav>
         </div>
@@ -415,20 +424,16 @@ document.write(`
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">os</span>  <span class="c1"># Módulo para interactuar con el sistema operativo (gestión de archivos y directorios).</span>
-
-<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>  <span class="c1"># Librería para manipulación y análisis de datos estructurados en DataFrames.</span>
-<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>  <span class="c1"># Biblioteca para trabajar con arreglos numéricos y operaciones matemáticas eficientes.</span>
-
-<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>  <span class="c1"># Herramienta para crear gráficos estáticos y visualizaciones.</span>
-<span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="nn">sns</span>  <span class="c1"># Extensión de Matplotlib con estilos mejorados y gráficos estadísticos.</span>
-
+<span class="kn">import</span> <span class="nn">re</span>  <span class="c1"># Módulo para trabajar con expresiones regulares (búsqueda y manipulación de cadenas de texto).</span>
 <span class="kn">import</span> <span class="nn">cv2</span>  <span class="c1"># OpenCV, usado para procesamiento de imágenes y visión por computadora.</span>
-
-<span class="kn">import</span> <span class="nn">re</span>
-<span class="kn">from</span> <span class="nn">glob</span> <span class="kn">import</span> <span class="n">glob</span>
-
-<span class="kn">import</span> <span class="nn">warnings</span>
-<span class="n">warnings</span><span class="o">.</span><span class="n">filterwarnings</span><span class="p">(</span><span class="s1">&#39;ignore&#39;</span><span class="p">)</span>
+<span class="kn">import</span> <span class="nn">glob</span>  <span class="c1"># Módulo para buscar archivos que coincidan con un patrón especificado.</span>
+<span class="kn">import</span> <span class="nn">warnings</span>  <span class="c1"># Módulo para manejar advertencias.</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>  <span class="c1"># Biblioteca para trabajar con arreglos numéricos y operaciones matemáticas eficientes.</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>  <span class="c1"># Librería para manipulación y análisis de datos estructurados en DataFrames.</span>
+<span class="kn">from</span> <span class="nn">glob</span> <span class="kn">import</span> <span class="n">glob</span> <span class="c1"># Función para buscar archivos que coincidan con un patrón especificado.</span>
+<span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="nn">sns</span>  <span class="c1"># Extensión de Matplotlib con estilos mejorados y gráficos estadísticos.</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>  <span class="c1"># Herramienta para crear gráficos estáticos y visualizaciones.</span>
+<span class="n">warnings</span><span class="o">.</span><span class="n">filterwarnings</span><span class="p">(</span><span class="s1">&#39;ignore&#39;</span><span class="p">)</span>  <span class="c1"># Ignorar advertencias.</span>
 </pre></div>
 </div>
 </div>
@@ -988,14 +993,245 @@ Name: 3, dtype: object
 </div>
 </div>
 </section>
-</section>
-<section id="analisis-descriptivo">
-<h2><strong>Análisis descriptivo</strong><a class="headerlink" href="#analisis-descriptivo" title="Link to this heading">#</a></h2>
-<section id="distribucion-de-clases">
-<h3><strong>Distribución de clases</strong><a class="headerlink" href="#distribucion-de-clases" title="Link to this heading">#</a></h3>
+<section id="agregar-imagenes-con-varias-mascaras">
+<h3><strong>Agregar imágenes con varias máscaras</strong><a class="headerlink" href="#agregar-imagenes-con-varias-mascaras" title="Link to this heading">#</a></h3>
+<p>EL siguiente es un método definido para mostrar las imágenes.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">class_counts</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s2">&quot;Etiqueta&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">value_counts</span><span class="p">()</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">mostrar_imagen_new</span><span class="p">(</span><span class="n">fila</span><span class="p">):</span>
+    <span class="c1"># Extraer la imagen y las máscaras</span>
+    <span class="n">imagen</span> <span class="o">=</span> <span class="n">fila</span><span class="p">[</span><span class="s2">&quot;Imagen&quot;</span><span class="p">]</span>  <span class="c1"># Imagen original</span>
+    <span class="n">mask1</span> <span class="o">=</span> <span class="n">fila</span><span class="p">[</span><span class="s2">&quot;Máscara&quot;</span><span class="p">]</span>  <span class="c1"># Primera máscara</span>
+    
+    <span class="c1"># Contar cuántas imágenes hay realmente (si Mask1 o Mask2 es None, no se muestra)</span>
+    <span class="n">imagenes</span> <span class="o">=</span> <span class="p">[</span><span class="n">imagen</span><span class="p">]</span>
+    <span class="n">titulos</span> <span class="o">=</span> <span class="p">[</span><span class="sa">f</span><span class="s1">&#39;Imagen original - Tumor </span><span class="si">{</span><span class="n">fila</span><span class="p">[</span><span class="s2">&quot;Etiqueta&quot;</span><span class="p">]</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">]</span>
+
+    <span class="k">if</span> <span class="n">mask1</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">imagenes</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">mask1</span><span class="p">)</span>
+        <span class="n">titulos</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;Máscara&quot;</span><span class="p">)</span>
+
+    <span class="c1"># Crear la figura con subplots dinámicos</span>
+    <span class="n">fig</span><span class="p">,</span> <span class="n">axes</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">imagenes</span><span class="p">),</span> <span class="n">figsize</span> <span class="o">=</span> <span class="p">(</span><span class="mi">5</span> <span class="o">*</span> <span class="nb">len</span><span class="p">(</span><span class="n">imagenes</span><span class="p">),</span> <span class="mi">5</span><span class="p">))</span>
+
+    <span class="c1"># Si solo hay una imagen, hacer que &#39;axes&#39; sea iterable</span>
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">imagenes</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+        <span class="n">axes</span> <span class="o">=</span> <span class="p">[</span><span class="n">axes</span><span class="p">]</span>
+
+    <span class="c1"># Mostrar cada imagen</span>
+    <span class="k">for</span> <span class="n">ax</span><span class="p">,</span> <span class="n">img</span><span class="p">,</span> <span class="n">title</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">axes</span><span class="p">,</span> <span class="n">imagenes</span><span class="p">,</span> <span class="n">titulos</span><span class="p">):</span>
+        <span class="n">ax</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">img</span> <span class="k">if</span> <span class="n">img</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="k">else</span> <span class="p">[[</span><span class="mi">0</span><span class="p">]],</span> <span class="n">cmap</span><span class="o">=</span><span class="s2">&quot;gray&quot;</span> <span class="k">if</span> <span class="s2">&quot;Máscara&quot;</span> <span class="ow">in</span> <span class="n">title</span> <span class="k">else</span> <span class="kc">None</span><span class="p">)</span>
+        <span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="n">title</span><span class="p">)</span>
+        <span class="n">ax</span><span class="o">.</span><span class="n">axis</span><span class="p">(</span><span class="s2">&quot;off&quot;</span><span class="p">)</span>
+    
+    <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Dado que algunas imágenes tienen múltiples máscaras (hasta tres en algunos casos), vamos a generar una nueva versión de cada imagen para cada una de sus máscaras. De esta manera, garantizamos que cada imagen esté asociada a una única máscara, facilitando su procesamiento y análisis.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Lista para almacenar las imágenes duplicadas</span>
+<span class="n">datos_expandidos</span> <span class="o">=</span> <span class="p">[]</span>
+
+<span class="c1"># Carpeta de salida para las imágenes modificadas</span>
+<span class="n">output_folder</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">base_path</span><span class="p">,</span> <span class="s2">&quot;imagenes&quot;</span><span class="p">)</span>
+<span class="n">os</span><span class="o">.</span><span class="n">makedirs</span><span class="p">(</span><span class="n">output_folder</span><span class="p">,</span> <span class="n">exist_ok</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span>
+
+<span class="k">for</span> <span class="n">index</span><span class="p">,</span> <span class="n">fila</span> <span class="ow">in</span> <span class="n">df</span><span class="o">.</span><span class="n">iterrows</span><span class="p">():</span>
+    <span class="n">imagen</span> <span class="o">=</span> <span class="n">fila</span><span class="p">[</span><span class="s1">&#39;Imagen&#39;</span><span class="p">]</span>
+    <span class="n">mascaras</span> <span class="o">=</span> <span class="p">[</span><span class="n">fila</span><span class="p">[</span><span class="s1">&#39;Máscara 1&#39;</span><span class="p">],</span> <span class="n">fila</span><span class="p">[</span><span class="s1">&#39;Máscara 2&#39;</span><span class="p">],</span> <span class="n">fila</span><span class="p">[</span><span class="s1">&#39;Máscara 3&#39;</span><span class="p">]]</span>
+    <span class="n">etiqueta</span> <span class="o">=</span> <span class="n">fila</span><span class="p">[</span><span class="s1">&#39;Etiqueta&#39;</span><span class="p">]</span>
+
+    <span class="c1"># Filtrar las máscaras que NO sean None</span>
+    <span class="n">mascaras</span> <span class="o">=</span> <span class="p">[</span><span class="n">mask</span> <span class="k">for</span> <span class="n">mask</span> <span class="ow">in</span> <span class="n">mascaras</span> <span class="k">if</span> <span class="n">mask</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">]</span>
+
+    <span class="c1"># Si no hay máscaras, guardar solo la imagen original</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">mascaras</span><span class="p">:</span>
+        <span class="n">datos_expandidos</span><span class="o">.</span><span class="n">append</span><span class="p">({</span><span class="s1">&#39;Imagen&#39;</span><span class="p">:</span> <span class="n">imagen</span><span class="p">,</span> <span class="s1">&#39;Máscara&#39;</span><span class="p">:</span> <span class="kc">None</span><span class="p">,</span> <span class="s1">&#39;Etiqueta&#39;</span><span class="p">:</span> <span class="n">etiqueta</span><span class="p">})</span>
+        <span class="k">continue</span>
+
+    <span class="c1"># Duplicar la imagen por cada máscara</span>
+    <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">mascara</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">mascaras</span><span class="p">):</span>
+        <span class="n">datos_expandidos</span><span class="o">.</span><span class="n">append</span><span class="p">({</span><span class="s1">&#39;Imagen&#39;</span><span class="p">:</span> <span class="n">imagen</span><span class="p">,</span> <span class="s1">&#39;Máscara&#39;</span><span class="p">:</span> <span class="n">mascara</span><span class="p">,</span> <span class="s1">&#39;Etiqueta&#39;</span><span class="p">:</span> <span class="n">etiqueta</span><span class="p">})</span>
+
+<span class="n">df_new</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">datos_expandidos</span><span class="p">)</span>
+
+<span class="c1"># Guardar las imágenes y sus máscaras en la carpeta de salida</span>
+<span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">fila</span> <span class="ow">in</span> <span class="n">df_new</span><span class="o">.</span><span class="n">iterrows</span><span class="p">():</span>
+    <span class="n">imagen</span> <span class="o">=</span> <span class="n">fila</span><span class="p">[</span><span class="s1">&#39;Imagen&#39;</span><span class="p">]</span>
+    <span class="n">mascara</span> <span class="o">=</span> <span class="n">fila</span><span class="p">[</span><span class="s1">&#39;Máscara&#39;</span><span class="p">]</span>
+    <span class="n">etiqueta</span> <span class="o">=</span> <span class="n">fila</span><span class="p">[</span><span class="s1">&#39;Etiqueta&#39;</span><span class="p">]</span>
+
+    <span class="c1"># Guardar la imagen original con nombre único</span>
+    <span class="n">img_filename</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">etiqueta</span><span class="si">}</span><span class="s2">_imagen_</span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s2">.png&quot;</span>
+    <span class="n">img_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">output_folder</span><span class="p">,</span> <span class="n">img_filename</span><span class="p">)</span>
+    <span class="n">cv2</span><span class="o">.</span><span class="n">imwrite</span><span class="p">(</span><span class="n">img_path</span><span class="p">,</span> <span class="n">cv2</span><span class="o">.</span><span class="n">cvtColor</span><span class="p">(</span><span class="n">imagen</span><span class="p">,</span> <span class="n">cv2</span><span class="o">.</span><span class="n">COLOR_RGB2BGR</span><span class="p">))</span>  <span class="c1"># Convertir a BGR antes de guardar</span>
+
+    <span class="c1"># Guardar la máscara correspondiente, si existe</span>
+    <span class="k">if</span> <span class="n">mascara</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">mask_filename</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">etiqueta</span><span class="si">}</span><span class="s2">_imagen_</span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s2">_mask.png&quot;</span>
+        <span class="n">mask_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">output_folder</span><span class="p">,</span> <span class="n">mask_filename</span><span class="p">)</span>
+        <span class="n">cv2</span><span class="o">.</span><span class="n">imwrite</span><span class="p">(</span><span class="n">mask_path</span><span class="p">,</span> <span class="n">cv2</span><span class="o">.</span><span class="n">cvtColor</span><span class="p">(</span><span class="n">mascara</span><span class="p">,</span> <span class="n">cv2</span><span class="o">.</span><span class="n">COLOR_RGB2BGR</span><span class="p">))</span>  <span class="c1"># Convertir a BGR antes de guardar</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Imágenes y máscaras guardadas en </span><span class="si">{</span><span class="n">output_folder</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Imágenes y máscaras guardadas en C:\Users\kamac\OneDrive\Desktop\DeepLearningUN\imagenes\imagenes
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df_new</span><span class="o">.</span><span class="n">shape</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(798, 3)
+</pre></div>
+</div>
+</div>
+</div>
+<p>Nótese que ahora el conjunto de datos cuenta con un total de 798 imágenes, abarcando los tres tipos de tumor: benigno, maligno y normal.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df_new</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Imagen</th>
+      <th>Máscara</th>
+      <th>Etiqueta</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>[[[7, 7, 7], [2, 2, 2], [4, 4, 4], [7, 7, 7], ...</td>
+      <td>[[[0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0], ...</td>
+      <td>benigno</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>[[[0, 0, 0], [58, 58, 58], [188, 188, 188], [2...</td>
+      <td>[[[0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0], ...</td>
+      <td>benigno</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>[[[198, 198, 198], [202, 202, 202], [197, 197,...</td>
+      <td>[[[0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0], ...</td>
+      <td>benigno</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>[[[0, 0, 0], [0, 0, 0], [0, 0, 0], [5, 5, 5], ...</td>
+      <td>[[[0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0], ...</td>
+      <td>benigno</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>[[[0, 0, 0], [0, 0, 0], [0, 0, 0], [5, 5, 5], ...</td>
+      <td>[[[0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0], ...</td>
+      <td>benigno</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<p>Al analizar las primeras cinco observaciones del conjunto de datos, se observa que los valores de los píxeles en cada imagen se encuentran en una escala de 0 a 255.</p>
+<p>Anteriormente, mediante una observación inicial, identificamos que la tercera imagen del conjunto de datos tenía dos máscaras asociadas. Ahora, analizaremos tanto la tercera como la cuarta imagen para verificar que ambas corresponden a la misma imagen, pero con máscaras distintas. Además, realizaremos el mismo análisis para la imagen que originalmente contaba con tres máscaras, asegurándonos de que cada una se haya separado correctamente.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">mostrar_imagen_new</span><span class="p">(</span><span class="n">df_new</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">3</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/52781f6f9d98d461dbb0d2ca333faa0f18b2ecb518ba3c81300c9b9906aefc6e.png" src="_images/52781f6f9d98d461dbb0d2ca333faa0f18b2ecb518ba3c81300c9b9906aefc6e.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">mostrar_imagen_new</span><span class="p">(</span><span class="n">df_new</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">4</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/9cd6b2e2b17e2c1a356dfc612ff23722df6ed10a8456e0bbcf9377c98ba125d4.png" src="_images/9cd6b2e2b17e2c1a356dfc612ff23722df6ed10a8456e0bbcf9377c98ba125d4.png" />
+</div>
+</div>
+<p>Efectivamente, la imagen se ha duplicado pero con dos máscaras diferentes.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">mostrar_imagen_new</span><span class="p">(</span><span class="n">df_new</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">206</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/74755ee4d0c4cfb1e6c015750f5fea39951dc953166a011ac7816a29e8c9ec7f.png" src="_images/74755ee4d0c4cfb1e6c015750f5fea39951dc953166a011ac7816a29e8c9ec7f.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">mostrar_imagen_new</span><span class="p">(</span><span class="n">df_new</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">207</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/b772894133c985cb0d78e7c4bdda32211165d1224dbcf2c498c7369de8c2e500.png" src="_images/b772894133c985cb0d78e7c4bdda32211165d1224dbcf2c498c7369de8c2e500.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">mostrar_imagen_new</span><span class="p">(</span><span class="n">df_new</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">208</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/6a189af49ab8838fc4cc1335d62484847d01f741ab1ccc96696d4304fba04503.png" src="_images/6a189af49ab8838fc4cc1335d62484847d01f741ab1ccc96696d4304fba04503.png" />
+</div>
+</div>
+<p>Finalmente, confirmamos que el proceso de separación de máscaras se realizó de manera correcta. Ahora, avanzaremos con un análisis descriptivo considerando aspectos como la distribución de píxeles, los canales de color, las clases y el tamaño de las imágenes.</p>
+</section>
+</section>
+<section id="analisis-descriptivo-de-imagenes">
+<h2><strong>Análisis descriptivo de imágenes</strong><a class="headerlink" href="#analisis-descriptivo-de-imagenes" title="Link to this heading">#</a></h2>
+<p>En esta sección veremos un poco más sobre cómo están distribuidas las clases, los píxeles y colores del conjunto de imágenes.</p>
+<div class="tip admonition">
+<p class="admonition-title">¿Qué son los píxeles?</p>
+<p>Los píxeles son los puntos que forman una imagen digital en una pantalla. Son la unidad mínima de información gráfica que se muestra en una computadora.</p>
+</div>
+<section id="distribucion-de-clases">
+<h3><strong>Distribución de clases</strong><a class="headerlink" href="#distribucion-de-clases" title="Link to this heading">#</a></h3>
+<p>Inicialmente, veamos la distribución de las clases de nuestro conjunto de datos.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">class_counts</span> <span class="o">=</span> <span class="n">df_new</span><span class="p">[</span><span class="s2">&quot;Etiqueta&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">value_counts</span><span class="p">()</span>
 <span class="n">fig</span><span class="p">,</span> <span class="n">axes</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">14</span><span class="p">,</span> <span class="mi">5</span><span class="p">))</span>  
 
 <span class="n">ax</span> <span class="o">=</span> <span class="n">sns</span><span class="o">.</span><span class="n">barplot</span><span class="p">(</span><span class="n">x</span> <span class="o">=</span> <span class="n">class_counts</span><span class="o">.</span><span class="n">index</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">class_counts</span><span class="o">.</span><span class="n">values</span><span class="p">,</span> <span class="n">palette</span> <span class="o">=</span> <span class="s2">&quot;rocket&quot;</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
@@ -1019,108 +1255,502 @@ Name: 3, dtype: object
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/121efc2d4de15e5f483ee35bfa2da9174a7a19f3124b7c1971789d9fc813c2cd.png" src="_images/121efc2d4de15e5f483ee35bfa2da9174a7a19f3124b7c1971789d9fc813c2cd.png" />
+<img alt="_images/69a0a78437d80763967892c93730689c9bdb380e6995e5311fe32dc1c466927e.png" src="_images/69a0a78437d80763967892c93730689c9bdb380e6995e5311fe32dc1c466927e.png" />
 </div>
 </div>
+<p>Al observar los gráficos, se puede decir que hay un desbalance en las clases, ya que la categoría <strong>benigno</strong> representa la mayoría de las imágenes (56.9%), mientras que <strong>maligno</strong> y <strong>normal</strong> tienen una menor proporción con 26.4% y 16.7%, respectivamente. Esto se refleja en el gráfico de barras, donde la clase <strong>benigno</strong> tiene casi el doble de imágenes que <strong>maligno</strong> y más del triple que <strong>normal</strong>. Además, en el gráfico de pastel, la diferencia en las áreas resalta esta disparidad en la distribución de datos. Este desbalance puede afectar el rendimiento de un modelo de clasificación, ya que podría sesgarse hacia la clase mayoritaria, disminuyendo la capacidad de detección de las clases minoritarias.</p>
 </section>
 <section id="distribucion-del-tamano-de-las-imagenes">
 <h3><strong>Distribución del tamaño de las imágenes</strong><a class="headerlink" href="#distribucion-del-tamano-de-las-imagenes" title="Link to this heading">#</a></h3>
+<p>A continuación, analizaremos la distribución del tamaño de las imágenes en nuestro conjunto de datos, considerando la cantidad total de píxeles de cada imagen según su respectiva clase (<em>benigno, maligno y normal</em>). Este análisis es fundamental para comprender si existe variabilidad en el tamaño de las imágenes entre clases, lo que podría influir en el procesamiento y el desempeño de modelos. Para ello, utilizaremos un diagrama de caja (boxplot), que nos permitirá visualizar la dispersión, posibles valores atípicos y la tendencia general del tamaño de las imágenes en cada categoría.</p>
+<div class="tip admonition">
+<p class="admonition-title">Tamaño de las imágenes</p>
+<p>El tamaño de una imagen en píxeles se expresa con dos números: el número de columnas de píxeles (ancho) y el número de filas de píxeles (alto). (Tamaño = ancho * alto)</p>
+</div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Extraer las dimensiones (alto y ancho) de cada imagen en listas separadas</span>
-<span class="n">df</span><span class="p">[</span><span class="s2">&quot;Height&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s2">&quot;Dimensiones&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>  <span class="c1"># Alto de la imagen</span>
-<span class="n">df</span><span class="p">[</span><span class="s2">&quot;Width&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s2">&quot;Dimensiones&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>   <span class="c1"># Ancho de la imagen</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Agregar una columna con el tamaño de cada imagen (cantidad de píxeles)</span>
+<span class="n">df_new</span><span class="p">[</span><span class="s2">&quot;size&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df_new</span><span class="p">[</span><span class="s2">&quot;Imagen&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="k">lambda</span> <span class="n">img</span><span class="p">:</span> <span class="n">img</span><span class="o">.</span><span class="n">size</span><span class="p">)</span>
 
-<span class="c1"># Crear una figura con 1 fila y 2 columnas</span>
-<span class="n">fig</span><span class="p">,</span> <span class="n">axes</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">14</span><span class="p">,</span> <span class="mi">5</span><span class="p">))</span>
+<span class="c1"># Graficar la distribución del tamaño de las imágenes</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span> <span class="o">=</span> <span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="mi">7</span><span class="p">))</span>
+<span class="n">ax</span> <span class="o">=</span> <span class="n">sns</span><span class="o">.</span><span class="n">boxplot</span><span class="p">(</span><span class="n">y</span> <span class="o">=</span> <span class="n">df_new</span><span class="p">[</span><span class="s2">&quot;Etiqueta&quot;</span><span class="p">],</span> <span class="n">x</span> <span class="o">=</span> <span class="n">df_new</span><span class="p">[</span><span class="s2">&quot;size&quot;</span><span class="p">],</span> <span class="n">orient</span> <span class="o">=</span> <span class="s2">&quot;h&quot;</span><span class="p">,</span><span class="n">palette</span> <span class="o">=</span> <span class="s1">&#39;rocket&#39;</span> <span class="p">)</span>
 
-<span class="c1">## **Histograma de Altura y Ancho**</span>
-<span class="n">sns</span><span class="o">.</span><span class="n">histplot</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s2">&quot;Height&quot;</span><span class="p">],</span> <span class="n">bins</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span> <span class="n">kde</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;blue&quot;</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Altura&quot;</span><span class="p">)</span>
-<span class="n">sns</span><span class="o">.</span><span class="n">histplot</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s2">&quot;Width&quot;</span><span class="p">],</span> <span class="n">bins</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span> <span class="n">kde</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;red&quot;</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Ancho&quot;</span><span class="p">)</span>
-
-<span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">&quot;Distribución del Tamaño de las Imágenes&quot;</span><span class="p">)</span>
-<span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">&quot;Dimensión (píxeles)&quot;</span><span class="p">)</span>
-<span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">&quot;Frecuencia&quot;</span><span class="p">)</span>
-<span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
-
-<span class="c1">## **Gráfico de Dispersión: Relación Ancho vs. Alto**</span>
-<span class="n">sns</span><span class="o">.</span><span class="n">scatterplot</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">df</span><span class="p">[</span><span class="s2">&quot;Width&quot;</span><span class="p">],</span> <span class="n">y</span><span class="o">=</span><span class="n">df</span><span class="p">[</span><span class="s2">&quot;Height&quot;</span><span class="p">],</span> <span class="n">ax</span><span class="o">=</span><span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.7</span><span class="p">,</span> <span class="n">edgecolor</span><span class="o">=</span><span class="s2">&quot;black&quot;</span><span class="p">)</span>
-
-<span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">&quot;Relación entre Ancho y Alto de las Imágenes&quot;</span><span class="p">)</span>
-<span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">&quot;Ancho (píxeles)&quot;</span><span class="p">)</span>
-<span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">&quot;Alto (píxeles)&quot;</span><span class="p">)</span>
-
-<span class="c1"># Ajustar el diseño</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;Distribución del Tamaño de las Imágenes&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;Tamaño (número de píxeles)&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;Clase&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xticks</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">df_new</span><span class="p">[</span><span class="s2">&quot;size&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">max</span><span class="p">()</span> <span class="o">+</span> <span class="mi">50000</span><span class="p">,</span> <span class="mi">50000</span><span class="p">),</span> <span class="n">rotation</span> <span class="o">=</span> <span class="mi">45</span><span class="p">)</span> <span class="c1"># Define los valores del eje X en intervalos de 50,000 píxeles.</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlim</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">df_new</span><span class="p">[</span><span class="s2">&quot;size&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">max</span><span class="p">()</span> <span class="o">+</span> <span class="mi">50000</span><span class="p">)</span> <span class="c1"># Ajusta los límites del eje X para incluir todas las imágenes.</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/e0134b231aed0ff1484a5a0ecbc4c1f5d3f263a1706d58c87dff5dd9055dea4f.png" src="_images/e0134b231aed0ff1484a5a0ecbc4c1f5d3f263a1706d58c87dff5dd9055dea4f.png" />
+<img alt="_images/7f10053f06584736d97b1f4bf77c17a85912a799e1cb916d16e3a916808099ff.png" src="_images/7f10053f06584736d97b1f4bf77c17a85912a799e1cb916d16e3a916808099ff.png" />
 </div>
+</div>
+<p>El diagrama de caja muestra la distribución del tamaño de las imágenes en términos del número de píxeles para cada clase (benigno, maligno y normal). Se observa que la clase normal presenta una mayor dispersión en el tamaño de las imágenes, con una mediana más alta en comparación con las demás clases. La clase benigno tiene una distribución más uniforme, mientras que la clase maligno muestra una mayor concentración en tamaños más pequeños y la presencia de varios valores atípicos (outliers), lo que indica algunas imágenes significativamente más pequeñas en esta categoría. Esta variabilidad en los tamaños sugiere la necesidad de un preprocesamiento adecuado para garantizar la homogeneidad en la entrada de datos antes de aplicar modelos.</p>
+</section>
+<section id="mapa-de-intensidad-de-pixeles">
+<h3><strong>Mapa de intensidad de píxeles</strong><a class="headerlink" href="#mapa-de-intensidad-de-pixeles" title="Link to this heading">#</a></h3>
+<p>Para comprender mejor la distribución de los valores de los píxeles en nuestras imágenes, visualizaremos un mapa de intensidad. Este tipo de gráfico nos permite identificar patrones en la luminosidad y contraste, resaltando áreas de mayor y menor intensidad en una imagen. Convertiremos la imagen a escala de grises si es necesario y aplicaremos un heatmap para representar la variación en los niveles de intensidad de los píxeles. Esto es útil para detectar características relevantes en el procesamiento y análisis de imágenes.</p>
+<div class="tip admonition">
+<p class="admonition-title">Colores en una imagen</p>
+<p>En una imagen en escala de grises:</p>
+<ul class="simple">
+<li><p>Si el valor del píxel se acerca a 0, significa que es negro (más oscuro).</p></li>
+<li><p>Si el valor del píxel se acerca a 255, significa que es blanco (más claro).</p></li>
+</ul>
+<p>En imágenes en color (RGB), cada canal (Rojo, Verde, Azul) sigue la misma lógica:</p>
+<ul class="simple">
+<li><p>0 en un canal = ausencia de ese color.</p></li>
+<li><p>255 en un canal = intensidad máxima de ese color.</p></li>
+</ul>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Extraer las dimensiones de cada imagen</span>
-<span class="n">df</span><span class="p">[</span><span class="s2">&quot;Height&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s2">&quot;Dimensiones&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>  <span class="c1"># Alto</span>
-<span class="n">df</span><span class="p">[</span><span class="s2">&quot;Width&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s2">&quot;Dimensiones&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>   <span class="c1"># Ancho</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Seleccionar una imagen del DataFrame</span>
+<span class="n">imagen</span> <span class="o">=</span> <span class="n">df_new</span><span class="p">[</span><span class="s2">&quot;Imagen&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>  <span class="c1"># Tomamos la primera imagen como ejemplo</span>
 
-<span class="c1"># Definir el tamaño de la figura con 2 filas y 2 columnas</span>
-<span class="n">fig</span><span class="p">,</span> <span class="n">axes</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">14</span><span class="p">,</span> <span class="mi">10</span><span class="p">))</span>
+<span class="c1"># Si la imagen es en color (RGB), la convertimos a escala de grises</span>
+<span class="k">if</span> <span class="n">imagen</span><span class="o">.</span><span class="n">ndim</span> <span class="o">==</span> <span class="mi">3</span> <span class="ow">and</span> <span class="n">imagen</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">==</span> <span class="mi">3</span><span class="p">:</span>  <span class="c1"># Vetificar si la imagen es a color</span>
+    <span class="n">imagen_gris</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">cvtColor</span><span class="p">(</span><span class="n">imagen</span><span class="p">,</span> <span class="n">cv2</span><span class="o">.</span><span class="n">COLOR_RGB2GRAY</span><span class="p">)</span>  <span class="c1"># Conversión a escala de grises</span>
+<span class="k">else</span><span class="p">:</span>
+    <span class="n">imagen_gris</span> <span class="o">=</span> <span class="n">imagen</span>  <span class="c1"># Si ya está en escala de grises, se mantiene igual</span>
 
-<span class="c1"># **Histograma de Altura por Clase**</span>
-<span class="n">sns</span><span class="o">.</span><span class="n">histplot</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">df</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="s2">&quot;Height&quot;</span><span class="p">,</span> <span class="n">hue</span><span class="o">=</span><span class="s2">&quot;Label&quot;</span><span class="p">,</span> <span class="n">bins</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span> <span class="n">kde</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">])</span>
-<span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">&quot;Distribución de Altura por Clase&quot;</span><span class="p">)</span>
-<span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">&quot;Altura (píxeles)&quot;</span><span class="p">)</span>
-<span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">&quot;Frecuencia&quot;</span><span class="p">)</span>
-
-<span class="c1"># **Histograma de Ancho por Clase**</span>
-<span class="n">sns</span><span class="o">.</span><span class="n">histplot</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">df</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="s2">&quot;Width&quot;</span><span class="p">,</span> <span class="n">hue</span><span class="o">=</span><span class="s2">&quot;Label&quot;</span><span class="p">,</span> <span class="n">bins</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span> <span class="n">kde</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">])</span>
-<span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">&quot;Distribución de Ancho por Clase&quot;</span><span class="p">)</span>
-<span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">&quot;Ancho (píxeles)&quot;</span><span class="p">)</span>
-<span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">&quot;Frecuencia&quot;</span><span class="p">)</span>
-
-<span class="c1"># **Gráfico de Dispersión: Relación Ancho vs. Alto por Clase**</span>
-<span class="n">sns</span><span class="o">.</span><span class="n">scatterplot</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">df</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="s2">&quot;Width&quot;</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s2">&quot;Height&quot;</span><span class="p">,</span> <span class="n">hue</span><span class="o">=</span><span class="s2">&quot;Label&quot;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.7</span><span class="p">,</span> <span class="n">edgecolor</span><span class="o">=</span><span class="s2">&quot;black&quot;</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">])</span>
-<span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">&quot;Relación entre Ancho y Alto por Clase&quot;</span><span class="p">)</span>
-<span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">&quot;Ancho (píxeles)&quot;</span><span class="p">)</span>
-<span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">&quot;Alto (píxeles)&quot;</span><span class="p">)</span>
-
-<span class="c1"># **Boxplot para ver la variabilidad del tamaño por clase**</span>
-<span class="n">sns</span><span class="o">.</span><span class="n">boxplot</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">df</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="s2">&quot;Label&quot;</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s2">&quot;Height&quot;</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">palette</span><span class="o">=</span><span class="s2">&quot;Set2&quot;</span><span class="p">)</span>
-<span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">&quot;Variabilidad de la Altura por Clase&quot;</span><span class="p">)</span>
-<span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">&quot;Clase&quot;</span><span class="p">)</span>
-<span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">&quot;Altura (píxeles)&quot;</span><span class="p">)</span>
-
-<span class="c1"># Ajustar el diseño</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+<span class="c1"># Graficar el heatmap para visualizar la intensidad de los píxeles</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>  <span class="c1"># Definir tamaño de la figura</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">heatmap</span><span class="p">(</span><span class="n">imagen_gris</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s2">&quot;rocket&quot;</span><span class="p">,</span> <span class="n">cbar</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>  <span class="c1"># Crear heatmap con la escala de colores &quot;rocket&quot;</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;Mapa de Intensidad de Píxeles&quot;</span><span class="p">)</span>  <span class="c1"># Agregar título al gráfico</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">axis</span><span class="p">(</span><span class="s2">&quot;off&quot;</span><span class="p">)</span>  <span class="c1"># Ocultar los ejes para una mejor visualización</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>  
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/91f68cd7d287867c329b2e225d6630208840c2c4aadeb527d2f09f299fbbab7b.png" src="_images/91f68cd7d287867c329b2e225d6630208840c2c4aadeb527d2f09f299fbbab7b.png" />
+</div>
+</div>
+<p>La imagen nos muestra el <strong>mapa de intensidad de píxeles</strong> de la primera imagen del conjunto de datos, la cual corresponde a la clase <strong>benigna</strong>. Se representa en escala de colores, donde los tonos más oscuros indican áreas de menor intensidad y los más claros corresponden a regiones de mayor intensidad. La presencia de una zona oscura en el centro podría corresponder a una estructura específica dentro del tejido. Este análisis es útil para identificar patrones visuales que ayuden en la evaluación y diagnóstico de imágenes médicas.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">imagen</span> <span class="o">=</span> <span class="n">df_new</span><span class="p">[</span><span class="s2">&quot;Máscara&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+<span class="k">if</span> <span class="n">imagen</span><span class="o">.</span><span class="n">ndim</span> <span class="o">==</span> <span class="mi">3</span> <span class="ow">and</span> <span class="n">imagen</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">==</span> <span class="mi">3</span><span class="p">:</span>
+    <span class="n">imagen_gris</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">cvtColor</span><span class="p">(</span><span class="n">imagen</span><span class="p">,</span> <span class="n">cv2</span><span class="o">.</span><span class="n">COLOR_RGB2GRAY</span><span class="p">)</span>
+<span class="k">else</span><span class="p">:</span>
+    <span class="n">imagen_gris</span> <span class="o">=</span> <span class="n">imagen</span>  
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">heatmap</span><span class="p">(</span><span class="n">imagen_gris</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s2">&quot;rocket&quot;</span><span class="p">,</span> <span class="n">cbar</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;Mapa de Intensidad de Píxeles&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">axis</span><span class="p">(</span><span class="s2">&quot;off&quot;</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/fa0db59a516a397a7ce3de57733910c10a731526a4b7f4dda1d5e74243071a07.png" src="_images/fa0db59a516a397a7ce3de57733910c10a731526a4b7f4dda1d5e74243071a07.png" />
+<img alt="_images/ee90d80eb6caef6529555cdcb62da3b957930ee2793777191b020dac202896fe.png" src="_images/ee90d80eb6caef6529555cdcb62da3b957930ee2793777191b020dac202896fe.png" />
+</div>
+</div>
+<p>En el mapa de calor de la primera máscara se observa una región central con alta intensidad, representada en tonos blancos y beige (valores cercanos a 250), mientras que el resto de la imagen tiene valores de intensidad muy bajos, visualizados en negro (cercanos a 0). Esto sugiere que la mayor parte de la imagen es oscura, con una única área brillante que podría representar una estructura específica dentro del tejido. Este resultado es el esperado dado que esta imagen representa la máscara y la máscara indica solo el lugar donde se encuentra el tumor.</p>
+</section>
+<section id="histograma-de-escala-de-grises">
+<h3><strong>Histograma de escala de grises</strong><a class="headerlink" href="#histograma-de-escala-de-grises" title="Link to this heading">#</a></h3>
+<p>Exploremos cómo se representa la distribución de intensidades en una imagen en escala de grises a través de un histograma. Este gráfico nos permite visualizar la frecuencia de los diferentes niveles de brillo, lo que ayuda a analizar el contraste y la calidad de la imagen.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">imagen</span> <span class="o">=</span> <span class="n">df_new</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="s2">&quot;Imagen&quot;</span><span class="p">]</span>
+<span class="n">imagen_mask</span> <span class="o">=</span> <span class="n">df_new</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="s2">&quot;Máscara&quot;</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">mostrar_imagen_histograma</span><span class="p">(</span><span class="n">image</span><span class="p">):</span>
+    <span class="c1"># Convertir la imagen de BGR a escala de grises</span>
+    <span class="n">gray_image</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">cvtColor</span><span class="p">(</span><span class="n">image</span><span class="p">,</span> <span class="n">cv2</span><span class="o">.</span><span class="n">COLOR_BGR2GRAY</span><span class="p">)</span>
+
+    <span class="c1"># Calcular el histograma de la imagen en escala de grises</span>
+    <span class="n">gray_histogram</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">calcHist</span><span class="p">([</span><span class="n">gray_image</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="kc">None</span><span class="p">,</span> <span class="p">[</span><span class="mi">256</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">256</span><span class="p">])</span>
+
+    <span class="c1"># Crear una figura con dos subgráficos: uno para la imagen y otro para el histograma</span>
+    <span class="n">fig</span><span class="p">,</span> <span class="n">axs</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span><span class="mi">6</span><span class="p">))</span>
+
+    <span class="c1"># Mostrar la imagen original en el primer subgráfico (convertida a RGB para visualizarla correctamente)</span>
+    <span class="n">axs</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">cv2</span><span class="o">.</span><span class="n">cvtColor</span><span class="p">(</span><span class="n">image</span><span class="p">,</span> <span class="n">cv2</span><span class="o">.</span><span class="n">COLOR_BGR2RGB</span><span class="p">))</span>
+    <span class="n">axs</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;Imagen Original&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">14</span><span class="p">)</span>
+    <span class="n">axs</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">axis</span><span class="p">(</span><span class="s1">&#39;off&#39;</span><span class="p">)</span>  <span class="c1"># Ocultar ejes para una mejor visualización</span>
+
+    <span class="c1"># Graficar el histograma en el segundo subgráfico</span>
+    <span class="n">axs</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">gray_histogram</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;gray&#39;</span><span class="p">)</span>
+    <span class="n">axs</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;Histograma de Escala de Grises&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">14</span><span class="p">)</span>
+    <span class="n">axs</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;Valor de Píxel&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">14</span><span class="p">)</span>
+    <span class="n">axs</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;Frecuencia&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">14</span><span class="p">)</span>
+
+    <span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Veamos esto para la primera imagen</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">mostrar_imagen_histograma</span><span class="p">(</span><span class="n">imagen</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/e66b5ada0c6e7da08b5ed24496aa3d911ea123c2ef3b586b99868f23eeaa278a.png" src="_images/e66b5ada0c6e7da08b5ed24496aa3d911ea123c2ef3b586b99868f23eeaa278a.png" />
+</div>
+</div>
+<p>En la imagen original, se observa una estructura destacada en el centro de la mama izquierda, que podría corresponder a una lesión o masa, representada por un área más oscura en comparación con el tejido circundante.</p>
+<p>El histograma a la derecha ilustra la distribución de los valores de píxeles en la imagen. Se observa que hay una mayor concentración de píxeles en los rangos de intensidad baja y media (valores entre aproximadamente 30 y 200), lo que indica una predominancia de tonos oscuros y grises. Además, se pueden notar picos en los niveles de intensidad alrededor de 50 y 150, lo que sugiere que estos valores de píxeles son los más representativos en la imagen.</p>
+<p>El último pico cerca de 255 indica la presencia de algunas regiones con alta intensidad, posiblemente áreas muy brillantes en la ecografía, como reflejos en los bordes de las estructuras. En general, el histograma refleja la naturaleza contrastada de la imagen, resaltando tanto las zonas oscuras como las claras.</p>
+<p>Ahora veamos el histograma para la máscara de la primera imagen.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">mostrar_imagen_histograma</span><span class="p">(</span><span class="n">imagen_mask</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/902f864779ef03ed840b7285047fe86f7542d14d3aad87cadc24488c5722b1ea.png" src="_images/902f864779ef03ed840b7285047fe86f7542d14d3aad87cadc24488c5722b1ea.png" />
+</div>
+</div>
+<p>En la imagen de la izquierda, observamos una versión binarizada de la imagen original, lo que significa que se ha aplicado una máscara para resaltar ciertas regiones de interés. En este caso, la mayoría de los píxeles son completamente negros (valor 0), mientras que una pequeña área blanca (valor 255) destaca una región específica.</p>
+<p>El histograma de la derecha confirma este procesamiento:</p>
+<p>Hay una gran concentración de píxeles en 0 (negro), lo que indica que la mayor parte de la imagen está en negro.
+Hay un pequeño pico en 255 (blanco), representando las pocas áreas blancas detectadas en la máscara.
+No hay valores intermedios, lo que indica una segmentación binaria.</p>
+</section>
+<section id="distribucion-de-intensidad-de-pixeles">
+<h3><strong>Distribución de intensidad de píxeles</strong><a class="headerlink" href="#distribucion-de-intensidad-de-pixeles" title="Link to this heading">#</a></h3>
+<p>En esta sección, analizaremos la distribución de la intensidad de píxeles en las imágenes de cada clase (<em>normal</em>, <em>benigno</em> y <em>maligno</em>). Esto nos permitirá identificar patrones y diferencias en los valores de brillo y contraste entre las categorías. Para ello, generaremos histogramas que muestran la frecuencia de los niveles de intensidad (0-255) en cada clase, utilizando distintos colores para diferenciarlas. Además, incorporaremos una curva de densidad para visualizar mejor la distribución y compararlas entre sí. Este análisis es clave para entender cómo varían las características visuales en las imágenes y cómo pueden influir en modelos de clasificación.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
+
+<span class="c1"># Definir un diccionario con los colores correspondientes a cada clase</span>
+<span class="n">colores</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;normal&quot;</span><span class="p">:</span> <span class="s2">&quot;blue&quot;</span><span class="p">,</span> <span class="s2">&quot;benigno&quot;</span><span class="p">:</span> <span class="s2">&quot;green&quot;</span><span class="p">,</span> <span class="s2">&quot;maligno&quot;</span><span class="p">:</span> <span class="s2">&quot;red&quot;</span><span class="p">}</span>
+
+<span class="c1"># Recorrer cada clase de imágenes en el DataFrame</span>
+<span class="k">for</span> <span class="n">clase</span> <span class="ow">in</span> <span class="n">df_new</span><span class="p">[</span><span class="s2">&quot;Etiqueta&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">unique</span><span class="p">():</span>
+    
+    <span class="c1"># Extraer todas las imágenes de la clase actual, aplanarlas y concatenarlas en un solo array</span>
+    <span class="n">pixeles</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">concatenate</span><span class="p">(</span>
+        <span class="n">df_new</span><span class="p">[</span><span class="n">df_new</span><span class="p">[</span><span class="s2">&quot;Etiqueta&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="n">clase</span><span class="p">][</span><span class="s2">&quot;Imagen&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="k">lambda</span> <span class="n">img</span><span class="p">:</span> <span class="n">img</span><span class="o">.</span><span class="n">flatten</span><span class="p">())</span><span class="o">.</span><span class="n">values</span>
+    <span class="p">)</span>
+    
+    <span class="c1"># Graficar el histograma de la intensidad de píxeles para la clase actual</span>
+    <span class="n">sns</span><span class="o">.</span><span class="n">histplot</span><span class="p">(</span>
+        <span class="n">pixeles</span><span class="p">,</span>        <span class="c1"># Datos de píxeles de la clase actual</span>
+        <span class="n">bins</span><span class="o">=</span><span class="mi">256</span><span class="p">,</span>       <span class="c1"># Se establecen 256 bins para representar cada nivel de intensidad (0-255)</span>
+        <span class="n">kde</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>       <span class="c1"># Se añade una curva de densidad (Kernel Density Estimation) para visualizar la distribución</span>
+        <span class="n">color</span><span class="o">=</span><span class="n">colores</span><span class="p">[</span><span class="n">clase</span><span class="p">],</span>  <span class="c1"># Se asigna un color según la clase</span>
+        <span class="n">label</span><span class="o">=</span><span class="n">clase</span><span class="p">,</span>    <span class="c1"># Se etiqueta el histograma con el nombre de la clase</span>
+        <span class="n">alpha</span><span class="o">=</span><span class="mf">0.5</span>       <span class="c1"># Se establece una transparencia del 50% para permitir la superposición de histogramas</span>
+    <span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;Distribución de Intensidad de Píxeles por Clase&quot;</span><span class="p">)</span>  
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;Valor de Intensidad (0-255)&quot;</span><span class="p">)</span>  
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;Frecuencia&quot;</span><span class="p">)</span>  
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="s2">&quot;Clase&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/1382a50285ff5662e2b936d9b91aeaf43d85bd3291e97da85e32da7829c6c22f.png" src="_images/1382a50285ff5662e2b936d9b91aeaf43d85bd3291e97da85e32da7829c6c22f.png" />
+</div>
+</div>
+<p>El gráfico muestra la distribución de la intensidad de píxeles para las imágenes de cada clase (normal, benigno y maligno). Se observa que la mayoría de los píxeles tienen valores de intensidad bajos (cercanos a 0), lo que indica una predominancia de tonos oscuros en las imágenes. La clase benigno (verde) tiene una mayor cantidad de píxeles en todos los niveles de intensidad en comparación con las otras clases, lo que sugiere que estas imágenes pueden contener más variabilidad en el contraste. La clase maligno (rojo) y la clase normal (azul) presentan distribuciones más similares, con menos presencia en los valores intermedios de intensidad. La superposición de los histogramas nos permite comparar visualmente las diferencias en la luminosidad de cada tipo de imagen, lo que podría ser relevante para el preprocesamiento y clasificación automática de estas imágenes médicas.</p>
+</section>
+<section id="filtrado-de-imagenes-con-opencv">
+<h3><strong>Filtrado de imágenes con OpenCV</strong><a class="headerlink" href="#filtrado-de-imagenes-con-opencv" title="Link to this heading">#</a></h3>
+<p>A continuación se hará un filtrado de imágenes.</p>
+<section id="que-son-los-filtros-en-imagenes">
+<h4><strong>¿Qué son los filtros en imágenes?</strong><a class="headerlink" href="#que-son-los-filtros-en-imagenes" title="Link to this heading">#</a></h4>
+<p>Los filtros en imágenes son operaciones matemáticas aplicadas sobre los píxeles para modificar ciertas características visuales. Estos pueden utilizarse para mejorar el contraste, eliminar ruido o detectar bordes. En este caso, se emplean filtros de suavizado para reducir el ruido presente en la imagen original.</p>
+</section>
+<section id="importancia-del-filtrado-de-imagenes">
+<h4><strong>Importancia del Filtrado de Imágenes</strong><a class="headerlink" href="#importancia-del-filtrado-de-imagenes" title="Link to this heading">#</a></h4>
+<p>El filtrado de imágenes es un proceso fundamental en la visión por computadora, ya que permite mejorar la calidad de las imágenes eliminando ruido, resaltando características importantes y suavizando detalles no deseados.</p>
+</section>
+<section id="tipos-de-filtros-aplicados">
+<h4><strong>Tipos de filtros aplicados</strong><a class="headerlink" href="#tipos-de-filtros-aplicados" title="Link to this heading">#</a></h4>
+<ul class="simple">
+<li><p><strong>Filtro de Media (cv2.blur)</strong>: Calcula el promedio de los valores de píxeles en una vecindad definida por una ventana (en este caso, de 3x3). Suaviza la imagen pero puede afectar los bordes.</p></li>
+<li><p><strong>Filtro de Mediana (cv2.medianBlur)</strong>: Sustituye el valor de cada píxel por la mediana de los valores en su vecindad. Es especialmente útil para eliminar ruido impulsivo o “ruido sal y pimienta” (píxeles blancos (sal) y píxeles negros (pimienta))</p></li>
+<li><p><strong>Filtro Gaussiano (cv2.GaussianBlur)</strong>: Aplica un suavizado utilizando una función gaussiana, lo que genera un efecto más natural y mantiene mejor los bordes en comparación con el filtro de media.</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">aplicar_filtros_y_visualizar</span><span class="p">(</span><span class="n">imagen</span><span class="p">):</span>
+    <span class="c1"># Aplicación de filtros</span>
+    <span class="n">meanimg</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">blur</span><span class="p">(</span><span class="n">imagen</span><span class="p">,</span> <span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">))</span>  <span class="c1"># Filtro de media</span>
+    <span class="n">medianimg</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">medianBlur</span><span class="p">(</span><span class="n">imagen</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>  <span class="c1"># Filtro de mediana</span>
+    <span class="n">gaussianimg</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">GaussianBlur</span><span class="p">(</span><span class="n">imagen</span><span class="p">,</span> <span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">),</span> <span class="mi">0</span><span class="p">)</span>  <span class="c1"># Filtro gaussiano</span>
+
+    <span class="c1"># Creación de la figura con subgráficos 2x2</span>
+    <span class="n">fig</span><span class="p">,</span> <span class="n">axs</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">10</span><span class="p">))</span>
+
+    <span class="c1"># Imagen Original con Ruido</span>
+    <span class="n">axs</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">cv2</span><span class="o">.</span><span class="n">cvtColor</span><span class="p">(</span><span class="n">imagen</span><span class="p">,</span> <span class="n">cv2</span><span class="o">.</span><span class="n">COLOR_BGR2RGB</span><span class="p">))</span>
+    <span class="n">axs</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;Imagen con Ruido&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">14</span><span class="p">)</span>
+    <span class="n">axs</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">axis</span><span class="p">(</span><span class="s1">&#39;off&#39;</span><span class="p">)</span>
+
+    <span class="c1"># Filtro Media</span>
+    <span class="n">axs</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">cv2</span><span class="o">.</span><span class="n">cvtColor</span><span class="p">(</span><span class="n">meanimg</span><span class="p">,</span> <span class="n">cv2</span><span class="o">.</span><span class="n">COLOR_BGR2RGB</span><span class="p">))</span>
+    <span class="n">axs</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;Filtro Media&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">14</span><span class="p">)</span>
+    <span class="n">axs</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">axis</span><span class="p">(</span><span class="s1">&#39;off&#39;</span><span class="p">)</span>
+
+    <span class="c1"># Filtro Mediana</span>
+    <span class="n">axs</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">cv2</span><span class="o">.</span><span class="n">cvtColor</span><span class="p">(</span><span class="n">medianimg</span><span class="p">,</span> <span class="n">cv2</span><span class="o">.</span><span class="n">COLOR_BGR2RGB</span><span class="p">))</span>
+    <span class="n">axs</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;Filtro Mediana&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">14</span><span class="p">)</span>
+    <span class="n">axs</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">axis</span><span class="p">(</span><span class="s1">&#39;off&#39;</span><span class="p">)</span>
+
+    <span class="c1"># Filtro Gaussiano</span>
+    <span class="n">axs</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">cv2</span><span class="o">.</span><span class="n">cvtColor</span><span class="p">(</span><span class="n">gaussianimg</span><span class="p">,</span> <span class="n">cv2</span><span class="o">.</span><span class="n">COLOR_BGR2RGB</span><span class="p">))</span>
+    <span class="n">axs</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;Filtro Gaussiano&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">14</span><span class="p">)</span>
+    <span class="n">axs</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">axis</span><span class="p">(</span><span class="s1">&#39;off&#39;</span><span class="p">)</span>
+
+    <span class="c1"># Ajustar diseño y mostrar</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">aplicar_filtros_y_visualizar</span><span class="p">(</span><span class="n">imagen</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/c2098c6f865df2919b17bc238fad08995feb3aaddcf1578c5ba4f233964e9937.png" src="_images/c2098c6f865df2919b17bc238fad08995feb3aaddcf1578c5ba4f233964e9937.png" />
+</div>
+</div>
+<p>La imagen muestra una comparación del efecto de diferentes filtros de suavizado aplicados a una imagen de ultrasonido de mama. En la esquina superior izquierda se observa la imagen original con ruido, que puede dificultar la interpretación médica al introducir artefactos visuales. En la parte superior derecha, el filtro de media ha suavizado la imagen promediando los valores de los píxeles vecinos, reduciendo el ruido pero también perdiendo algunos detalles. En la parte inferior izquierda, el filtro de mediana ha preservado mejor los bordes y estructuras relevantes, eliminando especialmente el ruido tipo sal y pimienta. Finalmente, en la esquina inferior derecha, el filtro gaussiano ha suavizado la imagen de manera más natural, manteniendo un balance entre reducción de ruido y preservación de detalles.</p>
+<p>Veamos la aplicación de los filtros para otra observación.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">aplicar_filtros_y_visualizar</span><span class="p">(</span><span class="n">df_new</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">11</span><span class="p">][</span><span class="s2">&quot;Imagen&quot;</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/40862b2f425fdd8591e029e0f5212610d4e847cff684ab24f731e579bde95848.png" src="_images/40862b2f425fdd8591e029e0f5212610d4e847cff684ab24f731e579bde95848.png" />
 </div>
 </div>
 </section>
-<section id="distribucion-de-los-canales-de-color">
-<h3><strong>Distribución de los canales de color</strong><a class="headerlink" href="#distribucion-de-los-canales-de-color" title="Link to this heading">#</a></h3>
 </section>
 </section>
 <section id="pre-procesamiento">
 <h2><strong>Pre - procesamiento</strong><a class="headerlink" href="#pre-procesamiento" title="Link to this heading">#</a></h2>
 <section id="redimension-de-imagenes">
 <h3><strong>Redimensión de imágenes</strong><a class="headerlink" href="#redimension-de-imagenes" title="Link to this heading">#</a></h3>
-<p>Redimensionar las imágenes es fundamental en el procesamiento de datos, ya que garantiza que todas tengan un tamaño uniforme, reduce el costo computacional y facilita su uso en modelos de Machine Learning. Al ajustar las dimensiones, se evita el problema de trabajar con imágenes de diferentes tamaños, lo que mejora la eficiencia y compatibilidad con arquitecturas como ResNet o VGG. Además, redimensionarlas ayuda a optimizar el uso de memoria y acelera el entrenamiento sin afectar significativamente la calidad visual.</p>
+<p>Redimensionar las imágenes es fundamental en el procesamiento de datos, ya que garantiza que todas tengan un tamaño uniforme, reduce el costo computacional y facilita su uso en modelos de Deep Learning. Al ajustar las dimensiones, se evita el problema de trabajar con imágenes de diferentes tamaños, lo que mejora la eficiencia y compatibilidad. Además, redimensionarlas ayuda a optimizar el uso de memoria y acelera el entrenamiento sin afectar significativamente la calidad visual.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">target_size</span> <span class="o">=</span> <span class="p">(</span><span class="mi">256</span><span class="p">,</span> <span class="mi">256</span><span class="p">)</span>
+<span class="c1"># Redimensionar todas las imágenes</span>
+<span class="n">df_new</span><span class="p">[</span><span class="s2">&quot;Imagen&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df_new</span><span class="p">[</span><span class="s2">&quot;Imagen&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="k">lambda</span> <span class="n">img</span><span class="p">:</span> <span class="n">cv2</span><span class="o">.</span><span class="n">resize</span><span class="p">(</span><span class="n">img</span><span class="p">,</span> <span class="n">target_size</span><span class="p">))</span>
+<span class="n">df_new</span><span class="p">[</span><span class="s1">&#39;Máscara&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df_new</span><span class="p">[</span><span class="s1">&#39;Máscara&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="k">lambda</span> <span class="n">img</span><span class="p">:</span> <span class="n">cv2</span><span class="o">.</span><span class="n">resize</span><span class="p">(</span><span class="n">img</span><span class="p">,</span> <span class="n">target_size</span><span class="p">)</span> <span class="k">if</span> <span class="n">img</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="k">else</span> <span class="kc">None</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">mostrar_imagen_new</span><span class="p">(</span><span class="n">df_new</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/866d21f798f75d2649f43983bdfa88475d23ad4757b0496bb69dc76ccefd2b48.png" src="_images/866d21f798f75d2649f43983bdfa88475d23ad4757b0496bb69dc76ccefd2b48.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">mostrar_imagen_new</span><span class="p">(</span><span class="n">df_new</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">587</span><span class="p">])</span>  
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/12814437594a6521fd318b115fbc5298d665ab610c0450a428d665c205c43ca0.png" src="_images/12814437594a6521fd318b115fbc5298d665ab610c0450a428d665c205c43ca0.png" />
+</div>
+</div>
+<p>Al inicio de este análisis exploratorio, observamos que las imágenes de tumores malignos presentaban variaciones en tamaño en comparación con las de tumores benignos. Ahora, tras un proceso de preprocesamiento, todas las imágenes han sido normalizadas a un tamaño uniforme, lo que facilita su comparación y análisis.</p>
 </section>
+<section id="escalar-pixeles">
+<h3><strong>Escalar pixeles</strong><a class="headerlink" href="#escalar-pixeles" title="Link to this heading">#</a></h3>
+<p>En esta sección, escalaremos los valores de los píxeles de nuestras imágenes para estandarizar su rango y mejorar el rendimiento de los modelos de aprendizaje automático. La normalización de los píxeles es crucial, ya que muchos algoritmos de visión por computadora funcionan mejor cuando los valores están en un rango uniforme, como [0,1] o [-1,1]. Antes de realizar este escalado, primero verificamos que los valores de los píxeles de la imagen original y su máscara efectivamente se encuentran en el rango de 0 a 255. Para ello, calculamos métricas estadísticas como el valor mínimo, el máximo, la media y la desviación estándar, lo que nos permite asegurarnos de que la escala de los datos es la esperada antes de aplicar cualquier transformación.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Mínimo:&quot;</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">min</span><span class="p">(</span><span class="n">imagen</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Máximo:&quot;</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">imagen</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Media:&quot;</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">imagen</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Desviación estándar:&quot;</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">std</span><span class="p">(</span><span class="n">imagen</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Mínimo: 1
+Máximo: 255
+Media: 132.21658325195312
+Desviación estándar: 58.04944026881825
+</pre></div>
+</div>
+</div>
+</div>
+<p>Vemos que para la primera imagen del conjunto de datos el mínimo de píxeles es 1 y el máximo es 255.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Mínimo:&quot;</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">min</span><span class="p">(</span><span class="n">imagen</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Máximo:&quot;</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">imagen</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Media:&quot;</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">imagen</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Desviación estándar:&quot;</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">std</span><span class="p">(</span><span class="n">imagen</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Mínimo: 0
+Máximo: 255
+Media: 0.95098876953125
+Desviación estándar: 15.402088933153083
+</pre></div>
+</div>
+</div>
+</div>
+<p>Del mismo modo ocurre para la máscara de la primera imagen.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Normalización de las imágenes dividiendo por 255 para que los valores estén en el rango [0,1]</span>
+<span class="n">df_new</span><span class="p">[</span><span class="s2">&quot;Imagen&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df_new</span><span class="p">[</span><span class="s2">&quot;Imagen&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">)</span> <span class="o">/</span> <span class="mf">255.0</span><span class="p">)</span>
+
+<span class="c1"># Normalización de la máscara SOLO si sus valores están en el rango [0,255]</span>
+<span class="c1"># Esto evita alterar máscaras que ya estén en un rango adecuado (por ejemplo, binarias con valores 0 y 1)</span>
+<span class="k">if</span> <span class="n">df_new</span><span class="p">[</span><span class="s2">&quot;Máscara&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="o">.</span><span class="n">max</span><span class="p">())</span><span class="o">.</span><span class="n">max</span><span class="p">()</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
+    <span class="n">df_new</span><span class="p">[</span><span class="s2">&quot;Máscara&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df_new</span><span class="p">[</span><span class="s2">&quot;Máscara&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">)</span> <span class="o">/</span> <span class="mf">255.0</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df_new</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="s2">&quot;size&quot;</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">df_new</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Imagen</th>
+      <th>Máscara</th>
+      <th>Etiqueta</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>[[[0.18431373, 0.18431373, 0.18431373], [0.023...</td>
+      <td>[[[0.0, 0.0, 0.0], [0.0, 0.0, 0.0], [0.0, 0.0,...</td>
+      <td>benigno</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>[[[0.20784314, 0.20784314, 0.20784314], [0.752...</td>
+      <td>[[[0.0, 0.0, 0.0], [0.0, 0.0, 0.0], [0.0, 0.0,...</td>
+      <td>benigno</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>[[[0.7411765, 0.7411765, 0.7411765], [0.470588...</td>
+      <td>[[[0.0, 0.0, 0.0], [0.0, 0.0, 0.0], [0.0, 0.0,...</td>
+      <td>benigno</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>[[[0.007843138, 0.007843138, 0.007843138], [0....</td>
+      <td>[[[0.0, 0.0, 0.0], [0.0, 0.0, 0.0], [0.0, 0.0,...</td>
+      <td>benigno</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>[[[0.007843138, 0.007843138, 0.007843138], [0....</td>
+      <td>[[[0.0, 0.0, 0.0], [0.0, 0.0, 0.0], [0.0, 0.0,...</td>
+      <td>benigno</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<p>Luego de escalar los píxeles obtenemos lo siguiente.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Mínimo:&quot;</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">min</span><span class="p">(</span><span class="n">df_new</span><span class="p">[</span><span class="s2">&quot;Imagen&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Máximo:&quot;</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">df_new</span><span class="p">[</span><span class="s2">&quot;Imagen&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Media:&quot;</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">df_new</span><span class="p">[</span><span class="s2">&quot;Imagen&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Desviación estándar:&quot;</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">std</span><span class="p">(</span><span class="n">df_new</span><span class="p">[</span><span class="s2">&quot;Imagen&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Mínimo: 0.003921569
+Máximo: 1.0
+Media: 0.51849645
+Desviación estándar: 0.22764486
+</pre></div>
+</div>
+</div>
+</div>
+<p>Vemos que para la primera imágen han cambiado las principales estadísticas y ahora se encuentran normalizadas.</p>
+<p>Ahora veamos esto gráficamente solo para la primera imágen.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Seleccionar una imagen del DataFrame</span>
+<span class="n">imagen_new</span> <span class="o">=</span> <span class="n">df_new</span><span class="p">[</span><span class="s2">&quot;Imagen&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>  <span class="c1"># Tomamos la primera imagen como ejemplo</span>
+
+<span class="c1"># Si la imagen es en color (RGB), la convertimos a escala de grises</span>
+<span class="k">if</span> <span class="n">imagen</span><span class="o">.</span><span class="n">ndim</span> <span class="o">==</span> <span class="mi">3</span> <span class="ow">and</span> <span class="n">imagen</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">==</span> <span class="mi">3</span><span class="p">:</span>  <span class="c1"># Vetificar si la imagen es a color</span>
+    <span class="n">imagen_gris</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">cvtColor</span><span class="p">(</span><span class="n">imagen</span><span class="p">,</span> <span class="n">cv2</span><span class="o">.</span><span class="n">COLOR_RGB2GRAY</span><span class="p">)</span>  <span class="c1"># Conversión a escala de grises</span>
+<span class="k">else</span><span class="p">:</span>
+    <span class="n">imagen_gris</span> <span class="o">=</span> <span class="n">imagen</span>  <span class="c1"># Si ya está en escala de grises, se mantiene igual</span>
+
+<span class="c1"># Graficar el heatmap para visualizar la intensidad de los píxeles</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>  <span class="c1"># Definir tamaño de la figura</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">heatmap</span><span class="p">(</span><span class="n">imagen_gris</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s2">&quot;rocket&quot;</span><span class="p">,</span> <span class="n">cbar</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>  <span class="c1"># Crear heatmap con la escala de colores &quot;rocket&quot;</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;Mapa de Intensidad de Píxeles&quot;</span><span class="p">)</span>  <span class="c1"># Agregar título al gráfico</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">axis</span><span class="p">(</span><span class="s2">&quot;off&quot;</span><span class="p">)</span>  <span class="c1"># Ocultar los ejes para una mejor visualización</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>  
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/88932c465b166f7f025721fb393a80a5ea314e086287be5cf8b707668a9a5781.png" src="_images/88932c465b166f7f025721fb393a80a5ea314e086287be5cf8b707668a9a5781.png" />
+</div>
+</div>
+<p>Evidentemente, observamos que la escala del mapa de calor ha cambiado, pero la distribución y predominancia de los colores se han mantenido. Esto sugiere que el escalamiento se realizó correctamente, preservando la estructura de la información original sin alterar los patrones de intensidad en la imagen.</p>
 </section>
-<section id="preparacion-para-modelado">
-<h2><strong>Preparación para modelado</strong><a class="headerlink" href="#preparacion-para-modelado" title="Link to this heading">#</a></h2>
-<ul class="simple">
-<li><p>Aplicar técnicas de aumento de datos (Data Augmentation).</p></li>
-<li><p>Convertir imágenes a tensores o arrays para modelos de Machine Learning.</p></li>
-</ul>
 </section>
 </section>
 
@@ -1188,19 +1818,28 @@ Name: 3, dtype: object
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#organizacion-de-imagenes-en-un-dataframe"><strong>Organización de imágenes en un DataFrame</strong></a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#caracteristicas-principales-del-dataframe"><strong>Características principales del DataFrame</strong></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#agregar-imagenes-con-varias-mascaras"><strong>Agregar imágenes con varias máscaras</strong></a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#analisis-descriptivo"><strong>Análisis descriptivo</strong></a><ul class="nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#analisis-descriptivo-de-imagenes"><strong>Análisis descriptivo de imágenes</strong></a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#distribucion-de-clases"><strong>Distribución de clases</strong></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#distribucion-del-tamano-de-las-imagenes"><strong>Distribución del tamaño de las imágenes</strong></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#distribucion-de-los-canales-de-color"><strong>Distribución de los canales de color</strong></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#mapa-de-intensidad-de-pixeles"><strong>Mapa de intensidad de píxeles</strong></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#histograma-de-escala-de-grises"><strong>Histograma de escala de grises</strong></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#distribucion-de-intensidad-de-pixeles"><strong>Distribución de intensidad de píxeles</strong></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#filtrado-de-imagenes-con-opencv"><strong>Filtrado de imágenes con OpenCV</strong></a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#que-son-los-filtros-en-imagenes"><strong>¿Qué son los filtros en imágenes?</strong></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#importancia-del-filtrado-de-imagenes"><strong>Importancia del Filtrado de Imágenes</strong></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#tipos-de-filtros-aplicados"><strong>Tipos de filtros aplicados</strong></a></li>
+</ul>
+</li>
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pre-procesamiento"><strong>Pre - procesamiento</strong></a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#redimension-de-imagenes"><strong>Redimensión de imágenes</strong></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#escalar-pixeles"><strong>Escalar pixeles</strong></a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#preparacion-para-modelado"><strong>Preparación para modelado</strong></a></li>
 </ul>
   </nav></div>
 
