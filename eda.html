@@ -393,12 +393,7 @@ document.write(`
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#mapa-de-intensidad-de-pixeles"><strong>Mapa de intensidad de píxeles</strong></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#histograma-de-escala-de-grises"><strong>Histograma de escala de grises</strong></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#distribucion-de-intensidad-de-pixeles"><strong>Distribución de intensidad de píxeles</strong></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#filtrado-de-imagenes-con-opencv"><strong>Filtrado de imágenes con OpenCV</strong></a><ul class="nav section-nav flex-column">
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#que-son-los-filtros-en-imagenes"><strong>¿Qué son los filtros en imágenes?</strong></a></li>
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#importancia-del-filtrado-de-imagenes"><strong>Importancia del Filtrado de Imágenes</strong></a></li>
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#tipos-de-filtros-aplicados"><strong>Tipos de filtros aplicados</strong></a></li>
-</ul>
-</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#filtrado-de-imagenes-con-opencv"><strong>Filtrado de imágenes con OpenCV</strong></a></li>
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pre-procesamiento"><strong>Pre - procesamiento</strong></a><ul class="nav section-nav flex-column">
@@ -1469,21 +1464,23 @@ No hay valores intermedios, lo que indica una segmentación binaria.</p>
 <section id="filtrado-de-imagenes-con-opencv">
 <h3><strong>Filtrado de imágenes con OpenCV</strong><a class="headerlink" href="#filtrado-de-imagenes-con-opencv" title="Link to this heading">#</a></h3>
 <p>A continuación se hará un filtrado de imágenes.</p>
-<section id="que-son-los-filtros-en-imagenes">
-<h4><strong>¿Qué son los filtros en imágenes?</strong><a class="headerlink" href="#que-son-los-filtros-en-imagenes" title="Link to this heading">#</a></h4>
+<div class="tip admonition">
+<p class="admonition-title"><strong>¿Qué son los filtros en imágenes?</strong></p>
 <p>Los filtros en imágenes son operaciones matemáticas aplicadas sobre los píxeles para modificar ciertas características visuales. Estos pueden utilizarse para mejorar el contraste, eliminar ruido o detectar bordes. En este caso, se emplean filtros de suavizado para reducir el ruido presente en la imagen original.</p>
-</section>
-<section id="importancia-del-filtrado-de-imagenes">
-<h4><strong>Importancia del Filtrado de Imágenes</strong><a class="headerlink" href="#importancia-del-filtrado-de-imagenes" title="Link to this heading">#</a></h4>
+</div>
+<div class="tip admonition">
+<p class="admonition-title"><strong>Importancia del Filtrado de Imágenes</strong></p>
 <p>El filtrado de imágenes es un proceso fundamental en la visión por computadora, ya que permite mejorar la calidad de las imágenes eliminando ruido, resaltando características importantes y suavizando detalles no deseados.</p>
-</section>
-<section id="tipos-de-filtros-aplicados">
-<h4><strong>Tipos de filtros aplicados</strong><a class="headerlink" href="#tipos-de-filtros-aplicados" title="Link to this heading">#</a></h4>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p><strong>Tipos de filtros aplicados</strong></p>
 <ul class="simple">
 <li><p><strong>Filtro de Media (cv2.blur)</strong>: Calcula el promedio de los valores de píxeles en una vecindad definida por una ventana (en este caso, de 3x3). Suaviza la imagen pero puede afectar los bordes.</p></li>
 <li><p><strong>Filtro de Mediana (cv2.medianBlur)</strong>: Sustituye el valor de cada píxel por la mediana de los valores en su vecindad. Es especialmente útil para eliminar ruido impulsivo o “ruido sal y pimienta” (píxeles blancos (sal) y píxeles negros (pimienta))</p></li>
 <li><p><strong>Filtro Gaussiano (cv2.GaussianBlur)</strong>: Aplica un suavizado utilizando una función gaussiana, lo que genera un efecto más natural y mantiene mejor los bordes en comparación con el filtro de media.</p></li>
 </ul>
+</div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">aplicar_filtros_y_visualizar</span><span class="p">(</span><span class="n">imagen</span><span class="p">):</span>
@@ -1544,7 +1541,6 @@ No hay valores intermedios, lo que indica una segmentación binaria.</p>
 <img alt="_images/40862b2f425fdd8591e029e0f5212610d4e847cff684ab24f731e579bde95848.png" src="_images/40862b2f425fdd8591e029e0f5212610d4e847cff684ab24f731e579bde95848.png" />
 </div>
 </div>
-</section>
 </section>
 </section>
 <section id="pre-procesamiento">
@@ -1827,12 +1823,7 @@ Desviación estándar: 0.22764486
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#mapa-de-intensidad-de-pixeles"><strong>Mapa de intensidad de píxeles</strong></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#histograma-de-escala-de-grises"><strong>Histograma de escala de grises</strong></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#distribucion-de-intensidad-de-pixeles"><strong>Distribución de intensidad de píxeles</strong></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#filtrado-de-imagenes-con-opencv"><strong>Filtrado de imágenes con OpenCV</strong></a><ul class="nav section-nav flex-column">
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#que-son-los-filtros-en-imagenes"><strong>¿Qué son los filtros en imágenes?</strong></a></li>
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#importancia-del-filtrado-de-imagenes"><strong>Importancia del Filtrado de Imágenes</strong></a></li>
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#tipos-de-filtros-aplicados"><strong>Tipos de filtros aplicados</strong></a></li>
-</ul>
-</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#filtrado-de-imagenes-con-opencv"><strong>Filtrado de imágenes con OpenCV</strong></a></li>
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pre-procesamiento"><strong>Pre - procesamiento</strong></a><ul class="nav section-nav flex-column">
