@@ -453,14 +453,11 @@ document.write(`
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id39"><strong>Distribución de métricas</strong></a></li>
 </ul>
 </li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#resultados-e-interpretaciones-generales"><strong>Resultados e interpretaciones generales</strong></a><ul class="nav section-nav flex-column">
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id40"><strong>Métricas de evaluación</strong></a><ul class="nav section-nav flex-column">
-<li class="toc-h5 nav-item toc-entry"><a class="reference internal nav-link" href="#resultados"><strong>Resultados</strong></a></li>
-<li class="toc-h5 nav-item toc-entry"><a class="reference internal nav-link" href="#interpretacion"><strong>Interpretación</strong></a></li>
 </ul>
 </li>
-</ul>
-</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#resultados-e-interpretaciones-generales"><strong>Resultados e interpretaciones generales</strong></a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#resultados"><strong>Resultados</strong></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#interpretacion"><strong>Interpretación</strong></a></li>
 </ul>
 </li>
 </ul>
@@ -5020,12 +5017,11 @@ El entrenamiento se ha completado y el historial ha sido guardado en &#39;histor
 </div>
 </section>
 </section>
+</section>
 <section id="resultados-e-interpretaciones-generales">
-<h3><strong>Resultados e interpretaciones generales</strong><a class="headerlink" href="#resultados-e-interpretaciones-generales" title="Link to this heading">#</a></h3>
-<section id="id40">
-<h4><strong>Métricas de evaluación</strong><a class="headerlink" href="#id40" title="Link to this heading">#</a></h4>
+<h2><strong>Resultados e interpretaciones generales</strong><a class="headerlink" href="#resultados-e-interpretaciones-generales" title="Link to this heading">#</a></h2>
 <section id="resultados">
-<h5><strong>Resultados</strong><a class="headerlink" href="#resultados" title="Link to this heading">#</a></h5>
+<h3><strong>Resultados</strong><a class="headerlink" href="#resultados" title="Link to this heading">#</a></h3>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">nombres_modelos</span> <span class="o">=</span> <span class="p">[</span>
@@ -5165,14 +5161,12 @@ El entrenamiento se ha completado y el historial ha sido guardado en &#39;histor
 </ul>
 </section>
 <section id="interpretacion">
-<h5><strong>Interpretación</strong><a class="headerlink" href="#interpretacion" title="Link to this heading">#</a></h5>
+<h3><strong>Interpretación</strong><a class="headerlink" href="#interpretacion" title="Link to this heading">#</a></h3>
 <p>Los modelos <strong>VNet y UNet</strong> son los que logran la mejor segmentación en términos de superposición entre la máscara predicha y la real. VNet tiene un <strong>Dice Coefficient de 0.753</strong> y un <strong>Mean IoU de 0.780</strong>, mientras que UNet tiene valores muy similares (<strong>0.748 y 0.778</strong>, respectivamente). Además, <strong>UNet tiene el AUC más alto (0.909)</strong>, lo que indica que su rendimiento es más estable en distintos umbrales de decisión.</p>
 <p>El modelo <strong>SegNet tiene la menor precisión (0.561)</strong>, lo que indica que genera muchos falsos positivos. Sin embargo, su <strong>recall es alto (0.797)</strong>, lo que significa que detecta la mayoría de los píxeles tumorales, pero con errores. En contraste, <strong>VNet y UNet logran un mejor equilibrio entre precisión y recall</strong>, lo que confirma que son más confiables para detectar tumores sin generar tantos falsos positivos.</p>
 <p>Los modelos <strong>AttUNet, ResUNet y PSPNet</strong> tienen valores intermedios en todas las métricas. No son los mejores, pero tampoco los peores. En cambio, <strong>FCN muestra el peor desempeño</strong> con el <strong>menor Dice Coefficient (0.667) y precisión (0.602)</strong>, lo que indica que no segmenta bien los tumores y tiene un bajo desempeño en la detección de píxeles relevantes.</p>
 <p>En cuanto a la <strong>Balanced Accuracy</strong>, <strong>UNet y VNet nuevamente destacan</strong> con los valores más altos. Esto significa que estos modelos manejan bien tanto los píxeles tumorales como el fondo, sin favorecer demasiado a una clase sobre la otra. En contraste, <strong>SegNet y FCN tienen los valores más bajos</strong>, lo que indica que pueden estar sesgados y no equilibran correctamente las predicciones.</p>
 <p>En este caso, para la segmentación de tumores en ultrasonidos de cáncer de mama en imágenes en escala de grises, los modelos más recomendados son <strong>UNet y VNet</strong>, ya que tienen el mejor equilibrio entre precisión, recall y estabilidad en distintas condiciones. Por otro lado, <strong>SegNet y FCN presentan problemas</strong>, siendo SegNet un modelo que detecta muchos píxeles relevantes pero con muchos errores, mientras que FCN tiene el peor desempeño general.</p>
-</section>
-</section>
 </section>
 </section>
 </section>
@@ -5308,14 +5302,11 @@ El entrenamiento se ha completado y el historial ha sido guardado en &#39;histor
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id39"><strong>Distribución de métricas</strong></a></li>
 </ul>
 </li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#resultados-e-interpretaciones-generales"><strong>Resultados e interpretaciones generales</strong></a><ul class="nav section-nav flex-column">
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id40"><strong>Métricas de evaluación</strong></a><ul class="nav section-nav flex-column">
-<li class="toc-h5 nav-item toc-entry"><a class="reference internal nav-link" href="#resultados"><strong>Resultados</strong></a></li>
-<li class="toc-h5 nav-item toc-entry"><a class="reference internal nav-link" href="#interpretacion"><strong>Interpretación</strong></a></li>
 </ul>
 </li>
-</ul>
-</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#resultados-e-interpretaciones-generales"><strong>Resultados e interpretaciones generales</strong></a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#resultados"><strong>Resultados</strong></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#interpretacion"><strong>Interpretación</strong></a></li>
 </ul>
 </li>
 </ul>
