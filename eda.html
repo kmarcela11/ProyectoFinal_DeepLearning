@@ -60,6 +60,7 @@
     <script>DOCUMENTATION_OPTIONS.pagename = 'eda';</script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Preprocesamiento de imágenes" href="pre.html" />
     <link rel="prev" title="Proyecto Final - Deep Learning" href="intro.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
@@ -180,6 +181,8 @@
         </ul>
         <ul class="current nav bd-sidenav">
 <li class="toctree-l1 current active"><a class="current reference internal" href="#"><strong>EDA: procesamiento y exploración de imágenes</strong></a></li>
+<li class="toctree-l1"><a class="reference internal" href="pre.html"><strong>Preprocesamiento de imágenes</strong></a></li>
+<li class="toctree-l1"><a class="reference internal" href="modelos.html"><strong>Arquitecturas benchmark: Segmentación de imágenes</strong></a></li>
 </ul>
 
     </div>
@@ -394,11 +397,6 @@ document.write(`
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#histograma-de-escala-de-grises"><strong>Histograma de escala de grises</strong></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#distribucion-de-intensidad-de-pixeles"><strong>Distribución de intensidad de píxeles</strong></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#filtrado-de-imagenes-con-opencv"><strong>Filtrado de imágenes con OpenCV</strong></a></li>
-</ul>
-</li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pre-procesamiento"><strong>Pre - procesamiento</strong></a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#redimension-de-imagenes"><strong>Redimensión de imágenes</strong></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#escalar-pixeles"><strong>Escalar pixeles</strong></a></li>
 </ul>
 </li>
 </ul>
@@ -1543,211 +1541,6 @@ No hay valores intermedios, lo que indica una segmentación binaria.</p>
 </div>
 </section>
 </section>
-<section id="pre-procesamiento">
-<h2><strong>Pre - procesamiento</strong><a class="headerlink" href="#pre-procesamiento" title="Link to this heading">#</a></h2>
-<section id="redimension-de-imagenes">
-<h3><strong>Redimensión de imágenes</strong><a class="headerlink" href="#redimension-de-imagenes" title="Link to this heading">#</a></h3>
-<p>Redimensionar las imágenes es fundamental en el procesamiento de datos, ya que garantiza que todas tengan un tamaño uniforme, reduce el costo computacional y facilita su uso en modelos de Deep Learning. Al ajustar las dimensiones, se evita el problema de trabajar con imágenes de diferentes tamaños, lo que mejora la eficiencia y compatibilidad. Además, redimensionarlas ayuda a optimizar el uso de memoria y acelera el entrenamiento sin afectar significativamente la calidad visual.</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">target_size</span> <span class="o">=</span> <span class="p">(</span><span class="mi">256</span><span class="p">,</span> <span class="mi">256</span><span class="p">)</span>
-<span class="c1"># Redimensionar todas las imágenes</span>
-<span class="n">df_new</span><span class="p">[</span><span class="s2">&quot;Imagen&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df_new</span><span class="p">[</span><span class="s2">&quot;Imagen&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="k">lambda</span> <span class="n">img</span><span class="p">:</span> <span class="n">cv2</span><span class="o">.</span><span class="n">resize</span><span class="p">(</span><span class="n">img</span><span class="p">,</span> <span class="n">target_size</span><span class="p">))</span>
-<span class="n">df_new</span><span class="p">[</span><span class="s1">&#39;Máscara&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df_new</span><span class="p">[</span><span class="s1">&#39;Máscara&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="k">lambda</span> <span class="n">img</span><span class="p">:</span> <span class="n">cv2</span><span class="o">.</span><span class="n">resize</span><span class="p">(</span><span class="n">img</span><span class="p">,</span> <span class="n">target_size</span><span class="p">)</span> <span class="k">if</span> <span class="n">img</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="k">else</span> <span class="kc">None</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">mostrar_imagen_new</span><span class="p">(</span><span class="n">df_new</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<img alt="_images/866d21f798f75d2649f43983bdfa88475d23ad4757b0496bb69dc76ccefd2b48.png" src="_images/866d21f798f75d2649f43983bdfa88475d23ad4757b0496bb69dc76ccefd2b48.png" />
-</div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">mostrar_imagen_new</span><span class="p">(</span><span class="n">df_new</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">587</span><span class="p">])</span>  
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<img alt="_images/12814437594a6521fd318b115fbc5298d665ab610c0450a428d665c205c43ca0.png" src="_images/12814437594a6521fd318b115fbc5298d665ab610c0450a428d665c205c43ca0.png" />
-</div>
-</div>
-<p>Al inicio de este análisis exploratorio, observamos que las imágenes de tumores malignos presentaban variaciones en tamaño en comparación con las de tumores benignos. Ahora, tras un proceso de preprocesamiento, todas las imágenes han sido normalizadas a un tamaño uniforme, lo que facilita su comparación y análisis.</p>
-</section>
-<section id="escalar-pixeles">
-<h3><strong>Escalar pixeles</strong><a class="headerlink" href="#escalar-pixeles" title="Link to this heading">#</a></h3>
-<p>En esta sección, escalaremos los valores de los píxeles de nuestras imágenes para estandarizar su rango y mejorar el rendimiento de los modelos de aprendizaje automático. La normalización de los píxeles es crucial, ya que muchos algoritmos de visión por computadora funcionan mejor cuando los valores están en un rango uniforme, como [0,1] o [-1,1]. Antes de realizar este escalado, primero verificamos que los valores de los píxeles de la imagen original y su máscara efectivamente se encuentran en el rango de 0 a 255. Para ello, calculamos métricas estadísticas como el valor mínimo, el máximo, la media y la desviación estándar, lo que nos permite asegurarnos de que la escala de los datos es la esperada antes de aplicar cualquier transformación.</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Mínimo:&quot;</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">min</span><span class="p">(</span><span class="n">imagen</span><span class="p">))</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Máximo:&quot;</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">imagen</span><span class="p">))</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Media:&quot;</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">imagen</span><span class="p">))</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Desviación estándar:&quot;</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">std</span><span class="p">(</span><span class="n">imagen</span><span class="p">))</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Mínimo: 1
-Máximo: 255
-Media: 132.21658325195312
-Desviación estándar: 58.04944026881825
-</pre></div>
-</div>
-</div>
-</div>
-<p>Vemos que para la primera imagen del conjunto de datos el mínimo de píxeles es 1 y el máximo es 255.</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Mínimo:&quot;</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">min</span><span class="p">(</span><span class="n">imagen</span><span class="p">))</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Máximo:&quot;</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">imagen</span><span class="p">))</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Media:&quot;</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">imagen</span><span class="p">))</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Desviación estándar:&quot;</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">std</span><span class="p">(</span><span class="n">imagen</span><span class="p">))</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Mínimo: 0
-Máximo: 255
-Media: 0.95098876953125
-Desviación estándar: 15.402088933153083
-</pre></div>
-</div>
-</div>
-</div>
-<p>Del mismo modo ocurre para la máscara de la primera imagen.</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Normalización de las imágenes dividiendo por 255 para que los valores estén en el rango [0,1]</span>
-<span class="n">df_new</span><span class="p">[</span><span class="s2">&quot;Imagen&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df_new</span><span class="p">[</span><span class="s2">&quot;Imagen&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">)</span> <span class="o">/</span> <span class="mf">255.0</span><span class="p">)</span>
-
-<span class="c1"># Normalización de la máscara SOLO si sus valores están en el rango [0,255]</span>
-<span class="c1"># Esto evita alterar máscaras que ya estén en un rango adecuado (por ejemplo, binarias con valores 0 y 1)</span>
-<span class="k">if</span> <span class="n">df_new</span><span class="p">[</span><span class="s2">&quot;Máscara&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="o">.</span><span class="n">max</span><span class="p">())</span><span class="o">.</span><span class="n">max</span><span class="p">()</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
-    <span class="n">df_new</span><span class="p">[</span><span class="s2">&quot;Máscara&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df_new</span><span class="p">[</span><span class="s2">&quot;Máscara&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">)</span> <span class="o">/</span> <span class="mf">255.0</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df_new</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="s2">&quot;size&quot;</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-<span class="n">df_new</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output text_html"><div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
-<table border="1" class="dataframe">
-  <thead>
-    <tr style="text-align: right;">
-      <th></th>
-      <th>Imagen</th>
-      <th>Máscara</th>
-      <th>Etiqueta</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th>0</th>
-      <td>[[[0.18431373, 0.18431373, 0.18431373], [0.023...</td>
-      <td>[[[0.0, 0.0, 0.0], [0.0, 0.0, 0.0], [0.0, 0.0,...</td>
-      <td>benigno</td>
-    </tr>
-    <tr>
-      <th>1</th>
-      <td>[[[0.20784314, 0.20784314, 0.20784314], [0.752...</td>
-      <td>[[[0.0, 0.0, 0.0], [0.0, 0.0, 0.0], [0.0, 0.0,...</td>
-      <td>benigno</td>
-    </tr>
-    <tr>
-      <th>2</th>
-      <td>[[[0.7411765, 0.7411765, 0.7411765], [0.470588...</td>
-      <td>[[[0.0, 0.0, 0.0], [0.0, 0.0, 0.0], [0.0, 0.0,...</td>
-      <td>benigno</td>
-    </tr>
-    <tr>
-      <th>3</th>
-      <td>[[[0.007843138, 0.007843138, 0.007843138], [0....</td>
-      <td>[[[0.0, 0.0, 0.0], [0.0, 0.0, 0.0], [0.0, 0.0,...</td>
-      <td>benigno</td>
-    </tr>
-    <tr>
-      <th>4</th>
-      <td>[[[0.007843138, 0.007843138, 0.007843138], [0....</td>
-      <td>[[[0.0, 0.0, 0.0], [0.0, 0.0, 0.0], [0.0, 0.0,...</td>
-      <td>benigno</td>
-    </tr>
-  </tbody>
-</table>
-</div></div></div>
-</div>
-<p>Luego de escalar los píxeles obtenemos lo siguiente.</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Mínimo:&quot;</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">min</span><span class="p">(</span><span class="n">df_new</span><span class="p">[</span><span class="s2">&quot;Imagen&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="p">))</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Máximo:&quot;</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">df_new</span><span class="p">[</span><span class="s2">&quot;Imagen&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="p">))</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Media:&quot;</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">df_new</span><span class="p">[</span><span class="s2">&quot;Imagen&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="p">))</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Desviación estándar:&quot;</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">std</span><span class="p">(</span><span class="n">df_new</span><span class="p">[</span><span class="s2">&quot;Imagen&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="p">))</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Mínimo: 0.003921569
-Máximo: 1.0
-Media: 0.51849645
-Desviación estándar: 0.22764486
-</pre></div>
-</div>
-</div>
-</div>
-<p>Vemos que para la primera imágen han cambiado las principales estadísticas y ahora se encuentran normalizadas.</p>
-<p>Ahora veamos esto gráficamente solo para la primera imágen.</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Seleccionar una imagen del DataFrame</span>
-<span class="n">imagen_new</span> <span class="o">=</span> <span class="n">df_new</span><span class="p">[</span><span class="s2">&quot;Imagen&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>  <span class="c1"># Tomamos la primera imagen como ejemplo</span>
-
-<span class="c1"># Si la imagen es en color (RGB), la convertimos a escala de grises</span>
-<span class="k">if</span> <span class="n">imagen</span><span class="o">.</span><span class="n">ndim</span> <span class="o">==</span> <span class="mi">3</span> <span class="ow">and</span> <span class="n">imagen</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">==</span> <span class="mi">3</span><span class="p">:</span>  <span class="c1"># Vetificar si la imagen es a color</span>
-    <span class="n">imagen_gris</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">cvtColor</span><span class="p">(</span><span class="n">imagen</span><span class="p">,</span> <span class="n">cv2</span><span class="o">.</span><span class="n">COLOR_RGB2GRAY</span><span class="p">)</span>  <span class="c1"># Conversión a escala de grises</span>
-<span class="k">else</span><span class="p">:</span>
-    <span class="n">imagen_gris</span> <span class="o">=</span> <span class="n">imagen</span>  <span class="c1"># Si ya está en escala de grises, se mantiene igual</span>
-
-<span class="c1"># Graficar el heatmap para visualizar la intensidad de los píxeles</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>  <span class="c1"># Definir tamaño de la figura</span>
-<span class="n">sns</span><span class="o">.</span><span class="n">heatmap</span><span class="p">(</span><span class="n">imagen_gris</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s2">&quot;rocket&quot;</span><span class="p">,</span> <span class="n">cbar</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>  <span class="c1"># Crear heatmap con la escala de colores &quot;rocket&quot;</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;Mapa de Intensidad de Píxeles&quot;</span><span class="p">)</span>  <span class="c1"># Agregar título al gráfico</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">axis</span><span class="p">(</span><span class="s2">&quot;off&quot;</span><span class="p">)</span>  <span class="c1"># Ocultar los ejes para una mejor visualización</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>  
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<img alt="_images/88932c465b166f7f025721fb393a80a5ea314e086287be5cf8b707668a9a5781.png" src="_images/88932c465b166f7f025721fb393a80a5ea314e086287be5cf8b707668a9a5781.png" />
-</div>
-</div>
-<p>Evidentemente, observamos que la escala del mapa de calor ha cambiado, pero la distribución y predominancia de los colores se han mantenido. Esto sugiere que el escalamiento se realizó correctamente, preservando la estructura de la información original sin alterar los patrones de intensidad en la imagen.</p>
-</section>
-</section>
 </section>
 
     <script type="text/x-thebe-config">
@@ -1789,6 +1582,15 @@ Desviación estándar: 0.22764486
         <p class="prev-next-title"><strong>Proyecto Final - Deep Learning</strong></p>
       </div>
     </a>
+    <a class="right-next"
+       href="pre.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title"><strong>Preprocesamiento de imágenes</strong></p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
 </div>
                 </footer>
               
@@ -1824,11 +1626,6 @@ Desviación estándar: 0.22764486
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#histograma-de-escala-de-grises"><strong>Histograma de escala de grises</strong></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#distribucion-de-intensidad-de-pixeles"><strong>Distribución de intensidad de píxeles</strong></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#filtrado-de-imagenes-con-opencv"><strong>Filtrado de imágenes con OpenCV</strong></a></li>
-</ul>
-</li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pre-procesamiento"><strong>Pre - procesamiento</strong></a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#redimension-de-imagenes"><strong>Redimensión de imágenes</strong></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#escalar-pixeles"><strong>Escalar pixeles</strong></a></li>
 </ul>
 </li>
 </ul>
